@@ -1,0 +1,51 @@
+\hypertarget{kernel__sys_8c_source}{}\doxysection{kernel\+\_\+sys.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}kernel\_sys.h"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__cc_8h}{kernel\_cc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00006}00006 \textcolor{preprocessor}{\#ifndef NVALGRIND}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00007}00007 \textcolor{preprocessor}{\#include <valgrind/valgrind.h>}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00008}00008 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00010}00010 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00011}00011 \textcolor{comment}{    Define all the syscalls }}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00012}00012 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00015}00015 \textcolor{preprocessor}{\#define PRE\_CALL \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00016}00016 \textcolor{preprocessor}{kernel\_lock();\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00017}00017 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00020}00020 \textcolor{preprocessor}{\#define POST\_CALL \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00021}00021 \textcolor{preprocessor}{kernel\_unlock();\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00022}00022 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00024}00024 \textcolor{comment}{/* with return */}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00025}00025 \textcolor{preprocessor}{\#define SYSCALL(NAME, RET, SIG, ARGS)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00026}00026 \textcolor{preprocessor}{RET NAME SIG \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00027}00027 \textcolor{preprocessor}{\{\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00028}00028 \textcolor{preprocessor}{    RET \_\_ret;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00029}00029 \textcolor{preprocessor}{    PRE\_CALL\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00030}00030 \textcolor{preprocessor}{    \_\_ret = sys\_\#\#NAME ARGS;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00031}00031 \textcolor{preprocessor}{    POST\_CALL\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00032}00032 \textcolor{preprocessor}{    return \_\_ret;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00033}00033 \textcolor{preprocessor}{\}\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00034}00034 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00035}00035 \textcolor{comment}{/* without return */}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00036}00036 \textcolor{preprocessor}{\#define SYSCALLV(NAME, SIG, ARGS)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00037}00037 \textcolor{preprocessor}{void NAME SIG \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00038}00038 \textcolor{preprocessor}{\{\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00039}00039 \textcolor{preprocessor}{    PRE\_CALL\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00040}00040 \textcolor{preprocessor}{    sys\_\#\#NAME ARGS;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00041}00041 \textcolor{preprocessor}{    POST\_CALL\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00042}00042 \textcolor{preprocessor}{\}\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00043}00043 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00045}00045 SYSCALLS}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8c_source_l00046}00046 }
+
+\end{DoxyCode}

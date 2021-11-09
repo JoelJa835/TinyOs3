@@ -1,0 +1,154 @@
+\hypertarget{util_8h}{}\doxysection{util.\+h File Reference}
+\label{util_8h}\index{util.h@{util.h}}
+
+
+Tinyos utility code.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$setjmp.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+Include dependency graph for util.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structexception__handler__frame}{exception\+\_\+handler\+\_\+frame}}
+\item 
+struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{FATAL}}(msg)
+\begin{DoxyCompactList}\small\item\em Print a message to stderr and abort. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{FATALERR}}(errcode)~\mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{FATAL}}(strerror(errcode))
+\begin{DoxyCompactList}\small\item\em Print an error message to stderr and abort. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}{CHECKRC}}(cmd)~\{ int rc = (cmd); if(rc) \mbox{\hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{FATALERR}}(rc); \}
+\begin{DoxyCompactList}\small\item\em Wrap a unix call to check for errors. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{CHECK}}(cmd)~\{ if((cmd)==-\/1) \mbox{\hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{FATALERR}}(errno); \}
+\begin{DoxyCompactList}\small\item\em Wrap a unix call to check for errors. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__check__macros_ga6196238e8ab53ab90e7bf7ab51fc73e9}{CHECK\+\_\+\+CONDITION}}(expr)~\{ if(!(expr)) \mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{FATAL}}(\char`\"{}Failed constraint\+: \char`\"{} \# expr) \}
+\begin{DoxyCompactList}\small\item\em Check a condition and abort if it fails. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__exceptions_gadf8cc03bd0ede7f3e5aafa57de5016dd}{\+\_\+\+\_\+concatenate\+\_\+tokens}}(x,  y)~x \#\# y
+\item 
+\#define \mbox{\hyperlink{group__exceptions_ga0d2e02c74b05d3ff3bfa9eb3dcd891e3}{\+\_\+\+\_\+conc}}(z,  w)~\+\_\+\+\_\+concatenate\+\_\+tokens(z,w)
+\item 
+\#define \mbox{\hyperlink{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}{TRY\+\_\+\+WITH}}(context)
+\item 
+\#define \mbox{\hyperlink{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}{FINALLY}}(excname)
+\item 
+\#define \mbox{\hyperlink{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}{ON\+\_\+\+ERROR}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} $\ast$ \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}}
+\begin{DoxyCompactList}\small\item\em A convenience typedef. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} {\bfseries rlnode}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\item 
+typedef void($\ast$ \mbox{\hyperlink{group__exceptions_ga07c60bc46505779b049ce597fe609258}{exception\+\_\+handler}}) (int)
+\item 
+typedef struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$$\ast$ \mbox{\hyperlink{group__exceptions_ga644495f4913e96a83cdf2779fd813974}{exception\+\_\+context}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \mbox{\hyperlink{group__check__macros_gaf3a2d9d47272edc6c30e95c7e238cdc2}{xmalloc}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em A wrapper for malloc checking for out-\/of-\/memory. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\+\_\+new}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$p)
+\begin{DoxyCompactList}\small\item\em Initialize a node as a singleton ring. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\+\_\+init}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$p, void $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em Initialize a node as a singleton ring. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\+\_\+swap}} (\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$p, \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Swap two pointers to rlnode. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\+\_\+splice}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Splice two rlnodes. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\+\_\+remove}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Remove node from a ring and turn it into singleton. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\+\_\+rlist\+\_\+empty}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Check a list for emptiness. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\+\_\+push\+\_\+front}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Insert at the head of a list. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\+\_\+push\+\_\+back}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Insert at the tail of a list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}{rlist\+\_\+pop\+\_\+front}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Remove and return the head of the list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}{rlist\+\_\+pop\+\_\+back}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Remove and return the tail of the list. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}{rlist\+\_\+len}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Return the length of a list. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}{rlist\+\_\+equal}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$L1, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$L2)
+\begin{DoxyCompactList}\small\item\em Check two lists for equality. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}{rlist\+\_\+append}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ldest, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$lsrc)
+\begin{DoxyCompactList}\small\item\em Append the nodes of a list to another. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga906dea2f5a25116f979ba6585266453e}{rlist\+\_\+prepend}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ldest, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$lsrc)
+\begin{DoxyCompactList}\small\item\em Prepend the nodes of a list to another. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}{rlist\+\_\+reverse}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$l)
+\begin{DoxyCompactList}\small\item\em Reverse a ring or list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}{rlist\+\_\+find}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$List, void $\ast$key, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$fail)
+\begin{DoxyCompactList}\small\item\em Find a node by key. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}{rlist\+\_\+select}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$Lsrc, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$Ldest, int($\ast$pred)(\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$))
+\begin{DoxyCompactList}\small\item\em Move nodes. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{argvlen}} (size\+\_\+t argc, const char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Return the total length of a string array. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}{argvpack}} (void $\ast$args, size\+\_\+t argc, const char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Pack a string array into an argument buffer. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}} (int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Return the number of strings packed in an argument buffer. \end{DoxyCompactList}\item 
+static void $\ast$ \mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{argvunpack}} (size\+\_\+t argc, const char $\ast$$\ast$argv, int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Unpack a string array from an argument buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__exceptions_ga7eda2653ee54e0c95e9d51b8fd873298}{raise\+\_\+exception}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context)
+\item 
+void \mbox{\hyperlink{group__exceptions_ga5232fee2c414c5ff1ff44dc28c83cf42}{exception\+\_\+unwind}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, int errcode)
+\item 
+static void \mbox{\hyperlink{group__exceptions_gad0ebd2587ae85b044e1306a026246a27}{\+\_\+\+\_\+exc\+\_\+push\+\_\+frame}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$frame)
+\item 
+static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \mbox{\hyperlink{group__exceptions_gaad3e2ebd51ec03e42f83aa9896dfcc9d}{\+\_\+\+\_\+exc\+\_\+try}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, int errcode)
+\item 
+static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \mbox{\hyperlink{group__exceptions_ga0c746dd7e832d05c53d14acc84104a9f}{\+\_\+\+\_\+exc\+\_\+exit\+\_\+try}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tinyos utility code. 
+
+This file defines the following\+:
+\begin{DoxyItemize}
+\item macros for error checking and message reporting
+\item a {\itshape resource list} data structure
+\end{DoxyItemize}\hypertarget{util_8h_autotoc_md26}{}\doxysubsubsection{Resource list}\label{util_8h_autotoc_md26}
+
+
+Definition in file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+

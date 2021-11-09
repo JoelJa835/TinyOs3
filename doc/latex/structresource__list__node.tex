@@ -1,0 +1,189 @@
+\hypertarget{structresource__list__node}{}\doxysection{resource\+\_\+list\+\_\+node Struct Reference}
+\label{structresource__list__node}\index{resource\_list\_node@{resource\_list\_node}}
+
+
+List node.  
+
+
+
+
+{\ttfamily \#include $<$util.\+h$>$}
+
+
+
+Collaboration diagram for resource\+\_\+list\+\_\+node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structresource__list__node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\mbox{\hyperlink{group__proc_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}} $\ast$ \mbox{\hyperlink{structresource__list__node_ae108e9c208c43431114acad464a750c4}{pcb}}\\
+\>\mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}} $\ast$ \mbox{\hyperlink{structresource__list__node_a6ca9cbee315fc0ed60dfb110eb4454bd}{tcb}}\\
+\>\mbox{\hyperlink{group__scheduler_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}} $\ast$ \mbox{\hyperlink{structresource__list__node_a42b2bb8f85fe0100d7e5cb33c955a7f5}{ccb}}\\
+\>\mbox{\hyperlink{group__dev_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}} $\ast$ \mbox{\hyperlink{structresource__list__node_acf38917964a19169fb0ec27aa5c6e372}{dcb}}\\
+\>\mbox{\hyperlink{group__streams_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}} $\ast$ \mbox{\hyperlink{structresource__list__node_a9a479f6499f7d5b45a97961bae261b77}{fcb}}\\
+\>void $\ast$ \mbox{\hyperlink{structresource__list__node_a27f514145d9f4bfc86861dbc23083f30}{obj}}\\
+\>\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\_ptr}} \mbox{\hyperlink{structresource__list__node_a42cdd92dc26553c6d85e80ba86ced43a}{node}}\\
+\>intptr\_t \mbox{\hyperlink{structresource__list__node_afd2fafd34998a65986c51123df0509f9}{num}}\\
+\>uintptr\_t \mbox{\hyperlink{structresource__list__node_a977deb4fe6b39e1f698da0daa4abba4b}{unum}}\\
+\}; \\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em The list node\textquotesingle{}s key. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} \mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}
+\begin{DoxyCompactList}\small\item\em Pointer to previous node. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} \mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}
+\begin{DoxyCompactList}\small\item\em Pointer to next node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+List node. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00299}{299}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structresource__list__node_aba8874eccf1ac3e7657c726a4f86536c}\label{structresource__list__node_aba8874eccf1ac3e7657c726a4f86536c}} 
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union  \{ ... \}  resource\+\_\+list\+\_\+node\+::@5}
+
+
+
+The list node\textquotesingle{}s key. 
+
+The key (data element) of a list node is stored in a union of several pointer and integer types. This allows for easy access, without the need for casting. For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structthread__control__block}{TCB}}* tcb = mynode-\/>tcb;}
+
+\end{DoxyCode}
+ \mbox{\Hypertarget{structresource__list__node_a42b2bb8f85fe0100d7e5cb33c955a7f5}\label{structresource__list__node_a42b2bb8f85fe0100d7e5cb33c955a7f5}} 
+\index{resource\_list\_node@{resource\_list\_node}!ccb@{ccb}}
+\index{ccb@{ccb}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{ccb}{ccb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__scheduler_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}}$\ast$ resource\+\_\+list\+\_\+node\+::ccb}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00314}{314}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_acf38917964a19169fb0ec27aa5c6e372}\label{structresource__list__node_acf38917964a19169fb0ec27aa5c6e372}} 
+\index{resource\_list\_node@{resource\_list\_node}!dcb@{dcb}}
+\index{dcb@{dcb}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{dcb}{dcb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__dev_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}}$\ast$ resource\+\_\+list\+\_\+node\+::dcb}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00315}{315}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a9a479f6499f7d5b45a97961bae261b77}\label{structresource__list__node_a9a479f6499f7d5b45a97961bae261b77}} 
+\index{resource\_list\_node@{resource\_list\_node}!fcb@{fcb}}
+\index{fcb@{fcb}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{fcb}{fcb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__streams_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}}$\ast$ resource\+\_\+list\+\_\+node\+::fcb}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00316}{316}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}\label{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}} 
+\index{resource\_list\_node@{resource\_list\_node}!next@{next}}
+\index{next@{next}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} resource\+\_\+list\+\_\+node\+::next}
+
+
+
+Pointer to next node. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00325}{325}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a42cdd92dc26553c6d85e80ba86ced43a}\label{structresource__list__node_a42cdd92dc26553c6d85e80ba86ced43a}} 
+\index{resource\_list\_node@{resource\_list\_node}!node@{node}}
+\index{node@{node}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{node}{node}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} resource\+\_\+list\+\_\+node\+::node}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00318}{318}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_afd2fafd34998a65986c51123df0509f9}\label{structresource__list__node_afd2fafd34998a65986c51123df0509f9}} 
+\index{resource\_list\_node@{resource\_list\_node}!num@{num}}
+\index{num@{num}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{num}{num}}
+{\footnotesize\ttfamily intptr\+\_\+t resource\+\_\+list\+\_\+node\+::num}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00319}{319}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a27f514145d9f4bfc86861dbc23083f30}\label{structresource__list__node_a27f514145d9f4bfc86861dbc23083f30}} 
+\index{resource\_list\_node@{resource\_list\_node}!obj@{obj}}
+\index{obj@{obj}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{obj}{obj}}
+{\footnotesize\ttfamily void$\ast$ resource\+\_\+list\+\_\+node\+::obj}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00317}{317}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_ae108e9c208c43431114acad464a750c4}\label{structresource__list__node_ae108e9c208c43431114acad464a750c4}} 
+\index{resource\_list\_node@{resource\_list\_node}!pcb@{pcb}}
+\index{pcb@{pcb}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{pcb}{pcb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__proc_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}}$\ast$ resource\+\_\+list\+\_\+node\+::pcb}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00312}{312}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a280b77fdcee186bcaade02f76322d183}\label{structresource__list__node_a280b77fdcee186bcaade02f76322d183}} 
+\index{resource\_list\_node@{resource\_list\_node}!prev@{prev}}
+\index{prev@{prev}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} resource\+\_\+list\+\_\+node\+::prev}
+
+
+
+Pointer to previous node. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00324}{324}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a6ca9cbee315fc0ed60dfb110eb4454bd}\label{structresource__list__node_a6ca9cbee315fc0ed60dfb110eb4454bd}} 
+\index{resource\_list\_node@{resource\_list\_node}!tcb@{tcb}}
+\index{tcb@{tcb}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{tcb}{tcb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}$\ast$ resource\+\_\+list\+\_\+node\+::tcb}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00313}{313}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{structresource__list__node_a977deb4fe6b39e1f698da0daa4abba4b}\label{structresource__list__node_a977deb4fe6b39e1f698da0daa4abba4b}} 
+\index{resource\_list\_node@{resource\_list\_node}!unum@{unum}}
+\index{unum@{unum}!resource\_list\_node@{resource\_list\_node}}
+\doxysubsubsection{\texorpdfstring{unum}{unum}}
+{\footnotesize\ttfamily uintptr\+\_\+t resource\+\_\+list\+\_\+node\+::unum}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00320}{320}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{util_8h}{util.\+h}}\end{DoxyCompactItemize}

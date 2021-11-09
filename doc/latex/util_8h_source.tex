@@ -1,0 +1,318 @@
+\hypertarget{util_8h_source}{}\doxysection{util.\+h}
+\mbox{\hyperlink{util_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef UTIL\_H}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00003}00003 \textcolor{preprocessor}{\#define UTIL\_H}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <string.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <errno.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <setjmp.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00011}00011 \textcolor{preprocessor}{\#include <assert.h>}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00048}\mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{00048}} \textcolor{preprocessor}{\#define FATAL(msg) \{ fprintf(stderr, "{}FATAL \%s(\%d):\%s: \%s\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00049}00049 \_\_FILE\_\_, \_\_LINE\_\_, \_\_FUNCTION\_\_, (msg)); abort(); \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00061}\mbox{\hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{00061}} \textcolor{preprocessor}{\#define FATALERR(errcode) FATAL(strerror(errcode))}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00075}\mbox{\hyperlink{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}{00075}} \textcolor{preprocessor}{\#define CHECKRC(cmd) \{ int rc = (cmd); if(rc) FATALERR(rc); \}}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00090}\mbox{\hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{00090}} \textcolor{preprocessor}{\#define CHECK(cmd)  \{ if((cmd)==-\/1) FATALERR(errno); \}}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00101}\mbox{\hyperlink{group__check__macros_ga6196238e8ab53ab90e7bf7ab51fc73e9}{00101}} \textcolor{preprocessor}{\#define CHECK\_CONDITION(expr) \{ if(!(expr)) FATAL("{}Failed constraint: "{}} \# expr) \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00113}\mbox{\hyperlink{group__check__macros_gaf3a2d9d47272edc6c30e95c7e238cdc2}{00113}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} * \mbox{\hyperlink{group__check__macros_gaf3a2d9d47272edc6c30e95c7e238cdc2}{xmalloc}} (\textcolor{keywordtype}{size\_t} size)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00114}00114 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00115}00115   \textcolor{keywordtype}{void} *value = malloc (size);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00116}00116   \textcolor{keywordflow}{if} (value == 0)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00117}00117     \mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{FATAL}}(\textcolor{stringliteral}{"{}virtual memory exhausted"{}});}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00118}00118   \textcolor{keywordflow}{return} value;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00119}00119 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00125}00125 \textcolor{comment}{/*******************************************************}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00126}00126 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00127}00127 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00128}00128 \textcolor{comment}{ *******************************************************/}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00287}\mbox{\hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{00287}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structprocess__control__block}{process\_control\_block}} \mbox{\hyperlink{structprocess__control__block}{PCB}};   }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00288}\mbox{\hyperlink{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{00288}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structthread__control__block}{thread\_control\_block}} \mbox{\hyperlink{structthread__control__block}{TCB}}; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00289}\mbox{\hyperlink{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}{00289}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structcore__control__block}{core\_control\_block}} \mbox{\hyperlink{structcore__control__block}{CCB}};     }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00290}\mbox{\hyperlink{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}{00290}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structdevice__control__block}{device\_control\_block}} \mbox{\hyperlink{structdevice__control__block}{DCB}}; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00291}\mbox{\hyperlink{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}{00291}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structfile__control__block}{file\_control\_block}} \mbox{\hyperlink{structfile__control__block}{FCB}};     }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00294}\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{00294}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structresource__list__node}{resource\_list\_node}} * \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\_ptr}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00295}00295 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00299}\mbox{\hyperlink{structresource__list__node}{00299}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structresource__list__node}{resource\_list\_node}} \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00300}00300   }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00311}00311   \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00312}00312     \mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00313}00313     \mbox{\hyperlink{structthread__control__block}{TCB}}* tcb;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00314}00314     \mbox{\hyperlink{structcore__control__block}{CCB}}* ccb;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00315}00315     \mbox{\hyperlink{structdevice__control__block}{DCB}}* dcb;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00316}00316     \mbox{\hyperlink{structfile__control__block}{FCB}}* fcb;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00317}00317     \textcolor{keywordtype}{void}* obj;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00318}00318     \mbox{\hyperlink{structresource__list__node}{rlnode\_ptr}} node;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00319}00319     intptr\_t num;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00320}00320     uintptr\_t unum;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00321}00321   \};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00322}00322 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00323}00323   \textcolor{comment}{/* list pointers */}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00324}\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{00324}}   \mbox{\hyperlink{structresource__list__node}{rlnode\_ptr}} \mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}};  }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00325}\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{00325}}   \mbox{\hyperlink{structresource__list__node}{rlnode\_ptr}} \mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};    }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00326}\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{00326}} \} \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00328}00328 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00342}\mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{00342}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* p) }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00343}00343 \{ }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00344}00344     p-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}} = p-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}} = p; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00345}00345     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00346}00346 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00363}\mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{00363}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* p, \textcolor{keywordtype}{void}* ptr)  }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00364}00364 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00365}00365     \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(p)-\/>obj = ptr; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00366}00366     \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00367}00367 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00368}00368 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00369}00369 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00373}\mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{00373}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\_swap}}(\mbox{\hyperlink{structresource__list__node}{rlnode\_ptr}} *p, \mbox{\hyperlink{structresource__list__node}{rlnode\_ptr}} *q) }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00374}00374 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00375}00375   \mbox{\hyperlink{structresource__list__node}{rlnode}} *temp;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00376}00376   temp = *p;  *p = *q; *q = temp;  }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00377}00377 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00389}\mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{00389}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(\mbox{\hyperlink{structresource__list__node}{rlnode}} *a, \mbox{\hyperlink{structresource__list__node}{rlnode}} *b)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00390}00390 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00391}00391   \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\_swap}}( \&(a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}), \&(b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}) );}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00392}00392   \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\_swap}}( \&(a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}), \& (b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}) );}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00393}00393   \textcolor{keywordflow}{return} b;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00394}00394 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00404}\mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{00404}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* a) \{ \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(a, a-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}); \textcolor{keywordflow}{return} a; \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00405}00405 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00411}\mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{00411}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* a) \{ \textcolor{keywordflow}{return} a==a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}; \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00412}00412 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00422}\mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{00422}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* list, \mbox{\hyperlink{structresource__list__node}{rlnode}}* node) \{ \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(list, node); \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00423}00423 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00433}\mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{00433}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\_push\_back}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* list, \mbox{\hyperlink{structresource__list__node}{rlnode}}* node) \{ \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(list-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}, node); \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00434}00434 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00444}\mbox{\hyperlink{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}{00444}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}{rlist\_pop\_front}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* list) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(list, list-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}); \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00445}00445 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00452}\mbox{\hyperlink{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}{00452}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}{rlist\_pop\_back}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* list) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\_splice}}(list, list-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}); \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00453}00453 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00460}\mbox{\hyperlink{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}{00460}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}{rlist\_len}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* list) }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00461}00461 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00462}00462     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count = 0;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00463}00463     \mbox{\hyperlink{structresource__list__node}{rlnode}}* p = list-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00464}00464     \textcolor{keywordflow}{while}(p!=list) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00465}00465         p = p-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00466}00466         count++;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00467}00467     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00468}00468     \textcolor{keywordflow}{return} count;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00469}00469 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00470}00470 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00478}\mbox{\hyperlink{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}{00478}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}{rlist\_equal}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* L1, \mbox{\hyperlink{structresource__list__node}{rlnode}}* L2)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00479}00479 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00480}00480     \mbox{\hyperlink{structresource__list__node}{rlnode}} *i1 = L1-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00481}00481     \mbox{\hyperlink{structresource__list__node}{rlnode}} *i2 = L2-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00482}00482 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00483}00483     \textcolor{keywordflow}{while}(i1!=L1) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00484}00484         \textcolor{keywordflow}{if}(i2==L2 || i1-\/>num != i2-\/>num)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00485}00485             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00486}00486         i1 = i1-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}; }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00487}00487         i2 = i2-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00488}00488     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00489}00489 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00490}00490     \textcolor{keywordflow}{return} i2==L2;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00491}00491 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00492}00492 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00501}\mbox{\hyperlink{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}{00501}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}{rlist\_append}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* ldest, \mbox{\hyperlink{structresource__list__node}{rlnode}}* lsrc)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00502}00502 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00503}00503     \mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\_push\_back}}(ldest, lsrc);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00504}00504     \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(lsrc);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00505}00505 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00506}00506 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00515}\mbox{\hyperlink{group__rlists_ga906dea2f5a25116f979ba6585266453e}{00515}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga906dea2f5a25116f979ba6585266453e}{rlist\_prepend}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* ldest, \mbox{\hyperlink{structresource__list__node}{rlnode}}* lsrc)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00516}00516 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00517}00517     \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(ldest, lsrc);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00518}00518     \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(lsrc);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00519}00519 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00520}00520 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00526}\mbox{\hyperlink{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}{00526}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}{rlist\_reverse}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* l)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00527}00527 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00528}00528     \mbox{\hyperlink{structresource__list__node}{rlnode}} *p = l;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00529}00529 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00530}00530     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00531}00531         \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\_swap}}(\& p-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}, \& p-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}});}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00532}00532         p = p-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00533}00533     \} \textcolor{keywordflow}{while}(p != l);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00534}00534 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00535}00535 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00546}\mbox{\hyperlink{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}{00546}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \mbox{\hyperlink{structresource__list__node}{rlnode}}* \mbox{\hyperlink{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}{rlist\_find}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* List, \textcolor{keywordtype}{void}* key, \mbox{\hyperlink{structresource__list__node}{rlnode}}* fail)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00547}00547 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00548}00548     \mbox{\hyperlink{structresource__list__node}{rlnode}}* i= List-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00549}00549     \textcolor{keywordflow}{while}(i!=List) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00550}00550         \textcolor{keywordflow}{if}(i-\/>obj == key)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00551}00551             \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00552}00552         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00553}00553             i = i-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00554}00554     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00555}00555     \textcolor{keywordflow}{return} fail;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00556}00556 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00557}00557 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00564}\mbox{\hyperlink{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}{00564}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}{rlist\_select}}(\mbox{\hyperlink{structresource__list__node}{rlnode}}* Lsrc, \mbox{\hyperlink{structresource__list__node}{rlnode}}* Ldest, \textcolor{keywordtype}{int} (*pred)(\mbox{\hyperlink{structresource__list__node}{rlnode}}*))}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00565}00565 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00566}00566     \mbox{\hyperlink{structresource__list__node}{rlnode}}* I = Lsrc;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00567}00567     \textcolor{keywordflow}{while}(I-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}} != Lsrc) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00568}00568         \textcolor{keywordflow}{if}(pred(I-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}})) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00569}00569             \mbox{\hyperlink{structresource__list__node}{rlnode}}* p = \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(I-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}});}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00570}00570             \mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\_push\_back}}(Ldest, p);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00571}00571         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00572}00572             I = I-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00573}00573         \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00574}00574     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00575}00575 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00576}00576 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00577}00577 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00578}00578 \textcolor{comment}{/* @\} rlists */}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00579}00579 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00580}00580 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00581}00581 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00582}00582 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00583}00583 \textcolor{comment}{    Some helpers for packing and unpacking vectors of strings into}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00584}00584 \textcolor{comment}{    (argl, args)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00585}00585 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00586}00586 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00595}\mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{00595}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{argvlen}}(\textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00596}00596 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00597}00597     \textcolor{keywordtype}{size\_t} l=0;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00598}00598     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0; i<argc; i++) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00599}00599         l+= strlen(argv[i])+1;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00600}00600     \}   }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00601}00601     \textcolor{keywordflow}{return} l;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00602}00602 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00603}00603 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00604}00604 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00617}\mbox{\hyperlink{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}{00617}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}{argvpack}}(\textcolor{keywordtype}{void}* args, \textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00618}00618 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00619}00619     \textcolor{keywordtype}{int} argl=0;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00620}00620 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00621}00621     \textcolor{keywordtype}{char}* pos = args;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00622}00622     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0; i<argc; i++) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00623}00623         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *s = argv[i];}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00624}00624         \textcolor{keywordflow}{while}(( *pos++ = *s++ )) argl++;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00625}00625     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00626}00626     \textcolor{keywordflow}{return} argl+argc;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00627}00627 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00628}00628 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00638}\mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{00638}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}}(\textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00639}00639 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00640}00640     \textcolor{keywordtype}{int} n=0;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00641}00641     \textcolor{keywordtype}{char}* a = args;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00642}00642 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00643}00643     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0; i<argl; i++)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00644}00644         \textcolor{keywordflow}{if}(a[i]==\textcolor{charliteral}{'\(\backslash\)0'}) n++;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00645}00645     \textcolor{keywordflow}{return} n;   }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00646}00646 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00647}00647 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00662}\mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{00662}} \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void}* \mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{argvunpack}}(\textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00663}00663 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00664}00664     \textcolor{keywordtype}{char}* a = args;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00665}00665     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<argc;i++) \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00666}00666         argv[i] = a;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00667}00667         \textcolor{keywordflow}{while}(*a++); \textcolor{comment}{/* skip non-\/0 */}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00668}00668     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00669}00669     \textcolor{keywordflow}{return} a;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00670}00670 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00671}00671 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00672}00672 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00673}00673 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00868}00868 \textcolor{keyword}{typedef} void (*exception\_handler)(int);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00869}00869 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00870}00870 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00871}\mbox{\hyperlink{structexception__handler__frame}{00871}} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00872}00872     exception\_handler handler;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00873}00873     \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}}* next;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00874}00874 \};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00875}00875 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00876}00876 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00877}\mbox{\hyperlink{structexception__stack__frame}{00877}} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00878}00878 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00879}00879     \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}} * next;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00880}00880     \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} * catchers;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00881}00881     \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} * finalizers;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00882}00882     jmp\_buf jbuf;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00883}00883 \};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00884}00884 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00885}00885 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}** \mbox{\hyperlink{structexception__stack__frame}{exception\_context}};}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00886}00886 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00887}00887 \textcolor{keywordtype}{void} raise\_exception(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00888}00888 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00889}00889 \textcolor{keywordtype}{void} exception\_unwind(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context, \textcolor{keywordtype}{int} errcode);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00890}00890 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00891}00891 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00898}00898 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \_\_exc\_push\_frame(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context, }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00899}00899     \textcolor{keyword}{struct} \mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* frame)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00900}00900 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00901}00901     frame-\/>next = *context;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00902}00902     *context = frame;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00903}00903 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00904}00904 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00905}00905 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* \_\_exc\_try(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context, \textcolor{keywordtype}{int} errcode)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00906}00906 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00907}00907     \textcolor{keywordflow}{if}(errcode==0) }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00908}00908         \textcolor{keywordflow}{return} *context;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00909}00909     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00910}00910         exception\_unwind(context, errcode);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00911}00911         \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00912}00912     \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00913}00913 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00914}00914 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00915}00915 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* \_\_exc\_exit\_try(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context)}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00916}00916 \{}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00917}00917     (*context)-\/>catchers = NULL;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00918}00918     exception\_unwind(context, 0);}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00919}00919     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00920}00920 \}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00921}00921 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00922}00922 \textcolor{preprocessor}{\#define \_\_concatenate\_tokens(x,y) x \#\# y}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00923}00923 \textcolor{preprocessor}{\#define \_\_conc(z,w) \_\_concatenate\_tokens(z,w)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00924}00924 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00927}00927 \textcolor{preprocessor}{\#define TRY\_WITH(context) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00928}00928 \textcolor{preprocessor}{    struct exception\_stack\_frame \_\_conc(\_\_try\_,\_\_LINE\_\_) = \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00929}00929 \textcolor{preprocessor}{        \{ .catchers=NULL, .finalizers=NULL \};\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00930}00930 \textcolor{preprocessor}{    \_\_exc\_push\_frame((context), \& \_\_conc(\_\_try\_ , \_\_LINE\_\_) ); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00931}00931 \textcolor{preprocessor}{    int \_\_conc(\_\_exception\_,\_\_LINE\_\_) = setjmp( \_\_conc(\_\_try\_,\_\_LINE\_\_).jbuf); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00932}00932 \textcolor{preprocessor}{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00933}00933 \textcolor{preprocessor}{    for(struct exception\_stack\_frame* \_\_frame = \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00934}00934 \textcolor{preprocessor}{        \_\_exc\_try((context), \_\_conc(\_\_exception\_, \_\_LINE\_\_) );\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00935}00935 \textcolor{preprocessor}{        \_\_frame != NULL ; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00936}00936 \textcolor{preprocessor}{        \_\_frame = \_\_exc\_exit\_try(context)) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00937}00937 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00938}00938 \textcolor{preprocessor}{\#define FINALLY(excname)  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00939}00939 \textcolor{preprocessor}{    struct exception\_handler\_frame \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00940}00940 \textcolor{preprocessor}{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>finalizers; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00941}00941 \textcolor{preprocessor}{    \_\_frame-\/>finalizers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00942}00942 \textcolor{preprocessor}{    auto void \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00943}00943 \textcolor{preprocessor}{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00944}00944 \textcolor{preprocessor}{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00945}00945 \textcolor{preprocessor}{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(int excname) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00946}00946 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00947}00947 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00948}00948 \textcolor{preprocessor}{\#define ON\_ERROR  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00949}00949 \textcolor{preprocessor}{    struct exception\_handler\_frame \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00950}00950 \textcolor{preprocessor}{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>catchers; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00951}00951 \textcolor{preprocessor}{    \_\_frame-\/>catchers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00952}00952 \textcolor{preprocessor}{    auto void \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00953}00953 \textcolor{preprocessor}{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00954}00954 \textcolor{preprocessor}{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00955}00955 \textcolor{preprocessor}{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(int \_\_dummy) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00956}00956 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00957}00957 }
+\DoxyCodeLine{\Hypertarget{util_8h_source_l00960}00960 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

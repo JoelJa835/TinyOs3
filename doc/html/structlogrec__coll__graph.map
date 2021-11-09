@@ -1,0 +1,11 @@
+<map id="logrec" name="logrec">
+<area shape="rect" id="node1" title=" " alt="" coords="553,535,639,613"/>
+<area shape="rect" id="node2" href="$structresource__list__node.html" title="List node." alt="" coords="379,344,509,465"/>
+<area shape="rect" id="node3" href="$structprocess__control__block.html" title="Process Control Block." alt="" coords="231,683,383,819"/>
+<area shape="rect" id="node4" href="$structthread__control__block.html" title="The thread control block." alt="" coords="443,881,586,1105"/>
+<area shape="rect" id="node6" href="$structfile__control__block.html" title="The file control block." alt="" coords="5,528,128,620"/>
+<area shape="rect" id="node8" href="$structcore__control__block.html" title="Core control block." alt="" coords="581,1197,712,1275"/>
+<area shape="rect" id="node5" href="$structCondVar.html" title="Condition variables." alt="" coords="152,528,259,620"/>
+<area shape="rect" id="node7" href="$structfile__operations.html" title="The device&#45;specific file operations table." alt="" coords="39,5,145,127"/>
+<area shape="rect" id="node9" href="$structdevice__control__block.html" title="Device control block." alt="" coords="248,189,392,281"/>
+</map>

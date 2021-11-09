@@ -1,0 +1,35 @@
+\hypertarget{kernel__threads_8c_source}{}\doxysection{kernel\+\_\+threads.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__sched_8h}{kernel\_sched.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__proc_8h}{kernel\_proc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00009}00009 \mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} sys\_CreateThread(\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} task, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args)}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00010}00010 \{}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00011}00011     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__syscalls_ga00ccfb785dd0b09ec7091fc213c2f491}{NOTHREAD}};}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00012}00012 \}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00017}00017 \mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} sys\_ThreadSelf()}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00019}00019     \textcolor{keywordflow}{return} (\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}}) \mbox{\hyperlink{group__scheduler_ga163aab2d0732e468f266619b5f6ef380}{cur\_thread}}();}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00025}00025 \textcolor{keywordtype}{int} sys\_ThreadJoin(\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} tid, \textcolor{keywordtype}{int}* exitval)}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00026}00026 \{}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00027}00027     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00028}00028 \}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00033}00033 \textcolor{keywordtype}{int} sys\_ThreadDetach(\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} tid)}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00034}00034 \{}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00035}00035     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00041}00041 \textcolor{keywordtype}{void} sys\_ThreadExit(\textcolor{keywordtype}{int} exitval)}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00042}00042 \{}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{kernel__threads_8c_source_l00045}00045 }
+
+\end{DoxyCode}

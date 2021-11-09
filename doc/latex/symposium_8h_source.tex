@@ -1,0 +1,54 @@
+\hypertarget{symposium_8h_source}{}\doxysection{symposium.\+h}
+\mbox{\hyperlink{symposium_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef \_\_SYMPOSIUM\_\_H}}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00003}00003 \textcolor{preprocessor}{\#define \_\_SYMPOSIUM\_\_H}}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00055}00055 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00058}\mbox{\hyperlink{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}{00058}} \textcolor{preprocessor}{\#define FBASE 35}}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00061}\mbox{\hyperlink{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}{00061}} \textcolor{preprocessor}{\#define FGAP  10}}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00072}\mbox{\hyperlink{symposium_8h_a84513d2aec8501a26825e23f0e450ca5}{00072}} \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{symposium_8h_a84513d2aec8501a26825e23f0e450ca5}{fibo}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00075}\mbox{\hyperlink{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}{00075}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ NOTHERE=0, THINKING, HUNGRY, EATING \} \mbox{\hyperlink{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}{PHIL}};}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00082}\mbox{\hyperlink{structsymposium__t}{00082}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00083}\mbox{\hyperlink{structsymposium__t_a4e366c10036b2d89ebc2dbcdefba8999}{00083}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structsymposium__t_a4e366c10036b2d89ebc2dbcdefba8999}{N}};             }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00084}\mbox{\hyperlink{structsymposium__t_a9ee1b978200b8a4b7c30b170c1f20643}{00084}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structsymposium__t_a9ee1b978200b8a4b7c30b170c1f20643}{bites}};         }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00085}\mbox{\hyperlink{structsymposium__t_a038b49a350225fed31d5c148a9147ec6}{00085}}     \textcolor{keywordtype}{int} fmin, \mbox{\hyperlink{structsymposium__t_a038b49a350225fed31d5c148a9147ec6}{fmax}};     }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00086}00086 \} \mbox{\hyperlink{structsymposium__t}{symposium\_t}};}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00105}\mbox{\hyperlink{symposium_8h_a900dd2c0958369a94ba06efb7a352216}{00105}} \textcolor{keywordtype}{void} \mbox{\hyperlink{symposium_8h_a900dd2c0958369a94ba06efb7a352216}{adjust\_symposium}}(\mbox{\hyperlink{structsymposium__t}{symposium\_t}}* table, \textcolor{keywordtype}{int} dBASE, \textcolor{keywordtype}{int} dGAP);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00113}\mbox{\hyperlink{structSymposiumTable}{00113}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00114}\mbox{\hyperlink{structSymposiumTable_a8c36f26f523e6b2f99f6e70fff098de8}{00114}}     \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}} \mbox{\hyperlink{structSymposiumTable_a8c36f26f523e6b2f99f6e70fff098de8}{mx}};            }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00115}\mbox{\hyperlink{structSymposiumTable_a4089e2778ba23eb79c4785eb5702f70f}{00115}}     \mbox{\hyperlink{structsymposium__t}{symposium\_t}}* \mbox{\hyperlink{structSymposiumTable_a4089e2778ba23eb79c4785eb5702f70f}{symp}};   }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00116}\mbox{\hyperlink{structSymposiumTable_a70507f28df670d0db2e59fc65309af08}{00116}}     \mbox{\hyperlink{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}{PHIL}}* \mbox{\hyperlink{structSymposiumTable_a70507f28df670d0db2e59fc65309af08}{state}};       }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00117}\mbox{\hyperlink{structSymposiumTable_a6daa1fdbfe8e836e72bfd6953bc91f6e}{00117}}     \mbox{\hyperlink{structCondVar}{CondVar}}* \mbox{\hyperlink{structSymposiumTable_a6daa1fdbfe8e836e72bfd6953bc91f6e}{hungry}};    }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00118}00118 \} \mbox{\hyperlink{structSymposiumTable}{SymposiumTable}};}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00129}\mbox{\hyperlink{symposium_8h_acee238ec1bec29869630d48b21c54904}{00129}} \textcolor{keywordtype}{void} \mbox{\hyperlink{symposium_8h_acee238ec1bec29869630d48b21c54904}{SymposiumTable\_init}}(\mbox{\hyperlink{structSymposiumTable}{SymposiumTable}}* table, \mbox{\hyperlink{structsymposium__t}{symposium\_t}}* symp);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00135}\mbox{\hyperlink{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}{00135}} \textcolor{keywordtype}{void} \mbox{\hyperlink{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}{SymposiumTable\_destroy}}(\mbox{\hyperlink{structSymposiumTable}{SymposiumTable}}* table);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00146}\mbox{\hyperlink{symposium_8h_ad0a96304b18eeb599ee43e14ed1c2e56}{00146}} \textcolor{keywordtype}{void} \mbox{\hyperlink{symposium_8h_ad0a96304b18eeb599ee43e14ed1c2e56}{SymposiumTable\_philosopher}}(\mbox{\hyperlink{structSymposiumTable}{SymposiumTable}}* table, \textcolor{keywordtype}{int} i);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00159}\mbox{\hyperlink{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}{00159}} \textcolor{keywordtype}{int} \mbox{\hyperlink{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}{SymposiumOfThreads}}(\textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00172}\mbox{\hyperlink{symposium_8h_a528034fb39aa477a05b57211c9614ebe}{00172}} \textcolor{keywordtype}{int} \mbox{\hyperlink{symposium_8h_a528034fb39aa477a05b57211c9614ebe}{SymposiumOfProcesses}}(\textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args);}
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{symposium_8h_source_l00175}00175 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

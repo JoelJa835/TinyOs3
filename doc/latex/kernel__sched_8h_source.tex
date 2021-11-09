@@ -1,0 +1,110 @@
+\hypertarget{kernel__sched_8h_source}{}\doxysection{kernel\+\_\+sched.\+h}
+\mbox{\hyperlink{kernel__sched_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00002}00002 \textcolor{comment}{ *  Scheduler API and implementation }}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00003}00003 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00004}00004 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00006}00006 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_SCHED\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00007}00007 \textcolor{preprocessor}{\#define \_\_KERNEL\_SCHED\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00023}00023 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bios_8h}{bios.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00024}00024 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00025}00025 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{util_8h}{util.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00027}00027 \textcolor{comment}{/*****************************}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00028}00028 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00029}00029 \textcolor{comment}{ *  The Thread Control Block}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00030}00030 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00031}00031 \textcolor{comment}{ *****************************/}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00040}\mbox{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{00040}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00041}\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa0cb1b2c6a7db1f1084886c98909a3f36}{00041}}     \mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa0cb1b2c6a7db1f1084886c98909a3f36}{INIT}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00042}\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa6564f2f3e15be06b670547bbcaaf0798}{00042}}     \mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa6564f2f3e15be06b670547bbcaaf0798}{READY}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00043}\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304}{00043}}     \mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304}{RUNNING}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00044}\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa948b2aee15f52b421fa4770c47bcfe8c}{00044}}     \mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00045}00045     \mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}{EXITED}} }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00046}\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}{00046}} \} \mbox{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\_state}};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00066}\mbox{\hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{00066}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00067}\mbox{\hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaeaa826daca588e692c88114586b0de472b}{00067}}     \mbox{\hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaeaa826daca588e692c88114586b0de472b}{CTX\_CLEAN}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00069}00069     \mbox{\hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaea2b4b41fda67c1a83e6523675515c007b}{CTX\_DIRTY}} }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00070}\mbox{\hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaea2b4b41fda67c1a83e6523675515c007b}{00070}} \} \mbox{\hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\_phase}};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00073}\mbox{\hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{00073}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00074}\mbox{\hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03abc11b4e4eba50c875d7ed6bc34090dd3}{00074}}     \mbox{\hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03abc11b4e4eba50c875d7ed6bc34090dd3}{IDLE\_THREAD}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00075}00075     \mbox{\hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03a1d3bb8be1deb6ac7be94fea88e1ed76b}{NORMAL\_THREAD}} }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00076}\mbox{\hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03a1d3bb8be1deb6ac7be94fea88e1ed76b}{00076}} \} \mbox{\hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{Thread\_type}};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00084}\mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{00084}} \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00085}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea99764e3e8f3195b33e888c816c9a0207}{00085}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea99764e3e8f3195b33e888c816c9a0207}{SCHED\_QUANTUM}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00086}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}{00086}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}{SCHED\_IO}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00087}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea7d3764881e09d1f0dbf2d8ef09640a37}{00087}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea7d3764881e09d1f0dbf2d8ef09640a37}{SCHED\_MUTEX}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00088}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea5f78cf7f43e406215d39f936fa99fd5a}{00088}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea5f78cf7f43e406215d39f936fa99fd5a}{SCHED\_PIPE}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00089}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea1b7d43bbe4e4eb4089beb28b2c8f7e50}{00089}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea1b7d43bbe4e4eb4089beb28b2c8f7e50}{SCHED\_POLL}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00090}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea525b9af8477ce2505c0d559940d827e5}{00090}}     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea525b9af8477ce2505c0d559940d827e5}{SCHED\_IDLE}}, }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00091}00091     \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{SCHED\_USER}} }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00092}\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{00092}} \};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00100}\mbox{\hyperlink{structthread__control__block}{00100}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structthread__control__block}{thread\_control\_block}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00102}\mbox{\hyperlink{structthread__control__block_a74aa312623cb8be2bc719d5210b58c04}{00102}}     \mbox{\hyperlink{structprocess__control__block}{PCB}}* \mbox{\hyperlink{structthread__control__block_a74aa312623cb8be2bc719d5210b58c04}{owner\_pcb}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00104}\mbox{\hyperlink{structthread__control__block_a9c107039dffa851dde6edabd6cd3f89c}{00104}}     \mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\_context\_t}} \mbox{\hyperlink{structthread__control__block_a9c107039dffa851dde6edabd6cd3f89c}{context}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00105}\mbox{\hyperlink{structthread__control__block_abd0f40bdcb22c701df03f560bbc42d5c}{00105}}     \mbox{\hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{Thread\_type}} \mbox{\hyperlink{structthread__control__block_abd0f40bdcb22c701df03f560bbc42d5c}{type}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00106}\mbox{\hyperlink{structthread__control__block_affd872365cf4768fa1c9bd1e196bb97c}{00106}}     \mbox{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\_state}} \mbox{\hyperlink{structthread__control__block_affd872365cf4768fa1c9bd1e196bb97c}{state}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00107}\mbox{\hyperlink{structthread__control__block_aa7e8e6a00c5f9f25210a49589ad818f8}{00107}}     \mbox{\hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\_phase}} \mbox{\hyperlink{structthread__control__block_aa7e8e6a00c5f9f25210a49589ad818f8}{phase}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00109}\mbox{\hyperlink{structthread__control__block_a91a73f2ad3f727b7412b912b3d65109a}{00109}}     void (*\mbox{\hyperlink{structthread__control__block_a91a73f2ad3f727b7412b912b3d65109a}{thread\_func}})(); }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00111}\mbox{\hyperlink{structthread__control__block_a7dbf9ba7df67911abb7951e249f587b6}{00111}}     \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{structthread__control__block_a7dbf9ba7df67911abb7951e249f587b6}{wakeup\_time}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00113}\mbox{\hyperlink{structthread__control__block_add433b079e04053fe70fdd2b92e1d6ad}{00113}}     \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structthread__control__block_add433b079e04053fe70fdd2b92e1d6ad}{sched\_node}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00114}\mbox{\hyperlink{structthread__control__block_a68760c9f4ba9130ee8489d3e0bc2ec15}{00114}}     \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{structthread__control__block_a68760c9f4ba9130ee8489d3e0bc2ec15}{its}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00115}\mbox{\hyperlink{structthread__control__block_a853848e15d41349de06e941b517dd113}{00115}}     \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{structthread__control__block_a853848e15d41349de06e941b517dd113}{rts}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00117}\mbox{\hyperlink{structthread__control__block_a10341f3307663f014457285b8efeb568}{00117}}     \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} \mbox{\hyperlink{structthread__control__block_a10341f3307663f014457285b8efeb568}{curr\_cause}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00118}\mbox{\hyperlink{structthread__control__block_a05cd1b71563678b88b656fd10b8ee78a}{00118}}     \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} \mbox{\hyperlink{structthread__control__block_a05cd1b71563678b88b656fd10b8ee78a}{last\_cause}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00120}00120 \textcolor{preprocessor}{\#ifndef NVALGRIND}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00121}\mbox{\hyperlink{structthread__control__block_ad8a2da36c0ad775c12c5f66f4fec9d41}{00121}}     \textcolor{keywordtype}{unsigned} \mbox{\hyperlink{structthread__control__block_ad8a2da36c0ad775c12c5f66f4fec9d41}{valgrind\_stack\_id}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00129}00129 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00131}\mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{00131}} \} \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00137}\mbox{\hyperlink{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}{00137}} \textcolor{preprocessor}{\#define THREAD\_STACK\_SIZE (128 * 1024)}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00139}00139 \textcolor{comment}{/************************}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00140}00140 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00141}00141 \textcolor{comment}{ *      Scheduler}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00142}00142 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00143}00143 \textcolor{comment}{ ************************/}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00149}\mbox{\hyperlink{structcore__control__block}{00149}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structcore__control__block}{core\_control\_block}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00150}\mbox{\hyperlink{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}{00150}}     \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}{id}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00152}\mbox{\hyperlink{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}{00152}}     \mbox{\hyperlink{structthread__control__block}{TCB}}* \mbox{\hyperlink{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}{current\_thread}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00153}\mbox{\hyperlink{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}{00153}}     \mbox{\hyperlink{structthread__control__block}{TCB}}* \mbox{\hyperlink{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}{previous\_thread}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00154}\mbox{\hyperlink{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}{00154}}     \mbox{\hyperlink{structthread__control__block}{TCB}} \mbox{\hyperlink{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}{idle\_thread}}; }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00156}\mbox{\hyperlink{group__scheduler_gac3d551eb0caa1296280ea2278b4f1b11}{00156}} \} \mbox{\hyperlink{group__scheduler_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}};}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00159}00159 \textcolor{keyword}{extern} \mbox{\hyperlink{structcore__control__block}{CCB}} \mbox{\hyperlink{group__scheduler_ga3be3b151b275926dff3fb99bee765eab}{cctx}}[\mbox{\hyperlink{bios_8h_a009855593b59738d24dbfc236edb3b14}{MAX\_CORES}}];}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00173}00173 \mbox{\hyperlink{structthread__control__block}{TCB}}* \mbox{\hyperlink{group__scheduler_ga163aab2d0732e468f266619b5f6ef380}{cur\_thread}}();}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00181}\mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{00181}} \textcolor{preprocessor}{\#define CURPROC (cur\_thread()-\/>owner\_pcb)}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00186}\mbox{\hyperlink{group__scheduler_ga462fb2ba6f2af99ec3d021ded436bb65}{00186}} \textcolor{preprocessor}{\#define NO\_TIMEOUT ((TimerDuration)-\/1)}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00203}00203 \mbox{\hyperlink{structthread__control__block}{TCB}}* \mbox{\hyperlink{group__scheduler_ga8d6909d7b3e906b0114e282d15a519b8}{spawn\_thread}}(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb, \textcolor{keywordtype}{void} (*func)());}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00215}00215 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}{wakeup}}(\mbox{\hyperlink{structthread__control__block}{TCB}}* tcb);}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00247}00247 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}{sleep\_releasing}}(\mbox{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\_state}} newstate, \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}* mx, \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} cause, \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} timeout);}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00256}00256 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__scheduler_ga1db327892199949812ae5a52119f2e97}{yield}}(\textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} cause);}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00257}00257 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00265}00265 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}{run\_scheduler}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00266}00266 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00272}00272 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__scheduler_ga244fb594301322e79d11a7844c759bba}{initialize\_scheduler}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00279}\mbox{\hyperlink{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}{00279}} \textcolor{preprocessor}{\#define QUANTUM (10000L)}}
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00280}00280 }
+\DoxyCodeLine{\Hypertarget{kernel__sched_8h_source_l00283}00283 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

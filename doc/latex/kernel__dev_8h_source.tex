@@ -1,0 +1,54 @@
+\hypertarget{kernel__dev_8h_source}{}\doxysection{kernel\+\_\+dev.\+h}
+\mbox{\hyperlink{kernel__dev_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_DEV\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_KERNEL\_DEV\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00004}00004 \textcolor{comment}{/*****************************}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00006}00006 \textcolor{comment}{ *  The Device Table    }}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00007}00007 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00008}00008 \textcolor{comment}{ *****************************/} }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{util_8h}{util.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bios_8h}{bios.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00048}\mbox{\hyperlink{structfile__operations}{00048}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structfile__operations}{file\_operations}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00055}\mbox{\hyperlink{structfile__operations_a6376dcf4623ab43032b6269eaddafd56}{00055}}     \textcolor{keywordtype}{void}* (*Open)(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} minor);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00069}\mbox{\hyperlink{structfile__operations_a59d973a490a6861c498ac9cc9c32dbf5}{00069}}     int (*\mbox{\hyperlink{structfile__operations_a59d973a490a6861c498ac9cc9c32dbf5}{Read}})(\textcolor{keywordtype}{void}* \textcolor{keyword}{this}, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00082}\mbox{\hyperlink{structfile__operations_a75d4020e8a146c1611dc40184d211ec6}{00082}}     int (*\mbox{\hyperlink{structfile__operations_a75d4020e8a146c1611dc40184d211ec6}{Write}})(\textcolor{keywordtype}{void}* \textcolor{keyword}{this}, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00094}\mbox{\hyperlink{structfile__operations_a66cfe706a1a29e3e58c7694dbd801b0f}{00094}}     int (*\mbox{\hyperlink{structfile__operations_a66cfe706a1a29e3e58c7694dbd801b0f}{Close}})(\textcolor{keywordtype}{void}* \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00095}\mbox{\hyperlink{group__dev_ga7f6c39ceb4960d7793f1740ad27f4783}{00095}} \} \mbox{\hyperlink{group__dev_ga7f6c39ceb4960d7793f1740ad27f4783}{file\_ops}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00104}\mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{00104}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00105}\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{00105}}     \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{DEV\_NULL}},    }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00106}\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{00106}}     \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{DEV\_SERIAL}},  }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00107}00107     \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a4d07dfbc7e68d26e2d92773a37381ce7}{DEV\_MAX}}      }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00108}\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a4d07dfbc7e68d26e2d92773a37381ce7}{00108}} \}  \mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00117}\mbox{\hyperlink{structdevice__control__block}{00117}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structdevice__control__block}{device\_control\_block}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00118}00118 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00119}\mbox{\hyperlink{structdevice__control__block_a35a45268132777177a33513c747633c4}{00119}}   \mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}} \mbox{\hyperlink{structdevice__control__block_a35a45268132777177a33513c747633c4}{type}};     }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00123}\mbox{\hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{00123}}   \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{devnum}};           }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00126}\mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{00126}}   \mbox{\hyperlink{structfile__operations}{file\_ops}} \mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\_fops}};    }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00129}\mbox{\hyperlink{group__dev_ga5b4de7b0c72db6219c5a6dda2466181f}{00129}} \} \mbox{\hyperlink{group__dev_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00137}00137 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__dev_ga840b5c2460abea4a19a201f7d6d035c8}{initialize\_devices}}();}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00149}00149 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__dev_ga6d8e08550640c9819aa07b6bba9fa6ed}{device\_open}}(\mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}} major, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} minor, \textcolor{keywordtype}{void}** obj, \mbox{\hyperlink{structfile__operations}{file\_ops}}** ops);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00157}00157 \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{group__dev_ga0808cf584a510e0eff6908a5313ce296}{device\_no}}(\mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}} major);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8h_source_l00161}00161 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

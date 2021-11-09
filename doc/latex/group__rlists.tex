@@ -1,0 +1,811 @@
+\hypertarget{group__rlists}{}\doxysection{Resource lists}
+\label{group__rlists}\index{Resource lists@{Resource lists}}
+
+
+A simple and fast list implementation.  
+
+
+Collaboration diagram for Resource lists\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{group__rlists}
+\end{center}
+\end{figure}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__exceptions}{An execption-\/like library.}}
+\begin{DoxyCompactList}\small\item\em An exception-\/like mechanism for C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}{TRY\+\_\+\+WITH}}(context)
+\item 
+\#define \mbox{\hyperlink{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}{FINALLY}}(excname)
+\item 
+\#define \mbox{\hyperlink{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}{ON\+\_\+\+ERROR}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} $\ast$ \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}}
+\begin{DoxyCompactList}\small\item\em A convenience typedef. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}\label{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}} 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} {\bfseries rlnode}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\+\_\+new}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$p)
+\begin{DoxyCompactList}\small\item\em Initialize a node as a singleton ring. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\+\_\+init}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$p, void $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em Initialize a node as a singleton ring. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}{rlnode\+\_\+swap}} (\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$p, \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Swap two pointers to rlnode. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}{rl\+\_\+splice}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$b)
+\begin{DoxyCompactList}\small\item\em Splice two rlnodes. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\+\_\+remove}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Remove node from a ring and turn it into singleton. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\+\_\+rlist\+\_\+empty}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Check a list for emptiness. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\+\_\+push\+\_\+front}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Insert at the head of a list. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\+\_\+push\+\_\+back}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Insert at the tail of a list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}{rlist\+\_\+pop\+\_\+front}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Remove and return the head of the list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}{rlist\+\_\+pop\+\_\+back}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Remove and return the tail of the list. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}{rlist\+\_\+len}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Return the length of a list. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}{rlist\+\_\+equal}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$L1, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$L2)
+\begin{DoxyCompactList}\small\item\em Check two lists for equality. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}{rlist\+\_\+append}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ldest, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$lsrc)
+\begin{DoxyCompactList}\small\item\em Append the nodes of a list to another. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga906dea2f5a25116f979ba6585266453e}{rlist\+\_\+prepend}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ldest, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$lsrc)
+\begin{DoxyCompactList}\small\item\em Prepend the nodes of a list to another. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}{rlist\+\_\+reverse}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$l)
+\begin{DoxyCompactList}\small\item\em Reverse a ring or list. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ \mbox{\hyperlink{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}{rlist\+\_\+find}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$List, void $\ast$key, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$fail)
+\begin{DoxyCompactList}\small\item\em Find a node by key. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}{rlist\+\_\+select}} (\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$Lsrc, \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$Ldest, int($\ast$pred)(\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$))
+\begin{DoxyCompactList}\small\item\em Move nodes. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{argvlen}} (size\+\_\+t argc, const char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Return the total length of a string array. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}{argvpack}} (void $\ast$args, size\+\_\+t argc, const char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Pack a string array into an argument buffer. \end{DoxyCompactList}\item 
+static size\+\_\+t \mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}} (int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Return the number of strings packed in an argument buffer. \end{DoxyCompactList}\item 
+static void $\ast$ \mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{argvunpack}} (size\+\_\+t argc, const char $\ast$$\ast$argv, int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Unpack a string array from an argument buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A simple and fast list implementation. 
+
+\hypertarget{group__rlists_autotoc_md27}{}\doxysubsubsection{Overview}\label{group__rlists_autotoc_md27}
+This data structure is a doubly-\/linked circular list, whose implementation is based on the splicing operation.
+
+In a circular list, the nodes form a ring. For example if a, b, and c are nodes, a ring may look like \begin{DoxyVerb}+--> a --> b --> c -->+
+|                     |
++<------<--------<----+
+\end{DoxyVerb}
+ where only the {\ttfamily next} pointer is drawn. The {\ttfamily prev} pointer of a node is always the opposite of {\ttfamily next}, i.\+e., {\ttfamily p-\/\texorpdfstring{$>$}{>}next-\/\texorpdfstring{$>$}{>}prev==p-\/\texorpdfstring{$>$}{>}prev-\/\texorpdfstring{$>$}{>}next==p}. In the following, we shall denote such a ring by \mbox{[}a,b,c\mbox{]}. Note that \mbox{[}b,c,a\mbox{]} and \mbox{[}c,a,b\mbox{]} are describing the same ring as \mbox{[}a,b,c\mbox{]}. A singleton ring has just one node, e.\+g., \mbox{[}a\mbox{]}.
+
+The splicing operation between two rlnodes a and b means simply to swap their {\ttfamily next} pointers (also adjusting the \textquotesingle{}prev\textquotesingle{} pointers appropriately). Splicing two nodes on different rings, joins the two rings. Splicing two nodes on the same ring, splits the ring. For example, {\ttfamily splice(a,c)} on ring \mbox{[}a,b,c,d\mbox{]} would create two rings \mbox{[}a,d\mbox{]} and \mbox{[}b,c\mbox{]}. A splice can be reversed by repeating it; continuing the previous example, given rings \mbox{[}a,d\mbox{]} and \mbox{[}b,c\mbox{]}, splice(a,c) will create ring \mbox{[}a,b,c,d\mbox{]} again. The precise definition of splice is the following\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}}* splice(\mbox{\hyperlink{structresource__list__node}{rlnode}}* a, \mbox{\hyperlink{structresource__list__node}{rlnode}}* b) \{}
+\DoxyCodeLine{    swap(\& a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}, \& b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}});}
+\DoxyCodeLine{    swap(\& a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}, \& b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}});}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} b;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ In general, {\ttfamily splice(a,b)} applies the following transformation \begin{DoxyVerb}[a, x...]  [b, y...]   ==>   [a, y..., b, x...]
+[a, x..., b, y...]     ==>   [a, y...]  [b, x...]
+\end{DoxyVerb}
+
+
+To implement lists, an rlnode object is used as {\itshape sentinel}, that is, it holds no data and is not properly part of the list. If L is the list node, then ring \mbox{[}C, L, A, B\mbox{]} represents the list \{A,B,C\}. The empty list is represented as \mbox{[}L\mbox{]}.
+
+We now show some examples of list operations, implemented by splicing. Suppose that L is a pointer to the sentinel node of a list. Also, suppose that N is (pointer to) a node in a singleton ring \mbox{[}N\mbox{]} Then, the the following operation are implemented as shown (in pseudocode)\+: \begin{DoxyVerb}empty(L)              ::  return  L == L->next
+head(L)               ::  return  L->next
+tail(L)               ::  return  L->prev
+push_front(L, N)      ::  splice(L, N)
+push_back(L, N)       ::  splice(L->prev, N)
+pop_front(L)          ::  return splice(L, L->next)
+pop_back(L)           ::  return splice(L, L->prev) 
+remove(N)             ::  return splice(N->prev, N)
+insert_after(P, N)    ::  splice(P, N)
+insert_before(P, N)   ::  splice(P->prev, N)
+\end{DoxyVerb}
+
+
+These operations can be used to perform other operations. For example, if L1 and L2 are two lists, then we can append the nodes of L2 to L1 (leaving L2 empty), by the following two operations\+: \begin{DoxyVerb}push_back(L1, L2);
+remove(L2);
+\end{DoxyVerb}
+
+
+For more details on the implementation, please read the code of \mbox{\hyperlink{util_8h}{util.\+h}}.\hypertarget{group__rlists_autotoc_md28}{}\doxysubsubsection{Usage}\label{group__rlists_autotoc_md28}
+Resource lists are mostly useful as storage for lists of resources. The main type is the list node, type {\ttfamily rlnode}. Each {\ttfamily rlnode} object must be initialized before use, by calling either {\ttfamily rlnode\+\_\+init} or {\ttfamily rlnode\+\_\+new}. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structthread__control__block}{TCB}}* mytcb =...;}
+\DoxyCodeLine{\mbox{\hyperlink{structfile__control__block}{FCB}}* myfcb =...;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} n1, n2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// The following four lines are equivalent }}
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& n1, mytcb); }
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\& n1)-\/>tcb = mytcb;}
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& n1, NULL);  n1-\/>tcb = mytcb;}
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\& n1);  n1-\/>tcb = mytcb;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{n1-\/>fcb = myfcb;}
+\DoxyCodeLine{myfcb = n1-\/>fcb;}
+
+\end{DoxyCode}
+\hypertarget{group__rlists_autotoc_md29}{}\doxyparagraph{Creating lists}\label{group__rlists_autotoc_md29}
+A list is defined by a sentinel node. For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} mylist;  }
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\&mylist);}
+
+\end{DoxyCode}
+ Note that, although we did not store a value into the sentinel node, we actually could do so if desired.
+
+Once a list is created, it needs to be filled with data. There are routines for adding nodes to the head and tail of a list, or in an intermediate location. Also, lists can be compared for equality, have their length taken, checked for emptiness, etc. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\+\_\+push\+\_\+front}} 
+
+\mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\+\_\+push\+\_\+back}}
+\end{DoxySeeAlso}
+\hypertarget{group__rlists_autotoc_md30}{}\doxyparagraph{Intrusive lists}\label{group__rlists_autotoc_md30}
+In order to add nodes to a list, we must allocate {\ttfamily rlnode} objects somewhere in memory. It is absolutely legal to use {\ttfamily malloc()} for this purpose, but we must add code to free the allocated memory, which can be annoying.
+
+If we wish to store objects of a particular kind however, we can use a different technique\+: we can store an rlnode pointer inside the object itself. A list built by this trick is called an {\itshape intrusive list}.
+
+For example, suppose we want to maintain a list of TCBs with high priority. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} hi\_pri\_list;  \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\&hi\_pri\_list);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }\mbox{\hyperlink{structthread__control__block}{thread\_control\_block}} \{}
+\DoxyCodeLine{ .... \textcolor{comment}{// other stuff}}
+\DoxyCodeLine{ \mbox{\hyperlink{structresource__list__node}{rlnode}} hi\_pri\_node;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// initialize the node}}
+\DoxyCodeLine{\mbox{\hyperlink{structthread__control__block}{TCB}}* newtcb = ...;}
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& newtcb-\/>hi\_pri\_node, newtcb);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// then, we can just add the node to the list}}
+\DoxyCodeLine{\mbox{\hyperlink{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}{rlist\_push\_back}}(\& hi\_pri\_list, \& newtcb-\/>hi\_pri\_node);}
+
+\end{DoxyCode}
+
+
+Because node {\ttfamily hi\+\_\+pri\+\_\+node} is stored inside the object, it is always available. The node can be removed and re-\/added to this or another list, and memory allocation/deallocation is not an issue. The implementation of tinyos3 uses this idea very extensively, in TCB, PCB and FCB. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}\label{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}} 
+\index{Resource lists@{Resource lists}!FINALLY@{FINALLY}}
+\index{FINALLY@{FINALLY}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{FINALLY}{FINALLY}}
+{\footnotesize\ttfamily \#define FINALLY(\begin{DoxyParamCaption}\item[{}]{excname }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>finalizers; \(\backslash\)}
+\DoxyCodeLine{    \_\_frame-\/>finalizers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}
+\DoxyCodeLine{    auto \textcolor{keywordtype}{void} \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(\textcolor{keywordtype}{int} excname) \(\backslash\)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00938}{938}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}\label{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}} 
+\index{Resource lists@{Resource lists}!ON\_ERROR@{ON\_ERROR}}
+\index{ON\_ERROR@{ON\_ERROR}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{ON\_ERROR}{ON\_ERROR}}
+{\footnotesize\ttfamily \#define ON\+\_\+\+ERROR}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>catchers; \(\backslash\)}
+\DoxyCodeLine{    \_\_frame-\/>catchers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}
+\DoxyCodeLine{    auto \textcolor{keywordtype}{void} \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(\textcolor{keywordtype}{int} \_\_dummy) \(\backslash\)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00948}{948}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}\label{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}} 
+\index{Resource lists@{Resource lists}!TRY\_WITH@{TRY\_WITH}}
+\index{TRY\_WITH@{TRY\_WITH}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{TRY\_WITH}{TRY\_WITH}}
+{\footnotesize\ttfamily \#define TRY\+\_\+\+WITH(\begin{DoxyParamCaption}\item[{}]{context }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}} \_\_conc(\_\_try\_,\_\_LINE\_\_) = \(\backslash\)}
+\DoxyCodeLine{        \{ .catchers=NULL, .finalizers=NULL \};\(\backslash\)}
+\DoxyCodeLine{    \_\_exc\_push\_frame((context), \& \_\_conc(\_\_try\_ , \_\_LINE\_\_) ); \(\backslash\)}
+\DoxyCodeLine{    int \_\_conc(\_\_exception\_,\_\_LINE\_\_) = setjmp( \_\_conc(\_\_try\_,\_\_LINE\_\_).jbuf); \(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    for(\textcolor{keyword}{struct} \mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* \_\_frame = \(\backslash\)}
+\DoxyCodeLine{        \_\_exc\_try((context), \_\_conc(\_\_exception\_, \_\_LINE\_\_) );\(\backslash\)}
+\DoxyCodeLine{        \_\_frame != NULL ; \(\backslash\)}
+\DoxyCodeLine{        \_\_frame = \_\_exc\_exit\_try(context)) \(\backslash\)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00927}{927}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}\label{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}} 
+\index{Resource lists@{Resource lists}!CCB@{CCB}}
+\index{CCB@{CCB}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{CCB}{CCB}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__scheduler_gac3d551eb0caa1296280ea2278b4f1b11}{CCB}}}
+
+
+
+Forward declaration. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00289}{289}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}\label{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}} 
+\index{Resource lists@{Resource lists}!DCB@{DCB}}
+\index{DCB@{DCB}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{DCB}{DCB}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__dev_ga5b4de7b0c72db6219c5a6dda2466181f}{DCB}}}
+
+
+
+Forward declaration. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00290}{290}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}\label{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}} 
+\index{Resource lists@{Resource lists}!FCB@{FCB}}
+\index{FCB@{FCB}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{FCB}{FCB}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__streams_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}}}
+
+
+
+Forward declaration. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00291}{291}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}\label{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}} 
+\index{Resource lists@{Resource lists}!PCB@{PCB}}
+\index{PCB@{PCB}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{PCB}{PCB}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__proc_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}}}
+
+
+
+Forward declaration. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00287}{287}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}\label{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}} 
+\index{Resource lists@{Resource lists}!rlnode\_ptr@{rlnode\_ptr}}
+\index{rlnode\_ptr@{rlnode\_ptr}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlnode\_ptr}{rlnode\_ptr}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}}$\ast$ \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}}}
+
+
+
+A convenience typedef. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00294}{294}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}\label{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}} 
+\index{Resource lists@{Resource lists}!TCB@{TCB}}
+\index{TCB@{TCB}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{TCB}{TCB}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}}
+
+
+
+Forward declaration. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00288}{288}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}\label{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}} 
+\index{Resource lists@{Resource lists}!argscount@{argscount}}
+\index{argscount@{argscount}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{argscount()}{argscount()}}
+{\footnotesize\ttfamily static size\+\_\+t argscount (\begin{DoxyParamCaption}\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return the number of strings packed in an argument buffer. 
+
+This is equal to the number of zero bytes in the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argl} & the length of the argument buffer \\
+\hline
+{\em args} & the argument buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of strings packed in {\ttfamily args} 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00638}{638}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}\label{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}} 
+\index{Resource lists@{Resource lists}!argvlen@{argvlen}}
+\index{argvlen@{argvlen}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{argvlen()}{argvlen()}}
+{\footnotesize\ttfamily static size\+\_\+t argvlen (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{argc,  }\item[{const char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return the total length of a string array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & the length of the string array \\
+\hline
+{\em argv} & the string array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the total number of bytes in all the strings, including the terminating zeros. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00595}{595}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}\label{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}} 
+\index{Resource lists@{Resource lists}!argvpack@{argvpack}}
+\index{argvpack@{argvpack}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{argvpack()}{argvpack()}}
+{\footnotesize\ttfamily static size\+\_\+t argvpack (\begin{DoxyParamCaption}\item[{void $\ast$}]{args,  }\item[{size\+\_\+t}]{argc,  }\item[{const char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Pack a string array into an argument buffer. 
+
+Pack a string array into an argument buffer, which must be at least {\ttfamily argvlen(argc,argv)} bytes big.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & the output argument buffer, which must be large enough \\
+\hline
+{\em argc} & the length of the input string array \\
+\hline
+{\em argv} & the input string array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the length of the output argument buffer 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{argvlen}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00617}{617}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}\label{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}} 
+\index{Resource lists@{Resource lists}!argvunpack@{argvunpack}}
+\index{argvunpack@{argvunpack}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{argvunpack()}{argvunpack()}}
+{\footnotesize\ttfamily static void $\ast$ argvunpack (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{argc,  }\item[{const char $\ast$$\ast$}]{argv,  }\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Unpack a string array from an argument buffer. 
+
+The string array\textquotesingle{}s length must be less than or equal to the number of zero bytes in {\ttfamily args}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & the length of the output string array \\
+\hline
+{\em argv} & the output string array \\
+\hline
+{\em argl} & the length of the input argument buffer \\
+\hline
+{\em args} & the input argument buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the first location not unpacked
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00662}{662}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}\label{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}} 
+\index{Resource lists@{Resource lists}!is\_rlist\_empty@{is\_rlist\_empty}}
+\index{is\_rlist\_empty@{is\_rlist\_empty}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{is\_rlist\_empty()}{is\_rlist\_empty()}}
+{\footnotesize\ttfamily static int is\+\_\+rlist\+\_\+empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Check a list for emptiness. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & the list to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the list is empty, else 0. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00411}{411}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}\label{group__rlists_gaf05a53c6613a6dd09652271d12d4ab4e}} 
+\index{Resource lists@{Resource lists}!rl\_splice@{rl\_splice}}
+\index{rl\_splice@{rl\_splice}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rl\_splice()}{rl\_splice()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rl\+\_\+splice (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Splice two rlnodes. 
+
+The splice operation swaps the {\ttfamily next} pointers of the two nodes, adjusting the {\ttfamily prev} pointers appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & the first node \\
+\hline
+{\em b} & the second node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the second node, {\ttfamily b} 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00389}{389}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}\label{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}} 
+\index{Resource lists@{Resource lists}!rlist\_append@{rlist\_append}}
+\index{rlist\_append@{rlist\_append}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_append()}{rlist\_append()}}
+{\footnotesize\ttfamily static void rlist\+\_\+append (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{ldest,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{lsrc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Append the nodes of a list to another. 
+
+After the append, {\ttfamily lsrc} becomes empty. The operation is \begin{DoxyVerb}[ldest, X...] [lsrc, Y...]  ==> [ldest, X..., Y...]  [lsrc]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00501}{501}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}\label{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}} 
+\index{Resource lists@{Resource lists}!rlist\_equal@{rlist\_equal}}
+\index{rlist\_equal@{rlist\_equal}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_equal()}{rlist\_equal()}}
+{\footnotesize\ttfamily static int rlist\+\_\+equal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{L1,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{L2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Check two lists for equality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em L1} & the first list \\
+\hline
+{\em L2} & the second list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff two lists are equal, else false. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00478}{478}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}\label{group__rlists_gabd7981c6ecc8d586fb2c5f24f795693f}} 
+\index{Resource lists@{Resource lists}!rlist\_find@{rlist\_find}}
+\index{rlist\_find@{rlist\_find}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_find()}{rlist\_find()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlist\+\_\+find (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{List,  }\item[{void $\ast$}]{key,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{fail }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Find a node by key. 
+
+Search and return the first node whose key is equal to a given key, else return a given node (which may be NULL).
+
+
+\begin{DoxyParams}{Parameters}
+{\em List} & the list to search \\
+\hline
+{\em key} & the key to search for in the list \\
+\hline
+{\em fail} & the node pointer to return on failure \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00546}{546}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}\label{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}} 
+\index{Resource lists@{Resource lists}!rlist\_len@{rlist\_len}}
+\index{rlist\_len@{rlist\_len}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_len()}{rlist\_len()}}
+{\footnotesize\ttfamily static size\+\_\+t rlist\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return the length of a list. 
+
+This function returns the length of a list. \begin{DoxyNote}{Note}
+the cost of this operation is $ O(n) $ ~\newline
+ 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00460}{460}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}\label{group__rlists_ga1b0c4e975e7dfd76c17fff9c5ab04103}} 
+\index{Resource lists@{Resource lists}!rlist\_pop\_back@{rlist\_pop\_back}}
+\index{rlist\_pop\_back@{rlist\_pop\_back}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_pop\_back()}{rlist\_pop\_back()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlist\+\_\+pop\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Remove and return the tail of the list. 
+
+This function, applied on a non-\/empty list, will remove the tail of the list and return in. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00452}{452}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}\label{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}} 
+\index{Resource lists@{Resource lists}!rlist\_pop\_front@{rlist\_pop\_front}}
+\index{rlist\_pop\_front@{rlist\_pop\_front}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_pop\_front()}{rlist\_pop\_front()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlist\+\_\+pop\+\_\+front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Remove and return the head of the list. 
+
+This function, applied on a non-\/empty list, will remove the head of the list and return in.
+
+When it is applied to an empty list, the function will return the list itself. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00444}{444}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga906dea2f5a25116f979ba6585266453e}\label{group__rlists_ga906dea2f5a25116f979ba6585266453e}} 
+\index{Resource lists@{Resource lists}!rlist\_prepend@{rlist\_prepend}}
+\index{rlist\_prepend@{rlist\_prepend}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_prepend()}{rlist\_prepend()}}
+{\footnotesize\ttfamily static void rlist\+\_\+prepend (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{ldest,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{lsrc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Prepend the nodes of a list to another. 
+
+After the append, {\ttfamily lsrc} becomes empty. The operation is \begin{DoxyVerb}[ldest, X...] [lsrc, Y...]  ==> [ldest, Y..., X...]  [lsrc]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00515}{515}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}\label{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}} 
+\index{Resource lists@{Resource lists}!rlist\_push\_back@{rlist\_push\_back}}
+\index{rlist\_push\_back@{rlist\_push\_back}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_push\_back()}{rlist\_push\_back()}}
+{\footnotesize\ttfamily static void rlist\+\_\+push\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{list,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Insert at the tail of a list. 
+
+Assuming that {\ttfamily node} is not in the ring of {\ttfamily list}, this function inserts the ring of {\ttfamily node} (often a singleton) at the tail of {\ttfamily list}.
+
+This function is equivalent to {\ttfamily splice}(list-\/\texorpdfstring{$>$}{>}prev,node). 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00433}{433}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}\label{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}} 
+\index{Resource lists@{Resource lists}!rlist\_push\_front@{rlist\_push\_front}}
+\index{rlist\_push\_front@{rlist\_push\_front}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_push\_front()}{rlist\_push\_front()}}
+{\footnotesize\ttfamily static void rlist\+\_\+push\+\_\+front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{list,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Insert at the head of a list. 
+
+Assuming that {\ttfamily node} is not in the ring of {\ttfamily list}, this function inserts the ring of {\ttfamily node} (often a singleton) at the head of {\ttfamily list}.
+
+This function is equivalent to {\ttfamily splice(list,node)}. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00422}{422}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}\label{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}} 
+\index{Resource lists@{Resource lists}!rlist\_remove@{rlist\_remove}}
+\index{rlist\_remove@{rlist\_remove}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_remove()}{rlist\_remove()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlist\+\_\+remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Remove node from a ring and turn it into singleton. 
+
+This function will remove {\ttfamily a} from the ring that contains it. If {\ttfamily a} is a singleton ring, this function has no effect. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the node to remove from a ring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the removed node 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00404}{404}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}\label{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}} 
+\index{Resource lists@{Resource lists}!rlist\_reverse@{rlist\_reverse}}
+\index{rlist\_reverse@{rlist\_reverse}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_reverse()}{rlist\_reverse()}}
+{\footnotesize\ttfamily static void rlist\+\_\+reverse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Reverse a ring or list. 
+
+This function will reverse the direction of a ring. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00526}{526}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}\label{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}} 
+\index{Resource lists@{Resource lists}!rlist\_select@{rlist\_select}}
+\index{rlist\_select@{rlist\_select}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlist\_select()}{rlist\_select()}}
+{\footnotesize\ttfamily static void rlist\+\_\+select (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{Lsrc,  }\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{Ldest,  }\item[{int($\ast$)(\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$)}]{pred }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Move nodes. 
+
+Append all nodes of Lsrc which satisfy pred (that is, pred(...) returns non-\/zero) to the end of Ldest. 
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00564}{564}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}\label{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}} 
+\index{Resource lists@{Resource lists}!rlnode\_init@{rlnode\_init}}
+\index{rlnode\_init@{rlnode\_init}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlnode\_init()}{rlnode\_init()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlnode\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{p,  }\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Initialize a node as a singleton ring. 
+
+This function will initialize the pointers of a node to form a singleton ring, and store the . The node is returned, so that one can write code such as 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} n;  \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(\&L, \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\&n, obj));}
+
+\end{DoxyCode}
+
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily p!=NULL} 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the node to initialize into a singleton \\
+\hline
+{\em ptr} & the pointer to store as the node key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node itself 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00363}{363}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}\label{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}} 
+\index{Resource lists@{Resource lists}!rlnode\_new@{rlnode\_new}}
+\index{rlnode\_new@{rlnode\_new}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlnode\_new()}{rlnode\_new()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$ rlnode\+\_\+new (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} $\ast$}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Initialize a node as a singleton ring. 
+
+This function will initialize the pointers of a node to form a singleton ring. The node is returned, so that one can write code such as 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} n;  \mbox{\hyperlink{group__rlists_gaa30a08e87762ae3d432190d8101e8d11}{rlnode\_new}}(\&n)-\/>num = 3;}
+
+\end{DoxyCode}
+ \begin{DoxyPrecond}{Precondition}
+{\ttfamily p!=NULL} 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the node to initialize into a singleton \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node itself 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00342}{342}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}\label{group__rlists_ga47c4de39ce6c032dd9fc23c88a883a4b}} 
+\index{Resource lists@{Resource lists}!rlnode\_swap@{rlnode\_swap}}
+\index{rlnode\_swap@{rlnode\_swap}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{rlnode\_swap()}{rlnode\_swap()}}
+{\footnotesize\ttfamily static void rlnode\+\_\+swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}} $\ast$}]{q }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Swap two pointers to rlnode. 
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00373}{373}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+

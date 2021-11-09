@@ -1,0 +1,41 @@
+\hypertarget{kernel__proc_8h_source}{}\doxysection{kernel\+\_\+proc.\+h}
+\mbox{\hyperlink{kernel__proc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_PROC\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_KERNEL\_PROC\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__sched_8h}{kernel\_sched.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00027}\mbox{\hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{00027}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \mbox{\hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{pid\_state\_e}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00028}\mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{00028}}   \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{FREE}},   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00029}\mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}{00029}}   \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}{ALIVE}},  }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00030}00030   \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}{ZOMBIE}}  }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00031}\mbox{\hyperlink{group__proc_ga8b605a2dd67e6304da5b7cccb6ea8e61}{00031}} \} \mbox{\hyperlink{group__proc_ga8b605a2dd67e6304da5b7cccb6ea8e61}{pid\_state}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00038}\mbox{\hyperlink{structprocess__control__block}{00038}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structprocess__control__block}{process\_control\_block}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00039}\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{00039}}   \mbox{\hyperlink{group__proc_ga8b605a2dd67e6304da5b7cccb6ea8e61}{pid\_state}}  \mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}};      }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00041}\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{00041}}   \mbox{\hyperlink{structprocess__control__block}{PCB}}* \mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}};            }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00042}\mbox{\hyperlink{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}{00042}}   \textcolor{keywordtype}{int} \mbox{\hyperlink{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}{exitval}};            }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00044}\mbox{\hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{00044}}   \mbox{\hyperlink{structthread__control__block}{TCB}}* \mbox{\hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{main\_thread}};       }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00045}\mbox{\hyperlink{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}{00045}}   \mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} \mbox{\hyperlink{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}{main\_task}};         }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00046}\mbox{\hyperlink{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}{00046}}   \textcolor{keywordtype}{int} \mbox{\hyperlink{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}{argl}};               }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00047}\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{00047}}   \textcolor{keywordtype}{void}* \mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}};             }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00049}\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{00049}}   \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}};   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00050}\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{00050}}   \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}};     }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00052}\mbox{\hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{00052}}   \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{children\_node}};   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00053}\mbox{\hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{00053}}   \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{exited\_node}};     }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00055}\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{00055}}   \mbox{\hyperlink{structCondVar}{CondVar}} \mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}};     }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00061}\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{00061}}   \mbox{\hyperlink{structfile__control__block}{FCB}}* \mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[\mbox{\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{MAX\_FILEID}}];  }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00063}\mbox{\hyperlink{group__proc_ga91aaadf0c3f9cef2293a99c69795323f}{00063}} \} \mbox{\hyperlink{group__proc_ga91aaadf0c3f9cef2293a99c69795323f}{PCB}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00072}00072 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}{initialize\_processes}}();}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00084}00084 \mbox{\hyperlink{structprocess__control__block}{PCB}}* \mbox{\hyperlink{group__proc_ga3923912bfa906265d441e6212e5e22b4}{get\_pcb}}(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} pid);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00096}00096 \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8h_source_l00100}00100 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

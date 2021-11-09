@@ -1,0 +1,50 @@
+\hypertarget{util_8c_source}{}\doxysection{util.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{util_8h}{util.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00004}00004 \textcolor{keywordtype}{void} raise\_exception(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context)}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00005}00005 \{}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00006}00006     \textcolor{keywordflow}{if}(*context) \{}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00007}00007         \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00008}00008         longjmp((*context)-\/>jbuf, 1);}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00009}00009     \}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00010}00010 \}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00013}00013 \textcolor{keywordtype}{void} exception\_unwind(\mbox{\hyperlink{structexception__stack__frame}{exception\_context}} context, \textcolor{keywordtype}{int} errcode)}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00014}00014 \{}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00015}00015     \textcolor{comment}{/* Get the top frame */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00016}00016     \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* frame = *context;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00018}00018     \textcolor{comment}{/* handle exception */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00019}00019     \textcolor{keywordtype}{int} captured = 0;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00021}00021     \textcolor{comment}{/* First execute catchers one by one */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00022}00022     \textcolor{keywordflow}{while}(frame-\/>catchers) \{}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00023}00023         captured = 1;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00024}00024         \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} *c = frame-\/>catchers;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00025}00025         \textcolor{comment}{/* Pop it from the list, just in case it throws() */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00026}00026         frame-\/>catchers = c-\/>next;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00027}00027         c-\/>handler(errcode);}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00028}00028     \}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00030}00030     \textcolor{comment}{/* Execute finalizers one by one */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00031}00031     \textcolor{keywordflow}{while}(frame-\/>finalizers) \{}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00032}00032         \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} *fin = frame-\/>finalizers;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00033}00033         frame-\/>finalizers = fin-\/>next;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00035}00035         fin-\/>handler(errcode);}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00036}00036     \}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00037}00037     }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00038}00038     \textcolor{comment}{/* pop this frame */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00039}00039     *context = frame-\/>next;}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00041}00041     \textcolor{comment}{/* propagate */}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00042}00042     \textcolor{keywordflow}{if}(errcode \&\& !captured) }
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00043}00043         raise\_exception(context);}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{util_8c_source_l00045}00045 }
+
+\end{DoxyCode}

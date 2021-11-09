@@ -1,0 +1,52 @@
+\hypertarget{kernel__sys_8h_source}{}\doxysection{kernel\+\_\+sys.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_SYS\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_KERNEL\_SYS\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bios_8h}{bios.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00007}00007 \textcolor{preprocessor}{\#define SYSCALLS \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00008}00008 \textcolor{preprocessor}{SYSCALL(Exec, int, (Task task, int argl, void* args), (task, argl, args))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00009}00009 \textcolor{preprocessor}{SYSCALLV(Exit, (int exitval), (exitval))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00010}00010 \textcolor{preprocessor}{SYSCALL(GetPid, int, (void), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00011}00011 \textcolor{preprocessor}{SYSCALL(GetPPid, int, (void), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00012}00012 \textcolor{preprocessor}{SYSCALL(WaitChild, Pid\_t, (Pid\_t proc, int* exitval), (proc, exitval))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00013}00013 \textcolor{preprocessor}{SYSCALL(CreateThread, Tid\_t, (Task task, int argl, void* args), (task, argl, args))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00014}00014 \textcolor{preprocessor}{SYSCALL(ThreadSelf, Tid\_t, (void), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00015}00015 \textcolor{preprocessor}{SYSCALL(ThreadJoin, int, (Tid\_t tid, int* exitval), (tid, exitval))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00016}00016 \textcolor{preprocessor}{SYSCALL(ThreadDetach, int, (Tid\_t tid), (tid))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00017}00017 \textcolor{preprocessor}{SYSCALLV(ThreadExit, (int exitval), (exitval))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00018}00018 \textcolor{preprocessor}{SYSCALL(GetTerminalDevices, unsigned int, (), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00019}00019 \textcolor{preprocessor}{SYSCALL(OpenTerminal, Fid\_t, (unsigned int termno), (termno))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00020}00020 \textcolor{preprocessor}{SYSCALL(OpenNull, Fid\_t, (), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00021}00021 \textcolor{preprocessor}{SYSCALL(Read,int,(Fid\_t fd, char *buf, unsigned int size), (fd,buf,size))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00022}00022 \textcolor{preprocessor}{SYSCALL(Write,int,(Fid\_t fd, const char *buf, unsigned int size), (fd,buf,size))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00023}00023 \textcolor{preprocessor}{SYSCALL(Close,int,(Fid\_t fd),(fd))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00024}00024 \textcolor{preprocessor}{SYSCALL(Dup2,int, (Fid\_t oldfd, Fid\_t newfd), (oldfd,newfd))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00025}00025 \textcolor{preprocessor}{SYSCALL(Pipe, int, (pipe\_t* pipe), (pipe))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00026}00026 \textcolor{preprocessor}{SYSCALL(Socket, Fid\_t, (port\_t port), (port))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00027}00027 \textcolor{preprocessor}{SYSCALL(Listen, int, (Fid\_t sock), (sock))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00028}00028 \textcolor{preprocessor}{SYSCALL(Accept, Fid\_t, (Fid\_t lsock), (lsock))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00029}00029 \textcolor{preprocessor}{SYSCALL(Connect, int, (Fid\_t sock, port\_t port, timeout\_t timeout), (sock, port, timeout))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00030}00030 \textcolor{preprocessor}{SYSCALL(ShutDown, int, (Fid\_t sock, shutdown\_mode how), (sock, how))\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00031}00031 \textcolor{preprocessor}{SYSCALL(OpenInfo, Fid\_t, (), ())\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00032}00032 \textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00035}00035 \textcolor{preprocessor}{\#define SYSCALL(NAME, RET, SIG, ARGS)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00036}00036 \textcolor{preprocessor}{RET sys\_ \#\# NAME SIG;}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00038}00038 \textcolor{comment}{/* without return */}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00039}00039 \textcolor{preprocessor}{\#define SYSCALLV(NAME, SIG, ARGS)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00040}00040 \textcolor{preprocessor}{void sys\_ \#\# NAME SIG;}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00042}00042 SYSCALLS}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00044}00044 \textcolor{preprocessor}{\#undef SYSCALL}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00045}00045 \textcolor{preprocessor}{\#undef SYSCALLV}}
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{kernel__sys_8h_source_l00047}00047 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

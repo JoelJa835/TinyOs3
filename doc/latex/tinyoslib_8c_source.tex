@@ -1,0 +1,198 @@
+\hypertarget{tinyoslib_8c_source}{}\doxysection{tinyoslib.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00003}00003 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00005}00005 \textcolor{preprocessor}{\#include <assert.h>}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00006}00006 \textcolor{preprocessor}{\#include <stdio\_ext.h>}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{util_8h}{util.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyoslib_8h}{tinyoslib.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00014}00014 \textcolor{keyword}{static} ssize\_t tinyos\_fid\_read(\textcolor{keywordtype}{void} *cookie, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{size\_t} size)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00015}00015 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00016}00016     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}{Read}}(*(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}}*)cookie, buf, size); }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00017}00017 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00019}00019 \textcolor{keyword}{static} ssize\_t tinyos\_fid\_write(\textcolor{keywordtype}{void} *cookie, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{size\_t} size)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00020}00020 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00021}00021     \textcolor{keywordtype}{int} ret = \mbox{\hyperlink{group__syscalls_gaf046f003fde24f79fb395c250137856c}{Write}}(*(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}}*)cookie, buf, size); }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00022}00022     \textcolor{keywordflow}{return} (ret<0) ? 0 : ret;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00023}00023 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00025}00025 \textcolor{keyword}{static} \textcolor{keywordtype}{int} tinyos\_fid\_close(\textcolor{keywordtype}{void}* cookie)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00026}00026 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00027}00027     free(cookie);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00028}00028     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00029}00029 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00031}00031 \textcolor{keyword}{static} cookie\_io\_functions\_t  tinyos\_fid\_functions =}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00033}00033     tinyos\_fid\_read,}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00034}00034     tinyos\_fid\_write,}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00035}00035     NULL,}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00036}00036     tinyos\_fid\_close}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00037}00037 \};}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00039}00039 \textcolor{keyword}{static} FILE* get\_std\_stream(\textcolor{keywordtype}{int} fid, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* mode)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00041}00041     FILE* term = \mbox{\hyperlink{tinyoslib_8h_ace85d0d619acd29cc0e67c265dd8aeba}{fidopen}}(fid, mode);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00042}00042     assert(term);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00043}00043     \textcolor{comment}{/* This is glibc-\/specific and tunrs off fstream locking */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00044}00044     \_\_fsetlocking(term, FSETLOCKING\_BYCALLER);  }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00045}00045     \textcolor{keywordflow}{return} term;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00046}00046 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00049}\mbox{\hyperlink{tinyoslib_8h_ace85d0d619acd29cc0e67c265dd8aeba}{00049}} FILE* \mbox{\hyperlink{tinyoslib_8h_ace85d0d619acd29cc0e67c265dd8aeba}{fidopen}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fid, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* mode)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00050}00050 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00052}00052     \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}}* fidloc = (\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} *) malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}}));}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00053}00053     * fidloc = fid;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00054}00054     FILE* f = fopencookie(fidloc, mode, tinyos\_fid\_functions);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00056}00056     \mbox{\hyperlink{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}{CHECKRC}}(setvbuf(f, NULL, \_IONBF, 0));}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00057}00057     \textcolor{keywordflow}{return} f;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00058}00058 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00060}00060 FILE *saved\_in = NULL, *saved\_out = NULL;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00063}00063 \textcolor{keywordtype}{void} tinyos\_replace\_stdio()}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00064}00064 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00065}00065     assert(saved\_in == NULL);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00066}00066     assert(saved\_out == NULL);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00067}00067     \textcolor{comment}{//if(GetTerminalDevices()==0) return;}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00068}00068     setbuf(stdout, NULL);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00070}00070     FILE* termin = get\_std\_stream(0, \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00071}00071     FILE* termout = get\_std\_stream(1, \textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00073}00073     saved\_in = stdin;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00074}00074     saved\_out = stdout;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00076}00076     stdin = termin;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00077}00077     stdout = termout;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00078}00078 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00080}00080 \textcolor{keywordtype}{void} tinyos\_restore\_stdio()}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00081}00081 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00082}00082     \textcolor{keywordflow}{if}(saved\_out == NULL)  \textcolor{keywordflow}{return};  }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00084}00084     fclose(stdin);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00085}00085     fclose(stdout);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00087}00087     stdin = saved\_in; }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00088}00088     stdout = saved\_out;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00090}00090     saved\_in = saved\_out = NULL;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00095}00095 \textcolor{keyword}{static} \textcolor{keywordtype}{int} exec\_wrapper(\textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00096}00096 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00097}00097     \textcolor{comment}{/* unpack the program pointer */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00098}00098     \mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}} prog;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00100}00100     \textcolor{comment}{/* unpack the prog pointer */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00101}00101     memcpy(\&prog, args, \textcolor{keyword}{sizeof}(prog));}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00103}00103     argl -\/= \textcolor{keyword}{sizeof}(prog);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00104}00104     args += \textcolor{keyword}{sizeof}(prog);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00106}00106     \textcolor{comment}{/* unpack the string vector */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00107}00107     \textcolor{keywordtype}{size\_t} argc = \mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}}(argl, args);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00108}00108     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* argv[argc];}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00109}00109     \mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{argvunpack}}(argc, argv, argl, args);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00111}00111     \textcolor{comment}{/* Make the call */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00112}00112     \textcolor{keywordflow}{return} prog(argc, argv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00113}00113 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00116}\mbox{\hyperlink{tinyoslib_8h_ab98738d69f4b198fbcad1a6f2e20a44d}{00116}} \textcolor{keywordtype}{int} \mbox{\hyperlink{tinyoslib_8h_ab98738d69f4b198fbcad1a6f2e20a44d}{ParseProcInfo}}(\mbox{\hyperlink{structprocinfo}{procinfo}}* pinfo, \mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}}* prog, \textcolor{keywordtype}{int} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv )}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00117}00117 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00118}00118     \textcolor{keywordflow}{if}(pinfo-\/>\mbox{\hyperlink{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}{main\_task}} != exec\_wrapper)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00119}00119         \textcolor{comment}{/* We do not recognize the format! */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00120}00120         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00122}00122     \textcolor{keywordflow}{if}(pinfo-\/>\mbox{\hyperlink{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}{argl}} > \mbox{\hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{PROCINFO\_MAX\_ARGS\_SIZE}}) }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00123}00123         \textcolor{comment}{/* The full argument is not available */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00124}00124         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00126}00126     \textcolor{keywordtype}{int} argl = pinfo-\/>\mbox{\hyperlink{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}{argl}};}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00127}00127     \textcolor{keywordtype}{void}* args = pinfo-\/>\mbox{\hyperlink{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}{args}};}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00129}00129     \textcolor{comment}{/* unpack the program pointer */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00130}00130     \textcolor{keywordflow}{if}(prog) memcpy(\&prog, args, \textcolor{keyword}{sizeof}(prog));}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00132}00132     argl -\/= \textcolor{keyword}{sizeof}(\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}}*);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00133}00133     args += \textcolor{keyword}{sizeof}(\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}}*);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00135}00135     \textcolor{comment}{/* unpack the string vector */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00136}00136     \textcolor{keywordtype}{size\_t} N = \mbox{\hyperlink{group__rlists_ga97bcca5a76c0b621981e80cfb618a73d}{argscount}}(argl, args);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00137}00137     \textcolor{keywordflow}{if}(argv) \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00138}00138         \textcolor{keywordflow}{if}(argc>N)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00139}00139             argc = N;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00140}00140         \mbox{\hyperlink{group__rlists_ga3596072fcd94f786ccfa8915aa708a68}{argvunpack}}(argc, argv, argl, args);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00141}00141     \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00143}00143     \textcolor{keywordflow}{return} N;       }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00144}00144 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00148}\mbox{\hyperlink{tinyoslib_8h_a0e11b5da87f467679adbb23883328c2d}{00148}} \textcolor{keywordtype}{int} \mbox{\hyperlink{tinyoslib_8h_a0e11b5da87f467679adbb23883328c2d}{Execute}}(\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}} prog, \textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00149}00149 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00150}00150     \textcolor{comment}{/* We will pack the prog pointer and the arguments to }}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00151}00151 \textcolor{comment}{      an argument buffer.}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00152}00152 \textcolor{comment}{      */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00154}00154     \textcolor{comment}{/* compute the argument buffer size */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00155}00155     \textcolor{keywordtype}{size\_t} argl = \mbox{\hyperlink{group__rlists_ga7a9791238730610435f0e56f3c9e9d5a}{argvlen}}(argc, argv) + \textcolor{keyword}{sizeof}(prog);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00157}00157     \textcolor{comment}{/* allocate the buffer */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00158}00158     \textcolor{keywordtype}{char} args[argl];}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00160}00160     \textcolor{comment}{/* put the pointer at the start */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00161}00161     memcpy(args, \&prog, \textcolor{keyword}{sizeof}(prog));}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00163}00163     \textcolor{comment}{/* add the string vector */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00164}00164     \mbox{\hyperlink{group__rlists_ga17795e528244cffd51a5935d8c5f2a74}{argvpack}}(args+\textcolor{keyword}{sizeof}(prog), argc, argv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00166}00166     \textcolor{comment}{/* Execute the process */}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00167}00167     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec}}(exec\_wrapper, argl, args);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00168}00168 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00172}00172 \textcolor{keywordtype}{void} BarrierSync(\mbox{\hyperlink{structbarrier}{barrier}}* bar, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00173}00173 \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00174}00174     assert(n>0);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00175}00175     \mbox{\hyperlink{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}{Mutex\_Lock}}(\& bar-\/>mx);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00177}00177     \textcolor{keywordtype}{int} epoch = bar-\/>epoch;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00178}00178     assert(bar-\/>count < n);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00180}00180     bar-\/>count ++;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00181}00181     \textcolor{keywordflow}{if}(bar-\/>count == n) \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00182}00182         bar-\/>epoch ++;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00183}00183         bar-\/>count = 0;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00184}00184         \mbox{\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\_Broadcast}}(\&bar-\/>cv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00185}00185     \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00187}00187     \textcolor{keywordflow}{while}(epoch == bar-\/>epoch)}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00188}00188         \mbox{\hyperlink{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}{Cond\_Wait}}(\&bar-\/>mx, \&bar-\/>cv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00190}00190     \mbox{\hyperlink{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}{Mutex\_Unlock}}(\& bar-\/>mx);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00191}00191 \}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8c_source_l00193}00193 }
+
+\end{DoxyCode}

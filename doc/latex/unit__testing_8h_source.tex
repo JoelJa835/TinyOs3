@@ -1,0 +1,114 @@
+\hypertarget{unit__testing_8h_source}{}\doxysection{unit\+\_\+testing.\+h}
+\mbox{\hyperlink{unit__testing_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef \_UNIT\_TESTING\_H}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00003}00003 \textcolor{preprocessor}{\#define \_UNIT\_TESTING\_H}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bios_8h}{bios.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00207}\mbox{\hyperlink{group__Testing_ga2a77d2f2c5b698c69c19e1f8782bf709}{00207}} \textcolor{preprocessor}{\#define MAX\_TESTS 1024}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00210}\mbox{\hyperlink{structprogram__arguments}{00210}} \textcolor{keyword}{extern} \textcolor{keyword}{struct }\mbox{\hyperlink{structprogram__arguments}{program\_arguments}}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00211}00211 \{}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00214}\mbox{\hyperlink{structprogram__arguments_a373cc9d546fdd5ca2c75e42300caf2e6}{00214}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_a373cc9d546fdd5ca2c75e42300caf2e6}{show\_tests}};}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00217}\mbox{\hyperlink{structprogram__arguments_ab075ba9c1c9d3b650c7490717ed6391e}{00217}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ab075ba9c1c9d3b650c7490717ed6391e}{verbose}};}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00220}\mbox{\hyperlink{structprogram__arguments_ae952a1ee415137013201280b500796c7}{00220}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ae952a1ee415137013201280b500796c7}{use\_color}};}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00223}\mbox{\hyperlink{structprogram__arguments_ac8d013f1348ee6c7287fd974561b4f47}{00223}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ac8d013f1348ee6c7287fd974561b4f47}{fork}};}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00225}\mbox{\hyperlink{structprogram__arguments_ab9717e16b92f14aa8c54dbf4a2d2b7b1}{00225}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ab9717e16b92f14aa8c54dbf4a2d2b7b1}{ncore\_list}};       }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00227}\mbox{\hyperlink{structprogram__arguments_ad063b1ce13702392eb2a64792488d505}{00227}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ad063b1ce13702392eb2a64792488d505}{core\_list}}[\mbox{\hyperlink{bios_8h_a009855593b59738d24dbfc236edb3b14}{MAX\_CORES}}];}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00229}\mbox{\hyperlink{structprogram__arguments_a48fbd16e4ce7ab5438078817c4931108}{00229}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_a48fbd16e4ce7ab5438078817c4931108}{nterm\_list}};       }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00231}\mbox{\hyperlink{structprogram__arguments_ab05abd5478458bb551479eb3e3dc75b1}{00231}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_ab05abd5478458bb551479eb3e3dc75b1}{term\_list}}[\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{MAX\_TERMINALS}}+1];}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00232}00232 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00233}\mbox{\hyperlink{structprogram__arguments_a8b96bf14afced6bae0d45424ab2fac57}{00233}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structprogram__arguments_a8b96bf14afced6bae0d45424ab2fac57}{ntests}};           }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00235}\mbox{\hyperlink{structprogram__arguments_a1db9e2ccc5b4309d559617d2b327e527}{00235}}     \textcolor{keyword}{const} \textcolor{keyword}{struct }\mbox{\hyperlink{structTest}{Test}}* \mbox{\hyperlink{structprogram__arguments_a1db9e2ccc5b4309d559617d2b327e527}{tests}}[\mbox{\hyperlink{group__Testing_ga2a77d2f2c5b698c69c19e1f8782bf709}{MAX\_TESTS}}];  }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00237}\mbox{\hyperlink{group__Testing_ga77ee99593f12b26362902169d4df3eab}{00237}} \} \mbox{\hyperlink{group__Testing_ga77ee99593f12b26362902169d4df3eab}{ARGS}}; }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00245}\mbox{\hyperlink{group__Testing_ga2e36933a48fbca44bb782f881ddceb20}{00245}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__Testing_ga2e36933a48fbca44bb782f881ddceb20}{MSG}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* format, ...) \_\_attribute\_\_ ((format (printf, 1, 2)));}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00246}00246 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00249}00249 extern \textcolor{keywordtype}{int} \mbox{\hyperlink{group__Testing_ga35895e417ef253455c9cf365cb66d87c}{FLAG\_FAILURE}}; }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00254}\mbox{\hyperlink{group__Testing_ga9be407f8744aff436633d34c62591cb9}{00254}} \textcolor{preprocessor}{\#define ASSERT\_MSG(expr, format, ...) do\{ if(!(expr)) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00255}00255 \textcolor{preprocessor}{ \{ FLAG\_FAILURE=1; MSG(format , \#\#  \_\_VA\_ARGS\_\_ ); \} \}while(0)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00268}\mbox{\hyperlink{group__Testing_ga28301f76c53b643912da7c538f74e2c6}{00268}} \textcolor{preprocessor}{\#define ASSERT(expr)  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00269}00269 \textcolor{preprocessor}{ ASSERT\_MSG(expr, "{}\%s(\%d): ASSERT failed: \%s \(\backslash\)n"{}},\_\_FILE\_\_, \_\_LINE\_\_, \#expr)}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00271}00271 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00280}\mbox{\hyperlink{group__Testing_ga03ce1c3343e1d176f3680bcebd054820}{00280}} \textcolor{preprocessor}{\#define FAIL(failure\_message)  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00281}00281 \textcolor{preprocessor}{ ASSERT\_MSG(0, "{}\%s(\%d): FAILURE: \%s \(\backslash\)n"{}},\_\_FILE\_\_, \_\_LINE\_\_, (failure\_message))}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00282}00282 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00283}00283 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00285}00285 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00286}00286 \textcolor{comment}{    Execution utilities}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00287}00287 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00298}\mbox{\hyperlink{group__Testing_ga0c4e801b8c3317b802fa4e80e1e26de2}{00298}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__Testing_ga0c4e801b8c3317b802fa4e80e1e26de2}{expect}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} term, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* pattern);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00305}\mbox{\hyperlink{group__Testing_ga0f97d30c4cd1370bcac6d7f4775d6789}{00305}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__Testing_ga0f97d30c4cd1370bcac6d7f4775d6789}{sendme}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} term, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* pattern);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00310}\mbox{\hyperlink{group__Testing_ga1ac76218e138d4f495b9a695c5da5b9b}{00310}} \textcolor{preprocessor}{\#define FUDGE(var)  memset(\&(var), 170, sizeof(var))}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00311}00311 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00312}00312 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00316}00316 \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ NO\_FUNC, BARE\_FUNC, BOOT\_FUNC, SUITE\_FUNC \} Test\_type;}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00322}\mbox{\hyperlink{structTest}{00322}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structTest}{Test}}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00323}00323 \{}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00324}\mbox{\hyperlink{structTest_a5074007b777ea0958966027197c17792}{00324}}     Test\_type \mbox{\hyperlink{structTest_a5074007b777ea0958966027197c17792}{type}};                     }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00325}\mbox{\hyperlink{structTest_ae44674e48b203d9c26e04e09b6fe5b61}{00325}}     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{structTest_ae44674e48b203d9c26e04e09b6fe5b61}{name}};                   }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00326}00326     \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00327}00327         void (*bare)(void);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00328}00328         \mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} boot;}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00329}00329         \textcolor{keyword}{const} \textcolor{keyword}{struct }\mbox{\hyperlink{structTest}{Test}} ** suite;}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00330}00330     \};                                  }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00331}\mbox{\hyperlink{structTest_a294ca3f1114240c908f66216afcad783}{00331}}     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{structTest_a294ca3f1114240c908f66216afcad783}{description}};         }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00332}\mbox{\hyperlink{structTest_a80e78f2e6aeed2a6e5b7c705ce5a1493}{00332}}     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structTest_a80e78f2e6aeed2a6e5b7c705ce5a1493}{timeout}};                }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00333}\mbox{\hyperlink{structTest_a2741188633c51b8e3cb545fa3971bf60}{00333}}     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structTest_a2741188633c51b8e3cb545fa3971bf60}{minimum\_terminals}};        }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00334}\mbox{\hyperlink{structTest_ac203918837b4c6718a020246e189a95a}{00334}}     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structTest_ac203918837b4c6718a020246e189a95a}{minimum\_cores}};            }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00335}\mbox{\hyperlink{group__Testing_gab605bbc0fbecce8cdbcaa2ff8a260e4b}{00335}} \} \mbox{\hyperlink{group__Testing_gab605bbc0fbecce8cdbcaa2ff8a260e4b}{Test}};}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00339}\mbox{\hyperlink{group__Testing_gaad2dd72565852b91c809cd4685833b17}{00339}} \textcolor{preprocessor}{\#define DEFAULT\_TIMEOUT 10}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00342}\mbox{\hyperlink{group__Testing_gadeb59351f026036674baa906f32ccd5c}{00342}} \textcolor{preprocessor}{\#define BARE\_TEST(tname, descr, ...) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00343}00343 \textcolor{preprocessor}{static void \_\_test\_ \#\# tname ();   \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00344}00344 \textcolor{preprocessor}{const Test tname = \{ BARE\_FUNC, \#tname, .bare = \_\_test\_\#\#tname , (descr), DEFAULT\_TIMEOUT, 0, 1, \_\_VA\_ARGS\_\_ \}; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00345}00345 \textcolor{preprocessor}{static void \_\_test\_ \#\# tname ()}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00346}00346 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00352}\mbox{\hyperlink{group__Testing_gadaaab439c094503b6ed7c313ad082f10}{00352}} \textcolor{preprocessor}{\#define BOOT\_TEST(tname, descr, ...) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00353}00353 \textcolor{preprocessor}{static int \_\_test\_ \#\# tname (int, void*); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00354}00354 \textcolor{preprocessor}{const Test tname = \{ BOOT\_FUNC, \#tname, .boot = \_\_test\_\#\#tname, (descr), DEFAULT\_TIMEOUT, 0, 1 , \_\_VA\_ARGS\_\_ \}; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00355}00355 \textcolor{preprocessor}{static int \_\_test\_ \#\# tname (int argl, void* args)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00356}00356 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00359}\mbox{\hyperlink{group__Testing_ga3e52396e466caa8cba74e1ae603817d3}{00359}} \textcolor{preprocessor}{\#define TEST\_SUITE(tname, descr, ...) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00360}00360 \textcolor{preprocessor}{extern const Test* \_\_suite\_\#\#tname[]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00361}00361 \textcolor{preprocessor}{const Test tname  = \{ SUITE\_FUNC, \#tname, .suite = \_\_suite\_\#\#tname, (descr), DEFAULT\_TIMEOUT, 0, 1, \_\_VA\_ARGS\_\_ \}; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00362}00362 \textcolor{preprocessor}{const Test* \_\_suite\_\#\#tname[]  = }}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00363}00363 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00364}00364 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00370}\mbox{\hyperlink{group__Testing_gac023795199b4f577a9181ac45e62b170}{00370}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__Testing_gac023795199b4f577a9181ac45e62b170}{run\_test}}(\textcolor{keyword}{const} \mbox{\hyperlink{structTest}{Test}}* test);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00371}00371 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00380}\mbox{\hyperlink{group__Testing_ga4663cf3fb390b2a6d9cf1943f21b9934}{00380}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__Testing_ga4663cf3fb390b2a6d9cf1943f21b9934}{register\_test}}(\textcolor{keyword}{const} \mbox{\hyperlink{structTest}{Test}}* test);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00381}00381 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00393}\mbox{\hyperlink{group__Testing_ga91dbdb97056588b088b689582abc2382}{00393}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__Testing_ga91dbdb97056588b088b689582abc2382}{run\_program}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}**argv, \textcolor{keyword}{const} \mbox{\hyperlink{structTest}{Test}}* default\_test);}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00394}00394 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00406}\mbox{\hyperlink{group__Testing_ga106e4293a3520dae79707bdf492dc68b}{00406}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__Testing_ga106e4293a3520dae79707bdf492dc68b}{isDebuggerAttached}}();}
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00407}00407 }
+\DoxyCodeLine{\Hypertarget{unit__testing_8h_source_l00410}00410 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

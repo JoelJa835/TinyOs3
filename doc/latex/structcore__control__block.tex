@@ -1,0 +1,105 @@
+\hypertarget{structcore__control__block}{}\doxysection{core\+\_\+control\+\_\+block Struct Reference}
+\label{structcore__control__block}\index{core\_control\_block@{core\_control\_block}}
+
+
+Core control block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+sched.\+h$>$}
+
+
+
+Collaboration diagram for core\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcore__control__block__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}{id}}
+\begin{DoxyCompactList}\small\item\em The core id. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}} $\ast$ \mbox{\hyperlink{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}{current\+\_\+thread}}
+\begin{DoxyCompactList}\small\item\em Points to the thread currently owning the core. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}} $\ast$ \mbox{\hyperlink{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}{previous\+\_\+thread}}
+\begin{DoxyCompactList}\small\item\em Points to the thread that previously owned the core. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}} \mbox{\hyperlink{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}{idle\+\_\+thread}}
+\begin{DoxyCompactList}\small\item\em Used by the scheduler to handle the core\textquotesingle{}s idle thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Core control block. 
+
+Per-\/core info in memory (basically scheduler-\/related). 
+
+Definition at line \mbox{\hyperlink{kernel__sched_8h_source_l00149}{149}} of file \mbox{\hyperlink{kernel__sched_8h_source}{kernel\+\_\+sched.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}\label{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}} 
+\index{core\_control\_block@{core\_control\_block}!current\_thread@{current\_thread}}
+\index{current\_thread@{current\_thread}!core\_control\_block@{core\_control\_block}}
+\doxysubsubsection{\texorpdfstring{current\_thread}{current\_thread}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}$\ast$ core\+\_\+control\+\_\+block\+::current\+\_\+thread}
+
+
+
+Points to the thread currently owning the core. 
+
+
+
+Definition at line \mbox{\hyperlink{kernel__sched_8h_source_l00152}{152}} of file \mbox{\hyperlink{kernel__sched_8h_source}{kernel\+\_\+sched.\+h}}.
+
+\mbox{\Hypertarget{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}\label{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}} 
+\index{core\_control\_block@{core\_control\_block}!id@{id}}
+\index{id@{id}!core\_control\_block@{core\_control\_block}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} core\+\_\+control\+\_\+block\+::id}
+
+
+
+The core id. 
+
+
+
+Definition at line \mbox{\hyperlink{kernel__sched_8h_source_l00150}{150}} of file \mbox{\hyperlink{kernel__sched_8h_source}{kernel\+\_\+sched.\+h}}.
+
+\mbox{\Hypertarget{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}\label{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}} 
+\index{core\_control\_block@{core\_control\_block}!idle\_thread@{idle\_thread}}
+\index{idle\_thread@{idle\_thread}!core\_control\_block@{core\_control\_block}}
+\doxysubsubsection{\texorpdfstring{idle\_thread}{idle\_thread}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}} core\+\_\+control\+\_\+block\+::idle\+\_\+thread}
+
+
+
+Used by the scheduler to handle the core\textquotesingle{}s idle thread. 
+
+
+
+Definition at line \mbox{\hyperlink{kernel__sched_8h_source_l00154}{154}} of file \mbox{\hyperlink{kernel__sched_8h_source}{kernel\+\_\+sched.\+h}}.
+
+\mbox{\Hypertarget{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}\label{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}} 
+\index{core\_control\_block@{core\_control\_block}!previous\_thread@{previous\_thread}}
+\index{previous\_thread@{previous\_thread}!core\_control\_block@{core\_control\_block}}
+\doxysubsubsection{\texorpdfstring{previous\_thread}{previous\_thread}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__scheduler_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{TCB}}$\ast$ core\+\_\+control\+\_\+block\+::previous\+\_\+thread}
+
+
+
+Points to the thread that previously owned the core. 
+
+
+
+Definition at line \mbox{\hyperlink{kernel__sched_8h_source_l00153}{153}} of file \mbox{\hyperlink{kernel__sched_8h_source}{kernel\+\_\+sched.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{kernel__sched_8h}{kernel\+\_\+sched.\+h}}\end{DoxyCompactItemize}

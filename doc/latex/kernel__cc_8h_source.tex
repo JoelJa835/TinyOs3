@@ -1,0 +1,59 @@
+\hypertarget{kernel__cc_8h_source}{}\doxysection{kernel\+\_\+cc.\+h}
+\mbox{\hyperlink{kernel__cc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00002}00002 \textcolor{comment}{ *  Concurrency Control API}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00003}00003 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00004}00004 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00007}00007 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_CC\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00008}00008 \textcolor{preprocessor}{\#define \_\_KERNEL\_CC\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00025}00025 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00026}00026 \textcolor{comment}{    Many of the header definitions for Mutexes and CondVars are in the }}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00027}00027 \textcolor{comment}{    tinyos.h file}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00028}00028 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00029}00029 \textcolor{preprocessor}{\#include "{}kernel\_sys.h"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__sched_8h}{kernel\_sched.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00035}00035 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00036}00036 \textcolor{comment}{ * Kernel preemption control.}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00037}00037 \textcolor{comment}{ * These are wrappers for the kernel monitor.}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00038}00038 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00043}00043 \textcolor{keywordtype}{void} \mbox{\hyperlink{kernel__cc_8h_a64cbb83e8857ffaf703722363ac94f05}{kernel\_lock}}();}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00048}00048 \textcolor{keywordtype}{void} \mbox{\hyperlink{kernel__cc_8h_a8ca062a9a1c570f34398bd177cb96e58}{kernel\_unlock}}();}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00054}00054 \textcolor{keywordtype}{int} \mbox{\hyperlink{kernel__cc_8h_abe7f999775e4f5a56201bf88a9eeb2a1}{kernel\_wait\_wchan}}(\mbox{\hyperlink{structCondVar}{CondVar}}* cv, \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} cause, }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00055}00055     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* wchan, \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} timeout);}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00057}00057 \textcolor{preprocessor}{\#define kernel\_wait(cv, cause) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00058}00058 \textcolor{preprocessor}{    kernel\_wait\_wchan((cv),(cause),\_\_FUNCTION\_\_, NO\_TIMEOUT)}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00059}00059 \textcolor{preprocessor}{\#define kernel\_timedwait(cv, cause, timeout) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00060}00060 \textcolor{preprocessor}{    kernel\_wait\_wchan((cv),(cause),\_\_FUNCTION\_\_, (timeout))}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00067}00067 \textcolor{keywordtype}{void} \mbox{\hyperlink{kernel__cc_8h_a167cdb3f2a2285becf553405210eb08a}{kernel\_signal}}(\mbox{\hyperlink{structCondVar}{CondVar}}* cv);}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00072}00072 \textcolor{keywordtype}{void} \mbox{\hyperlink{kernel__cc_8h_a6ab8c1febc779de0c176d4e8a101ec5b}{kernel\_broadcast}}(\mbox{\hyperlink{structCondVar}{CondVar}}* cv);}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00081}00081 \textcolor{keywordtype}{void} \mbox{\hyperlink{kernel__cc_8h_ac108cbd1eb069858a5ed9e576069c464}{kernel\_sleep}}(\mbox{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\_state}} state, \textcolor{keyword}{enum} \mbox{\hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{SCHED\_CAUSE}} cause);}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00103}\mbox{\hyperlink{kernel__cc_8h_af936bcf607a61848cfea21c119f30905}{00103}} \textcolor{preprocessor}{\#define preempt\_off  cpu\_disable\_interrupts()}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00108}\mbox{\hyperlink{kernel__cc_8h_ac8efed506a60c7c6f02514e878a4004b}{00108}} \textcolor{preprocessor}{\#define preempt\_on  cpu\_enable\_interrupts()}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00111}00111 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{kernel__cc_8h_source_l00113}00113 }
+
+\end{DoxyCode}

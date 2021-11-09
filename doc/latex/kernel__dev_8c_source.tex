@@ -1,0 +1,241 @@
+\hypertarget{kernel__dev_8c_source}{}\doxysection{kernel\+\_\+dev.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00002}00002 \textcolor{preprocessor}{\#include <assert.h>}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__cc_8h}{kernel\_cc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__dev_8h}{kernel\_dev.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__sched_8h}{kernel\_sched.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__streams_8h}{kernel\_streams.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__proc_8h}{kernel\_proc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00009}00009 \textcolor{comment}{/*************************************}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00010}00010 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00011}00011 \textcolor{comment}{  Devices and device drivers}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00012}00012 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00013}00013 \textcolor{comment}{ *************************************/}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00015}00015 \mbox{\hyperlink{structdevice__control__block}{DCB}} DT[\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{MAX\_TERMINALS}}];}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00018}00018 \textcolor{comment}{/* ===================================}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00019}00019 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00020}00020 \textcolor{comment}{  The null device driver}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00021}00021 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00022}00022 \textcolor{comment}{  ====================================*/}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00025}00025 \textcolor{keywordtype}{int} nulldev\_read(\textcolor{keywordtype}{void}* dev, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00026}00026 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00027}00027   memset(buf, 0, size);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00028}00028   \textcolor{keywordflow}{return} size;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00029}00029 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00031}00031 \textcolor{keywordtype}{int} nulldev\_write(\textcolor{keywordtype}{void}* dev, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00033}00033     \textcolor{comment}{/* Here, we do not copy anything, therefore simply return}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00034}00034 \textcolor{comment}{       a value equal to the argument.}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00035}00035 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00036}00036     \textcolor{keywordflow}{return} size;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00040}00040 \textcolor{keywordtype}{int} nulldev\_close(\textcolor{keywordtype}{void}* dev) }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00041}00041 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00042}00042   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00045}00045 \textcolor{keywordtype}{void}* nulldev\_open(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} minor)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00046}00046 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00047}00047   \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00048}00048 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00050}00050 \textcolor{keyword}{static} \mbox{\hyperlink{structfile__operations}{file\_ops}} nulldev\_fops = \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00051}00051   .\mbox{\hyperlink{structfile__operations_a6376dcf4623ab43032b6269eaddafd56}{Open}} = nulldev\_open,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00052}00052   .Read = nulldev\_read,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00053}00053   .Write = nulldev\_write,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00054}00054   .Close = nulldev\_close}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00055}00055 \};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00058}00058 \textcolor{comment}{/*============================================}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00059}00059 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00060}00060 \textcolor{comment}{  The serial device driver}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00061}00061 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00062}00062 \textcolor{comment}{ ============================================*/}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00065}00065 \textcolor{comment}{/* forward */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00066}00066 \textcolor{keywordtype}{void} serial\_rx\_handler();}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00067}00067 \textcolor{keywordtype}{void} serial\_tx\_handler();}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00069}\mbox{\hyperlink{structserial__device__control__block}{00069}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structserial__device__control__block}{serial\_device\_control\_block}} \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00070}00070   \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} devno;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00071}00071   \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}} spinlock;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00072}00072   \mbox{\hyperlink{structCondVar}{CondVar}} rx\_ready;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00073}00073 \} \mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00075}00075 \mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}} serial\_dcb[\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{MAX\_TERMINALS}}];}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00079}00079 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00080}00080 \textcolor{comment}{  Interrupt-\/driven driver for serial-\/device reads.}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00081}00081 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00083}00083 \textcolor{keywordtype}{void} serial\_rx\_handler()}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00084}00084 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00085}00085   \textcolor{keywordtype}{int} pre = \mbox{\hyperlink{kernel__cc_8h_af936bcf607a61848cfea21c119f30905}{preempt\_off}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00087}00087   \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00088}00088 \textcolor{comment}{    We do not know which terminal is}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00089}00089 \textcolor{comment}{    ready, so we must signal them all !}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00090}00090 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00091}00091   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<\mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{bios\_serial\_ports}}();i++) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00092}00092     \mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}}* dcb = \&serial\_dcb[i];}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00093}00093     \mbox{\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\_Broadcast}}(\&dcb-\/>rx\_ready);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00094}00094   \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00095}00095   \textcolor{keywordflow}{if}(pre) \mbox{\hyperlink{kernel__cc_8h_ac8efed506a60c7c6f02514e878a4004b}{preempt\_on}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00098}00098 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00099}00099 \textcolor{comment}{  Read from the device, sleeping if needed.}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00100}00100 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00101}00101 \textcolor{keywordtype}{int} serial\_read(\textcolor{keywordtype}{void}* dev, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00102}00102 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00103}00103   \mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}}* dcb = (\mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}}*)dev;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00105}00105   \mbox{\hyperlink{kernel__cc_8h_af936bcf607a61848cfea21c119f30905}{preempt\_off}};            \textcolor{comment}{/* Stop preemption */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00107}00107   \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} count =  0;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00109}00109   \textcolor{keywordflow}{while}(count<size) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00110}00110     \textcolor{keywordtype}{int} valid = \mbox{\hyperlink{bios_8h_a04ebe8b1d424c0ef473db751f7b79fbb}{bios\_read\_serial}}(dcb-\/>devno, \&buf[count]);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00111}00111     }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00112}00112     \textcolor{keywordflow}{if} (valid) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00113}00113       count++;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00114}00114     \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00115}00115     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(count==0) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00116}00116       kernel\_wait(\&dcb-\/>rx\_ready, \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}{SCHED\_IO}});}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00117}00117     \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00118}00118     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00119}00119       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00120}00120   \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00122}00122   \mbox{\hyperlink{kernel__cc_8h_ac8efed506a60c7c6f02514e878a4004b}{preempt\_on}};           \textcolor{comment}{/* Restart preemption */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00124}00124   \textcolor{keywordflow}{return} count;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00125}00125 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00128}00128 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00129}00129 \textcolor{comment}{  A polling driver for serial writes}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00130}00130 \textcolor{comment}{  */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00132}00132 \textcolor{comment}{/* Interrupt driver */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00133}00133 \textcolor{keywordtype}{void} serial\_tx\_handler()}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00134}00134 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00135}00135   \textcolor{comment}{/* There is nothing to do */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00136}00136 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00138}00138 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00139}00139 \textcolor{comment}{  Write call }}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00140}00140 \textcolor{comment}{  This is currently a polling driver.}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00141}00141 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00142}00142 \textcolor{keywordtype}{int} serial\_write(\textcolor{keywordtype}{void}* dev, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00143}00143 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00144}00144   \mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}}* dcb = (\mbox{\hyperlink{structserial__device__control__block}{serial\_dcb\_t}}*)dev;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00146}00146   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count = 0;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00147}00147   \textcolor{keywordflow}{while}(count < size) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00148}00148     \textcolor{keywordtype}{int} success = \mbox{\hyperlink{bios_8h_a97bde2ebd5f9d86c0085aacaa5e5d287}{bios\_write\_serial}}(dcb-\/>devno, buf[count] );}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00150}00150     \textcolor{keywordflow}{if}(success) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00151}00151       count++;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00152}00152     \} }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00153}00153     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(count==0)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00154}00154     \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00155}00155       \mbox{\hyperlink{group__scheduler_ga1db327892199949812ae5a52119f2e97}{yield}}(\mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}{SCHED\_IO}});}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00156}00156     \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00157}00157     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00158}00158       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00159}00159   \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00161}00161   \textcolor{keywordflow}{return} count;  }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00162}00162 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00165}00165 \textcolor{keywordtype}{int} serial\_close(\textcolor{keywordtype}{void}* dev) }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00166}00166 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00167}00167   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00168}00168 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00171}00171 \textcolor{keywordtype}{void}* serial\_open(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} term)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00172}00172 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00173}00173   assert(term<\mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{bios\_serial\_ports}}());}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00174}00174   \textcolor{keywordflow}{return} \& serial\_dcb[term];  }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00175}00175 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00179}00179 \mbox{\hyperlink{structfile__operations}{file\_ops}} serial\_fops = \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00180}00180   .\mbox{\hyperlink{structfile__operations_a6376dcf4623ab43032b6269eaddafd56}{Open}} = serial\_open,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00181}00181   .Read = serial\_read,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00182}00182   .Write = serial\_write,}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00183}00183   .Close = serial\_close}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00184}00184 \};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00188}00188 \textcolor{comment}{/***********************************}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00189}00189 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00190}00190 \textcolor{comment}{  The device table}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00191}00191 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00192}00192 \textcolor{comment}{***********************************/}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00194}00194 \mbox{\hyperlink{structdevice__control__block}{DCB}} devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a4d07dfbc7e68d26e2d92773a37381ce7}{DEV\_MAX}}];}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00198}\mbox{\hyperlink{group__dev_ga840b5c2460abea4a19a201f7d6d035c8}{00198}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__dev_ga840b5c2460abea4a19a201f7d6d035c8}{initialize\_devices}}()}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00199}00199 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00201}00201   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{DEV\_NULL}}].\mbox{\hyperlink{structdevice__control__block_a35a45268132777177a33513c747633c4}{type}} = \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{DEV\_NULL}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00202}00202   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{DEV\_NULL}}].\mbox{\hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{devnum}} = 1;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00203}00203   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{DEV\_NULL}}].\mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\_fops}} = nulldev\_fops;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00205}00205   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{DEV\_SERIAL}}].\mbox{\hyperlink{structdevice__control__block_a35a45268132777177a33513c747633c4}{type}} = \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{DEV\_SERIAL}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00206}00206   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{DEV\_SERIAL}}].\mbox{\hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{devnum}} = \mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{bios\_serial\_ports}}();}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00207}00207   devtable[\mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{DEV\_SERIAL}}].\mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\_fops}} = serial\_fops;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00209}00209   \textcolor{comment}{/* Initialize the serial devices */}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00210}00210   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0; i<\mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{bios\_serial\_ports}}(); i++) \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00211}00211     serial\_dcb[i].devno = i;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00212}00212     serial\_dcb[i].rx\_ready = \mbox{\hyperlink{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}{COND\_INIT}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00213}00213     serial\_dcb[i].spinlock = \mbox{\hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{MUTEX\_INIT}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00214}00214   \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00216}00216   \mbox{\hyperlink{bios_8h_a0cf5c5e80f04d98362346e6ec770022d}{cpu\_interrupt\_handler}}(\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaa2e06ea796d072595be1770c601e78206}{SERIAL\_RX\_READY}}, serial\_rx\_handler);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00217}00217   \mbox{\hyperlink{bios_8h_a0cf5c5e80f04d98362346e6ec770022d}{cpu\_interrupt\_handler}}(\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaad168539d997c69c61da9c1f5f3187878}{SERIAL\_TX\_READY}}, serial\_tx\_handler);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00218}00218 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00221}\mbox{\hyperlink{group__dev_ga6d8e08550640c9819aa07b6bba9fa6ed}{00221}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__dev_ga6d8e08550640c9819aa07b6bba9fa6ed}{device\_open}}(\mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}} major, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} minor, \textcolor{keywordtype}{void}** obj, \mbox{\hyperlink{structfile__operations}{file\_ops}}** ops)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00222}00222 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00223}00223   assert(major < \mbox{\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a4d07dfbc7e68d26e2d92773a37381ce7}{DEV\_MAX}});  }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00224}00224   \textcolor{keywordflow}{if}(minor >= devtable[major].devnum)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00225}00225     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00226}00226   *obj = devtable[major].\mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\_fops}}.\mbox{\hyperlink{structfile__operations_a6376dcf4623ab43032b6269eaddafd56}{Open}}(minor);}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00227}00227   *ops = \&devtable[major].\mbox{\hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\_fops}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00228}00228   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00229}00229 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00231}\mbox{\hyperlink{group__dev_ga0808cf584a510e0eff6908a5313ce296}{00231}} \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{group__dev_ga0808cf584a510e0eff6908a5313ce296}{device\_no}}(\mbox{\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\_type}} major)}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00232}00232 \{}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00233}00233   \textcolor{keywordflow}{return} devtable[major].\mbox{\hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{devnum}};}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00234}00234 \}}
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{kernel__dev_8c_source_l00236}00236 }
+
+\end{DoxyCode}

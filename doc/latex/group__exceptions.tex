@@ -1,0 +1,299 @@
+\hypertarget{group__exceptions}{}\doxysection{An execption-\/like library.}
+\label{group__exceptions}\index{An execption-\/like library.@{An execption-\/like library.}}
+
+
+An exception-\/like mechanism for C.  
+
+
+Collaboration diagram for An execption-\/like library.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__exceptions}
+\end{center}
+\end{figure}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__helpers}{Helpers for exceptions}}
+\begin{DoxyCompactList}\small\item\em These are some internal helpers, not part of the public API. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structexception__handler__frame}{exception\+\_\+handler\+\_\+frame}}
+\item 
+struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__exceptions_gadf8cc03bd0ede7f3e5aafa57de5016dd}{\+\_\+\+\_\+concatenate\+\_\+tokens}}(x,  y)~x \#\# y
+\item 
+\#define \mbox{\hyperlink{group__exceptions_ga0d2e02c74b05d3ff3bfa9eb3dcd891e3}{\+\_\+\+\_\+conc}}(z,  w)~\+\_\+\+\_\+concatenate\+\_\+tokens(z,w)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{group__exceptions_ga07c60bc46505779b049ce597fe609258}{exception\+\_\+handler}}) (int)
+\item 
+typedef struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$$\ast$ \mbox{\hyperlink{group__exceptions_ga644495f4913e96a83cdf2779fd813974}{exception\+\_\+context}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__exceptions_ga7eda2653ee54e0c95e9d51b8fd873298}{raise\+\_\+exception}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context)
+\item 
+void \mbox{\hyperlink{group__exceptions_ga5232fee2c414c5ff1ff44dc28c83cf42}{exception\+\_\+unwind}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, int errcode)
+\item 
+static void \mbox{\hyperlink{group__exceptions_gad0ebd2587ae85b044e1306a026246a27}{\+\_\+\+\_\+exc\+\_\+push\+\_\+frame}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$frame)
+\item 
+static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \mbox{\hyperlink{group__exceptions_gaad3e2ebd51ec03e42f83aa9896dfcc9d}{\+\_\+\+\_\+exc\+\_\+try}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context, int errcode)
+\item 
+static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \mbox{\hyperlink{group__exceptions_ga0c746dd7e832d05c53d14acc84104a9f}{\+\_\+\+\_\+exc\+\_\+exit\+\_\+try}} (\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}} context)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An exception-\/like mechanism for C. 
+
+Exceptions are supported by many object-\/oriented languages, such as Java, C++ and Python, but not by C. This makes programming certain kinds of tasks somewhat complicated. These are tasks that can cause a thread to exit back through several layers of calls. For example, a system call may lead to a stack of nested calls to execute the code of a driver. If processing is to be rolled back to the point of entry to the kernel, all calls in that stack need to propagate the error. This makes coding tedious and error-\/prone.
+
+In C, there is a standard-\/library facility that can be used to implement such functionality, available by including {\ttfamily \texorpdfstring{$<$}{<}setjmp.\+h\texorpdfstring{$>$}{>}}. The help is in the form of functions {\ttfamily setjmp()} and {\ttfamily longjmp} (and their vatiatons). In this library, these standard calls, wrapped by some suitable macros, and using some GNU GCC extensions (nested functions), provide some easy-\/to-\/use exception-\/like programming structures.\hypertarget{group__exceptions_autotoc_md31}{}\doxysubsubsection{Examples}\label{group__exceptions_autotoc_md31}
+Before we describe the details, we show some examples of the library\textquotesingle{}s use.
+
+A try-\/block is declared as follows\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TRY\_WITH(context) \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    ON\_ERROR \{}
+\DoxyCodeLine{        printf(\textcolor{stringliteral}{"{}Error in what I was doing\(\backslash\)n"{}});}
+\DoxyCodeLine{        \textcolor{comment}{// After this, execute the finally }}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    FINALLY(e) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(e) }
+\DoxyCodeLine{            printf(\textcolor{stringliteral}{"{}Continuing after error\(\backslash\)n"{}});         }
+\DoxyCodeLine{        \textcolor{keywordflow}{else}}
+\DoxyCodeLine{            printf(\textcolor{stringliteral}{"{}Finished without error\(\backslash\)n"{}});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// do something here }}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(error\_happens)}
+\DoxyCodeLine{        raise\_exception(context);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// or call a function that may call raise\_exception()}}
+\DoxyCodeLine{    do\_something\_else();}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// If we leave here, FINALLY will be executed }}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+For example, one could do the following, to construct a composite resource\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Resource r1, r2, r3;}
+\DoxyCodeLine{TRY\_WITH(context) \{}
+\DoxyCodeLine{    lock\_monitor();}
+\DoxyCodeLine{    FINALLY(e) \{}
+\DoxyCodeLine{        unlock\_monitor();}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// This may raise\_exception(...)}}
+\DoxyCodeLine{    r1 = acquire\_resource1();}
+\DoxyCodeLine{    ON\_ERROR \{}
+\DoxyCodeLine{        release\_resource1(r1);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// This may raise\_exception(...)}}
+\DoxyCodeLine{    r2 = acquire\_resource2(r2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    ON\_ERROR \{}
+\DoxyCodeLine{        release\_resource2(r2);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// This may raise\_exception(...)}}
+\DoxyCodeLine{    r3 = acquire\_resrouce3(r1, r2);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keywordflow}{return} r3;}
+
+\end{DoxyCode}
+\hypertarget{group__exceptions_autotoc_md32}{}\doxysubsubsection{How it works}\label{group__exceptions_autotoc_md32}
+The workings are based on the idea of an {\bfseries{exception stack}}. The elements of this stack are called {\bfseries{exception stack frames}} (ESFs). Each thread should have its own exception stack. When a TRY\+\_\+\+WITH(...) block begins, a new ESF is pushed to the stack, and the block starts to execute.
+
+Each ESF has two lists of functions of type @ exception\+\_\+handler, which is defined as {\ttfamily void ($\ast$)(int)}. The nodes for these lists are {\ttfamily struct \mbox{\hyperlink{structexception__handler__frame}{exception\+\_\+handler\+\_\+frame}}} objects. Initially, the new ESF has empty lists. The first list is the list of {\bfseries{catchers}} and the second is the list of {\bfseries{finalizers}}.
+
+As the TRY-\/block executes, execution reaches {\ttfamily FINALLY()} and {\ttfamily ON\+\_\+\+ERROR} blocks. When a {\ttfamily FINALLY()} block is reached, a new handler is added to the finalizers list. When a {\ttfamily ON\+\_\+\+ERROR} block is reached, a new handler is added to the catchers list.
+
+If execution arrives at the end of the TRY-\/block, the list of catchers is thrown away and the finalizers are executed (in reverse order, that is, last-\/in-\/first-\/out).
+
+If at some point the function {\ttfamily raise\+\_\+exception()} is called, execution jumps back at the TRY-\/block at the top of the exception stack. There, each catcher is first executed, followed by all the finalizers. At the end, the ESF is popped from the exception stack. Then, if at least one catcher did execute, the exception is considered handled, and execution continues after the TRY-\/block. If however there was no catcher executed, and the exception stack is non-\/empty, then {\ttfamily raise\+\_\+exception()} is called again, to repeat the process.
+
+An exception stack is defined simply as a pointer to {\ttfamily struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}}}. An \+\_\+\+\_\+exception context\+\_\+\+\_\+is a pointer to such a pointer, that is, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}** \mbox{\hyperlink{structexception__stack__frame}{exception\_context}};}
+
+\end{DoxyCode}
+ A context needs to be available to our code in two places\+: when a {\ttfamily TRY\+\_\+\+WITH(context)} block is defined, and when {\ttfamily raise\+\_\+exception(context)} is called.
+
+One can simply define a context as a global variable\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// at top level}}
+\DoxyCodeLine{\textcolor{keyword}{struct }execution\_stack\_frame* exception\_stack = NULL;}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define TRY  TRY\_WITH(\&exception\_stack)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define RAISE  raise\_exception(\&exception\_stack)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{TRY \{}
+\DoxyCodeLine{    ...}
+\DoxyCodeLine{    RAISE;}
+\DoxyCodeLine{    ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In a multi-\/threaded case, it is necessary to declare one context for each thread. This can be done at the TCB, for example.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct }\mbox{\hyperlink{structthread__control__block}{TCB}} \{}
+\DoxyCodeLine{    ....}
+\DoxyCodeLine{    \textcolor{keyword}{struct }execution\_stack\_frame* exception\_stack = NULL;   }
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define TRY  TRY\_WITH(\& CURTHREAD-\/>exception\_stack)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define RAISE  raise\_exception(\& CURTHREAD-\/>exception\_stack)}}
+
+\end{DoxyCode}
+\hypertarget{group__exceptions_autotoc_md33}{}\doxysubsubsection{Performance}\label{group__exceptions_autotoc_md33}
+Although setting up a TRY-\/block is relatively cheap (basically, a call to {\ttfamily setjmp} is done), it is better to avoid calling exception handlers. So, for very critical pieces of code, one could do 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TRY \{}
+\DoxyCodeLine{    lock\_mutex();}
+\DoxyCodeLine{    ON\_ERROR \{}
+\DoxyCodeLine{        unlock\_mutex();}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    ... \textcolor{comment}{// stuff}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    unlock\_mutex();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ instead of the more convenient 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TRY \{}
+\DoxyCodeLine{    lock\_mutex();}
+\DoxyCodeLine{    FINALLY(e) \{}
+\DoxyCodeLine{        unlock\_mutex();}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    ... \textcolor{comment}{// stuff    }}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The first case is faster, because it avoids a function call, when there is no exception, whereas the second will make a call to the {\ttfamily FINALLY} block, even without an exception raised. But, remember\+: {\bfseries{premature optimization is the source of all evil}}.\hypertarget{group__exceptions_autotoc_md34}{}\doxysubsubsection{Raising from inside an exception handler}\label{group__exceptions_autotoc_md34}
+It is perfecly legal and supported to have exceptions raised from inside {\ttfamily ON\+\_\+\+ERROR} or {\ttfamily FINALLY} blocks (or the functions they call).
+
+What happens in this case is that the exception handler execution is aborted and the processing continues with the next exception handler of the ESF. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__exceptions_ga0d2e02c74b05d3ff3bfa9eb3dcd891e3}\label{group__exceptions_ga0d2e02c74b05d3ff3bfa9eb3dcd891e3}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!\_\_conc@{\_\_conc}}
+\index{\_\_conc@{\_\_conc}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{\_\_conc}{\_\_conc}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+conc(\begin{DoxyParamCaption}\item[{}]{z,  }\item[{}]{w }\end{DoxyParamCaption})~\+\_\+\+\_\+concatenate\+\_\+tokens(z,w)}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00923}{923}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__exceptions_gadf8cc03bd0ede7f3e5aafa57de5016dd}\label{group__exceptions_gadf8cc03bd0ede7f3e5aafa57de5016dd}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!\_\_concatenate\_tokens@{\_\_concatenate\_tokens}}
+\index{\_\_concatenate\_tokens@{\_\_concatenate\_tokens}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{\_\_concatenate\_tokens}{\_\_concatenate\_tokens}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+concatenate\+\_\+tokens(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~x \#\# y}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00922}{922}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{group__exceptions_ga644495f4913e96a83cdf2779fd813974}\label{group__exceptions_ga644495f4913e96a83cdf2779fd813974}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!exception\_context@{exception\_context}}
+\index{exception\_context@{exception\_context}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{exception\_context}{exception\_context}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}}$\ast$$\ast$ \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00885}{885}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__exceptions_ga07c60bc46505779b049ce597fe609258}\label{group__exceptions_ga07c60bc46505779b049ce597fe609258}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!exception\_handler@{exception\_handler}}
+\index{exception\_handler@{exception\_handler}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{exception\_handler}{exception\_handler}}
+{\footnotesize\ttfamily typedef void($\ast$ exception\+\_\+handler) (int)}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00868}{868}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__exceptions_ga0c746dd7e832d05c53d14acc84104a9f}\label{group__exceptions_ga0c746dd7e832d05c53d14acc84104a9f}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!\_\_exc\_exit\_try@{\_\_exc\_exit\_try}}
+\index{\_\_exc\_exit\_try@{\_\_exc\_exit\_try}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{\_\_exc\_exit\_try()}{\_\_exc\_exit\_try()}}
+{\footnotesize\ttfamily static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \+\_\+\+\_\+exc\+\_\+exit\+\_\+try (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}]{context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00915}{915}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__exceptions_gad0ebd2587ae85b044e1306a026246a27}\label{group__exceptions_gad0ebd2587ae85b044e1306a026246a27}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!\_\_exc\_push\_frame@{\_\_exc\_push\_frame}}
+\index{\_\_exc\_push\_frame@{\_\_exc\_push\_frame}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{\_\_exc\_push\_frame()}{\_\_exc\_push\_frame()}}
+{\footnotesize\ttfamily static void \+\_\+\+\_\+exc\+\_\+push\+\_\+frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}]{context,  }\item[{struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00898}{898}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__exceptions_gaad3e2ebd51ec03e42f83aa9896dfcc9d}\label{group__exceptions_gaad3e2ebd51ec03e42f83aa9896dfcc9d}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!\_\_exc\_try@{\_\_exc\_try}}
+\index{\_\_exc\_try@{\_\_exc\_try}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{\_\_exc\_try()}{\_\_exc\_try()}}
+{\footnotesize\ttfamily static struct \mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame}} $\ast$ \+\_\+\+\_\+exc\+\_\+try (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}]{context,  }\item[{int}]{errcode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{util_8h_source_l00905}{905}} of file \mbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\mbox{\Hypertarget{group__exceptions_ga5232fee2c414c5ff1ff44dc28c83cf42}\label{group__exceptions_ga5232fee2c414c5ff1ff44dc28c83cf42}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!exception\_unwind@{exception\_unwind}}
+\index{exception\_unwind@{exception\_unwind}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{exception\_unwind()}{exception\_unwind()}}
+{\footnotesize\ttfamily void exception\+\_\+unwind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}]{context,  }\item[{int}]{errcode }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{util_8c_source_l00013}{13}} of file \mbox{\hyperlink{util_8c_source}{util.\+c}}.
+
+\mbox{\Hypertarget{group__exceptions_ga7eda2653ee54e0c95e9d51b8fd873298}\label{group__exceptions_ga7eda2653ee54e0c95e9d51b8fd873298}} 
+\index{An execption-\/like library.@{An execption-\/like library.}!raise\_exception@{raise\_exception}}
+\index{raise\_exception@{raise\_exception}!An execption-\/like library.@{An execption-\/like library.}}
+\doxysubsubsection{\texorpdfstring{raise\_exception()}{raise\_exception()}}
+{\footnotesize\ttfamily void raise\+\_\+exception (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structexception__stack__frame}{exception\+\_\+context}}}]{context }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{util_8c_source_l00004}{4}} of file \mbox{\hyperlink{util_8c_source}{util.\+c}}.
+

@@ -1,0 +1,40 @@
+\hypertarget{kernel__streams_8h_source}{}\doxysection{kernel\+\_\+streams.\+h}
+\mbox{\hyperlink{kernel__streams_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_KERNEL\_STREAMS\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_KERNEL\_STREAMS\_H}}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__dev_8h}{kernel\_dev.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00041}\mbox{\hyperlink{structfile__control__block}{00041}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structfile__control__block}{file\_control\_block}}}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00042}00042 \{}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00043}\mbox{\hyperlink{structfile__control__block_a629271d79f15500a74096ec65a4adedb}{00043}}   \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structfile__control__block_a629271d79f15500a74096ec65a4adedb}{refcount}};            }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00044}\mbox{\hyperlink{structfile__control__block_a1460eb54b4a65e747b9b9ec3f6a798d6}{00044}}   \textcolor{keywordtype}{void}* \mbox{\hyperlink{structfile__control__block_a1460eb54b4a65e747b9b9ec3f6a798d6}{streamobj}};         }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00045}\mbox{\hyperlink{structfile__control__block_aa49f26d3baceeb074fa00f9e5caf978b}{00045}}   \mbox{\hyperlink{structfile__operations}{file\_ops}}* \mbox{\hyperlink{structfile__control__block_aa49f26d3baceeb074fa00f9e5caf978b}{streamfunc}};       }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00046}\mbox{\hyperlink{structfile__control__block_ac84640123f400fa3fe3cb64df08e6bd6}{00046}}   \mbox{\hyperlink{structresource__list__node}{rlnode}} \mbox{\hyperlink{structfile__control__block_ac84640123f400fa3fe3cb64df08e6bd6}{freelist\_node}};      }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00047}\mbox{\hyperlink{group__streams_ga60c6c294fa1d8ea73ed270404fe5c17d}{00047}} \} \mbox{\hyperlink{group__streams_ga60c6c294fa1d8ea73ed270404fe5c17d}{FCB}};}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00056}00056 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__streams_ga147537248d983b0cc6cc7e8b39245f09}{initialize\_files}}();}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00064}00064 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__streams_ga409efca0b415dfdabe868c292d1daf66}{FCB\_incref}}(\mbox{\hyperlink{structfile__control__block}{FCB}}* fcb);}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00078}00078 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__streams_ga26586eafc28dd1f2ac5bc7402922aa36}{FCB\_decref}}(\mbox{\hyperlink{structfile__control__block}{FCB}}* fcb);}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00098}00098 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__streams_ga462269376de145171b87b7bc3036e4f8}{FCB\_reserve}}(\textcolor{keywordtype}{size\_t} num, \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} *fid, \mbox{\hyperlink{structfile__control__block}{FCB}}** fcb);}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00118}00118 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__streams_gac44c094845a8d4e2e13f9df5b17274df}{FCB\_unreserve}}(\textcolor{keywordtype}{size\_t} num, \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} *fid, \mbox{\hyperlink{structfile__control__block}{FCB}}** fcb);}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00128}00128 \mbox{\hyperlink{structfile__control__block}{FCB}}* \mbox{\hyperlink{group__streams_gab653c475f793598f10c15d4e2dd900da}{get\_fcb}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fid);}
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{kernel__streams_8h_source_l00133}00133 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

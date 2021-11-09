@@ -1,0 +1,42 @@
+\hypertarget{tinyoslib_8h_source}{}\doxysection{tinyoslib.\+h}
+\mbox{\hyperlink{tinyoslib_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef \_\_TINYOSLIB\_H}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00003}00003 \textcolor{preprocessor}{\#define \_\_TINYOSLIB\_H}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{tinyos_8h}{tinyos.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00022}00022 FILE* \mbox{\hyperlink{tinyoslib_8h_ace85d0d619acd29cc0e67c265dd8aeba}{fidopen}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fid, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* mode);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00024}00024 \textcolor{keywordtype}{void} tinyos\_replace\_stdio();}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00025}00025 \textcolor{keywordtype}{void} tinyos\_restore\_stdio();}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00026}00026 \textcolor{keywordtype}{void} tinyos\_pseudo\_console();}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00032}\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{00032}} \textcolor{keyword}{typedef} int (*\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}})(\textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00044}00044 \textcolor{keywordtype}{int} \mbox{\hyperlink{tinyoslib_8h_a0e11b5da87f467679adbb23883328c2d}{Execute}}(\mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}} prog, \textcolor{keywordtype}{size\_t} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00073}00073 \textcolor{keywordtype}{int} \mbox{\hyperlink{tinyoslib_8h_ab98738d69f4b198fbcad1a6f2e20a44d}{ParseProcInfo}}(\mbox{\hyperlink{structprocinfo}{procinfo}}* pinfo, \mbox{\hyperlink{tinyoslib_8h_ab518accf2c30e915a8250c0ae308aefd}{Program}}* prog, \textcolor{keywordtype}{int} argc, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** argv );}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00077}\mbox{\hyperlink{structbarrier}{00077}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structbarrier}{barrier}} \{}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00078}00078     \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}} mx;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00079}00079     \mbox{\hyperlink{structCondVar}{CondVar}} cv;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00080}00080     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count, epoch;}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00081}00081 \} \mbox{\hyperlink{structbarrier}{barrier}};}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00083}00083 \textcolor{preprocessor}{\#define BARRIER\_INIT  ((barrier)\{ MUTEX\_INIT, COND\_INIT, 0, 0\})}}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00086}00086 \textcolor{keywordtype}{void} BarrierSync(\mbox{\hyperlink{structbarrier}{barrier}}* bar, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n);}
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{tinyoslib_8h_source_l00089}00089 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

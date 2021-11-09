@@ -1,0 +1,223 @@
+\hypertarget{tinyos_8h_source}{}\doxysection{tinyos.\+h}
+\mbox{\hyperlink{tinyos_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef \_\_TINYOS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00003}00003 \textcolor{preprocessor}{\#define \_\_TINYOS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00022}00022 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00023}00023 \textcolor{comment}{ * Processes types and constants.}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00024}00024 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00029}\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{00029}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}};     \textcolor{comment}{/* The PID type  */}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00036}\mbox{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{00036}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\_t}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00040}\mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{00040}} \textcolor{preprocessor}{\#define NOPROC (-\/1)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00043}\mbox{\hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{00043}} \textcolor{preprocessor}{\#define MAX\_PROC 65536}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00046}\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{00046}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}};  }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00050}\mbox{\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{00050}} \textcolor{preprocessor}{\#define MAX\_FILEID 16}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00053}\mbox{\hyperlink{group__syscalls_ga80bacbaea8dd6aecf216d85d981bcb21}{00053}} \textcolor{preprocessor}{\#define NOFILE  (-\/1)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00059}\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{00059}} \textcolor{keyword}{typedef} uintptr\_t \mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00062}\mbox{\hyperlink{group__syscalls_ga00ccfb785dd0b09ec7091fc213c2f491}{00062}} \textcolor{preprocessor}{\#define NOTHREAD ((Tid\_t)0)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00065}00065 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00066}00066 \textcolor{comment}{ *      Concurrency control}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00067}00067 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00079}\mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{00079}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{char} \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00089}\mbox{\hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{00089}} \textcolor{preprocessor}{\#define MUTEX\_INIT 0}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00102}00102 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}{Mutex\_Lock}}(\mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}*);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00110}00110 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}{Mutex\_Unlock}}(\mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}*);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00123}\mbox{\hyperlink{structCondVar}{00123}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00124}\mbox{\hyperlink{structCondVar_a7da9e0169713c3b3ae386a8ab49f7e34}{00124}}   \textcolor{keywordtype}{void} *\mbox{\hyperlink{structCondVar_a7da9e0169713c3b3ae386a8ab49f7e34}{waitset}};        }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00125}\mbox{\hyperlink{structCondVar_a477b855f4d3880d231206ae79bd5b6cf}{00125}}   \mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}} \mbox{\hyperlink{structCondVar_a477b855f4d3880d231206ae79bd5b6cf}{waitset\_lock}};   }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00126}00126 \} \mbox{\hyperlink{structCondVar}{CondVar}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00136}\mbox{\hyperlink{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}{00136}} \textcolor{preprocessor}{\#define COND\_INIT ((CondVar)\{ NULL, MUTEX\_INIT \})}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00157}00157 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}{Cond\_Wait}}(\mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}* mx, \mbox{\hyperlink{structCondVar}{CondVar}}* cv);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00180}00180 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga4e955b769339be9ea6a0c1bd4151c48f}{Cond\_TimedWait}}(\mbox{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}* mx, \mbox{\hyperlink{structCondVar}{CondVar}}* cv, \mbox{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\_t}} timeout);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00183}00183 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00192}00192 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}{Cond\_Signal}}(\mbox{\hyperlink{structCondVar}{CondVar}}*);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00202}00202 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\_Broadcast}}(\mbox{\hyperlink{structCondVar}{CondVar}}*); }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00205}00205 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00206}00206 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00207}00207 \textcolor{comment}{ * Process creation}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00208}00208 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00209}00209 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00210}00210 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00216}\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{00216}} \textcolor{keyword}{typedef} int (*\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}})(int, \textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00241}\mbox{\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{00241}} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec}}(\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} task, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00256}\mbox{\hyperlink{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}{00256}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}{Exit}}(\textcolor{keywordtype}{int} val);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00257}00257 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00280}\mbox{\hyperlink{group__syscalls_ga37017afba05480740d26b033975fef03}{00280}} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__syscalls_ga37017afba05480740d26b033975fef03}{WaitChild}}(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} pid, \textcolor{keywordtype}{int}* exitval);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00281}00281 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00286}\mbox{\hyperlink{group__syscalls_ga5106ac1f078c5dde2d6fea3881c1a4fb}{00286}} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__syscalls_ga5106ac1f078c5dde2d6fea3881c1a4fb}{GetPid}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00287}00287 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00292}\mbox{\hyperlink{group__syscalls_ga33ccb3f7c80d85e610206c0e1150657b}{00292}} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__syscalls_ga33ccb3f7c80d85e610206c0e1150657b}{GetPPid}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00293}00293 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00294}00294 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00295}00295 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00296}00296 \textcolor{comment}{ * Threads}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00297}00297 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00298}00298 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00320}\mbox{\hyperlink{group__syscalls_ga284070b5fddcc3653e146e63fcbfe6e3}{00320}} \mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} \mbox{\hyperlink{group__syscalls_ga284070b5fddcc3653e146e63fcbfe6e3}{CreateThread}}(\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} task, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00325}\mbox{\hyperlink{group__syscalls_ga75ffeb50fda6297110a2f07ef94d285c}{00325}} \mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} \mbox{\hyperlink{group__syscalls_ga75ffeb50fda6297110a2f07ef94d285c}{ThreadSelf}}();}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00326}00326 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00352}\mbox{\hyperlink{group__syscalls_ga9ffbb344eb33487ceef5442846a74be0}{00352}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga9ffbb344eb33487ceef5442846a74be0}{ThreadJoin}}(\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} tid, \textcolor{keywordtype}{int}* exitval);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00353}00353 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00370}\mbox{\hyperlink{group__syscalls_ga5f957d985678728a418ff70a617fab4d}{00370}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga5f957d985678728a418ff70a617fab4d}{ThreadDetach}}(\mbox{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\_t}} tid);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00371}00371 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00375}\mbox{\hyperlink{group__syscalls_gab77e59bf31165db88a22ac8f031b8741}{00375}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_gab77e59bf31165db88a22ac8f031b8741}{ThreadExit}}(\textcolor{keywordtype}{int} exitval);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00376}00376 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00377}00377 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00379}00379 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00380}00380 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00381}00381 \textcolor{comment}{ * Low-\/level I/O}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00382}00382 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00383}00383 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00384}00384 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00389}\mbox{\hyperlink{group__syscalls_ga31576e1579c15b6b066038702e6557c7}{00389}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga31576e1579c15b6b066038702e6557c7}{GetTerminalDevices}}();}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00390}00390 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00400}\mbox{\hyperlink{group__syscalls_ga6ea2b586a8dfcfc1e7065e1664a0fb35}{00400}} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{group__syscalls_ga6ea2b586a8dfcfc1e7065e1664a0fb35}{OpenTerminal}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} termno);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00401}00401 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00402}00402 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00414}\mbox{\hyperlink{group__syscalls_ga39805b4ae668b715fb43f0f1e6ce8c45}{00414}} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{group__syscalls_ga39805b4ae668b715fb43f0f1e6ce8c45}{OpenNull}}();}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00415}00415 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00416}00416 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00435}\mbox{\hyperlink{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}{00435}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}{Read}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fd, \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00436}00436 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00437}00437 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00458}\mbox{\hyperlink{group__syscalls_gaf046f003fde24f79fb395c250137856c}{00458}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_gaf046f003fde24f79fb395c250137856c}{Write}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fd, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* buf, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00459}00459 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00460}00460 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00472}\mbox{\hyperlink{group__syscalls_ga82187e2e98af053a2ab6cb516e9e7f5a}{00472}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga82187e2e98af053a2ab6cb516e9e7f5a}{Close}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} fd);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00473}00473 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00474}00474 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00490}\mbox{\hyperlink{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}{00490}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}{Dup2}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} oldfd, \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} newfd);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00491}00491 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00492}00492 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00493}00493 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00494}00494 \textcolor{comment}{ * Pipes}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00495}00495 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00496}00496 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00497}00497 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00498}00498 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00508}\mbox{\hyperlink{structpipe__s}{00508}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structpipe__s}{pipe\_s}} \{}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00509}\mbox{\hyperlink{structpipe__s_ad0839b4f9b1fdb0241411952203f18aa}{00509}}     \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{structpipe__s_ad0839b4f9b1fdb0241411952203f18aa}{read}};            }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00510}\mbox{\hyperlink{structpipe__s_a69acc9cdf5f10195c43491e3ffa98cb1}{00510}}     \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{structpipe__s_a69acc9cdf5f10195c43491e3ffa98cb1}{write}};      }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00511}\mbox{\hyperlink{group__syscalls_gadcee7249ce0d32b3efb6887e14ca40a8}{00511}} \} \mbox{\hyperlink{group__syscalls_gadcee7249ce0d32b3efb6887e14ca40a8}{pipe\_t}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00512}00512 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00513}00513 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00532}\mbox{\hyperlink{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}{00532}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}{Pipe}}(\mbox{\hyperlink{structpipe__s}{pipe\_t}}* pipe);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00533}00533 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00534}00534 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00535}00535 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00536}00536 \textcolor{comment}{ * Sockets (local)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00537}00537 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00538}00538 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00539}00539 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00545}\mbox{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{00545}} \textcolor{keyword}{typedef} int16\_t \mbox{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\_t}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00546}00546 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00550}\mbox{\hyperlink{group__syscalls_ga401e1a60d6381236216b6a130a6685bd}{00550}} \textcolor{preprocessor}{\#define MAX\_PORT 1023}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00551}00551 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00555}\mbox{\hyperlink{group__syscalls_gab71912b8841547d43a65ad40d730acd5}{00555}} \textcolor{preprocessor}{\#define NOPORT ((port\_t)0)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00556}00556 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00557}00557 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00572}\mbox{\hyperlink{group__syscalls_gadf167321edde68e905173d8056d3eb2f}{00572}} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{group__syscalls_gadf167321edde68e905173d8056d3eb2f}{Socket}}(\mbox{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\_t}} port);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00573}00573 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00594}\mbox{\hyperlink{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}{00594}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}{Listen}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} sock);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00595}00595 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00596}00596 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00620}\mbox{\hyperlink{group__syscalls_ga8116ee944d1b03b6fb2fdba59b57d4a8}{00620}} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{group__syscalls_ga8116ee944d1b03b6fb2fdba59b57d4a8}{Accept}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} lsock);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00621}00621 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00622}00622 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00623}00623 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00649}\mbox{\hyperlink{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}{00649}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}{Connect}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} sock, \mbox{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\_t}} port, \mbox{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\_t}} timeout);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00650}00650 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00651}00651 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00660}\mbox{\hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{00660}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00661}\mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bacbd27e0b4e3d4a02b0d833f919887d2d}{00661}}   \mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bacbd27e0b4e3d4a02b0d833f919887d2d}{SHUTDOWN\_READ}}=1,    }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00662}\mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272ba9a7920b6a1eb57633bb981aa60edbe24}{00662}}   \mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272ba9a7920b6a1eb57633bb981aa60edbe24}{SHUTDOWN\_WRITE}}=2,   }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00663}00663   \mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bab67e72e17566af8eb432d0f3eba6d44d}{SHUTDOWN\_BOTH}}=3     }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00664}\mbox{\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bab67e72e17566af8eb432d0f3eba6d44d}{00664}} \} \mbox{\hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\_mode}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00665}00665 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00666}00666 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00667}00667 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00694}\mbox{\hyperlink{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}{00694}} \textcolor{keywordtype}{int} \mbox{\hyperlink{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}{ShutDown}}(\mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} sock, \mbox{\hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\_mode}} how);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00695}00695 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00696}00696 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00697}00697 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00698}00698 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00699}00699 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00700}00700 \textcolor{comment}{ * System information}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00701}00701 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00702}00702 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00703}00703 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00707}\mbox{\hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{00707}} \textcolor{preprocessor}{\#define PROCINFO\_MAX\_ARGS\_SIZE (128)}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00708}00708 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00716}\mbox{\hyperlink{structprocinfo}{00716}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structprocinfo}{procinfo}}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00717}00717 \{}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00718}\mbox{\hyperlink{structprocinfo_a2e87cd5f0bdfe214832ec20f53deeb50}{00718}}     \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{structprocinfo_a2e87cd5f0bdfe214832ec20f53deeb50}{pid}};      }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00719}\mbox{\hyperlink{structprocinfo_a790970c70987013b2712b7dd6d2b75b9}{00719}}     \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{structprocinfo_a790970c70987013b2712b7dd6d2b75b9}{ppid}};     }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00723}\mbox{\hyperlink{structprocinfo_a999dc5dbfee9902a9ea458944499efd3}{00723}}   \textcolor{keywordtype}{int} \mbox{\hyperlink{structprocinfo_a999dc5dbfee9902a9ea458944499efd3}{alive}};      }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00725}\mbox{\hyperlink{structprocinfo_ae1ed3afa8904729a1daf1b51780cf2cf}{00725}}   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{structprocinfo_ae1ed3afa8904729a1daf1b51780cf2cf}{thread\_count}}; }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00727}\mbox{\hyperlink{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}{00727}}   \mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} \mbox{\hyperlink{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}{main\_task}};  }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00729}\mbox{\hyperlink{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}{00729}}   \textcolor{keywordtype}{int} \mbox{\hyperlink{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}{argl}};        }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00734}\mbox{\hyperlink{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}{00734}}     \textcolor{keywordtype}{char} \mbox{\hyperlink{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}{args}}[\mbox{\hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{PROCINFO\_MAX\_ARGS\_SIZE}}]; }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00739}\mbox{\hyperlink{group__syscalls_gad5837ec612b422af3385532de2a70c96}{00739}} \} \mbox{\hyperlink{group__syscalls_gad5837ec612b422af3385532de2a70c96}{procinfo}};}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00740}00740 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00741}00741 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00760}\mbox{\hyperlink{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}{00760}} \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} \mbox{\hyperlink{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}{OpenInfo}}();}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00761}00761 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00762}00762 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00763}00763 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00764}00764 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00765}00765 \textcolor{comment}{/*******************************************}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00766}00766 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00767}00767 \textcolor{comment}{ * System boot}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00768}00768 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00769}00769 \textcolor{comment}{ *******************************************/}}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00770}00770 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00781}00781 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__syscalls_ga31d9ee7df9665928617a9f9c0cc6d361}{boot}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ncores, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} terminals, \mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} boot\_task, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args);}
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00782}00782 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00783}00783 }
+\DoxyCodeLine{\Hypertarget{tinyos_8h_source_l00786}00786 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

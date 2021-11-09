@@ -1,0 +1,132 @@
+\hypertarget{bios_8h_source}{}\doxysection{bios.\+h}
+\mbox{\hyperlink{bios_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef BIOS\_H}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00002}00002 \textcolor{preprocessor}{\#define BIOS\_H}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <ucontext.h>}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00107}\mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{00107}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\_handler}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00109}00109 \textcolor{keyword}{typedef} \textcolor{keywordtype}{int} sig\_atomic\_t;}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00112}\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{00112}} \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00115}\mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{00115}} \textcolor{keyword}{typedef} uint64\_t \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00118}\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaa}{00118}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaa}{Interrupt}}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00119}00119 \{}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00120}\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaab4019255561cb4b48789d55c079e1709}{00120}}     \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaab4019255561cb4b48789d55c079e1709}{ICI}},             }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00121}\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaac4212312865bd8ac6810b9651d9e80df}{00121}}     \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaac4212312865bd8ac6810b9651d9e80df}{ALARM}},             }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00122}00122     \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaa2e06ea796d072595be1770c601e78206}{SERIAL\_RX\_READY}}, }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00124}00124     \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaaad168539d997c69c61da9c1f5f3187878}{SERIAL\_TX\_READY}}, }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00127}00127     maximum\_interrupt\_no }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00128}\mbox{\hyperlink{bios_8h_adae0801dc227f7fab2d61d0b7c9e9643}{00128}} \} \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaa}{Interrupt}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00132}\mbox{\hyperlink{bios_8h_a009855593b59738d24dbfc236edb3b14}{00132}} \textcolor{preprocessor}{\#define MAX\_CORES 32}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00133}00133 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00135}\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{00135}} \textcolor{preprocessor}{\#define MAX\_TERMINALS 4}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00158}\mbox{\hyperlink{structvm__config}{00158}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structvm__config}{vm\_config}} \{}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00166}\mbox{\hyperlink{structvm__config_a9eb4f640012b1bcf02ae982e551b5767}{00166}}     \mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\_handler}}* \mbox{\hyperlink{structvm__config_a9eb4f640012b1bcf02ae982e551b5767}{bootfunc}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00174}\mbox{\hyperlink{structvm__config_a85a0847b581a23e35e25dd8b79d8b9d8}{00174}}     \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structvm__config_a85a0847b581a23e35e25dd8b79d8b9d8}{cores}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00186}\mbox{\hyperlink{structvm__config_a76113e6dea0361ab0e1dda35bf29b7bf}{00186}}     \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{structvm__config_a76113e6dea0361ab0e1dda35bf29b7bf}{serialno}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00193}\mbox{\hyperlink{structvm__config_a4e88489ff8b42ce872cf1189673e2cc7}{00193}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structvm__config_a4e88489ff8b42ce872cf1189673e2cc7}{serial\_in}}[\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{MAX\_TERMINALS}}];}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00200}\mbox{\hyperlink{structvm__config_a53a39f43c3368fed51748c0b156a942c}{00200}}     \textcolor{keywordtype}{int} \mbox{\hyperlink{structvm__config_a53a39f43c3368fed51748c0b156a942c}{serial\_out}}[\mbox{\hyperlink{bios_8h_a4e7d162c7c35103b42768ff4a5c73905}{MAX\_TERMINALS}}];}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00201}\mbox{\hyperlink{bios_8h_a78f20592af397bf72970300f0e8dba4d}{00201}} \} \mbox{\hyperlink{bios_8h_a78f20592af397bf72970300f0e8dba4d}{vm\_config}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00222}\mbox{\hyperlink{bios_8h_af72e3b1217697a5ae7ecf22e1d1d078a}{00222}} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_af72e3b1217697a5ae7ecf22e1d1d078a}{vm\_config\_terminals}}(\mbox{\hyperlink{structvm__config}{vm\_config}}* vmc, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serialno, \textcolor{keywordtype}{int} nowait);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00241}\mbox{\hyperlink{bios_8h_a0642848175ea5155275f9a298dd2475e}{00241}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a0642848175ea5155275f9a298dd2475e}{vm\_configure}}(\mbox{\hyperlink{structvm__config}{vm\_config}}* vmc, \mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\_handler}} bootfunc, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} cores, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serialno);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00263}\mbox{\hyperlink{bios_8h_a37f8796b7357cdfedc482c0b05c6a115}{00263}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a37f8796b7357cdfedc482c0b05c6a115}{vm\_run}}(\mbox{\hyperlink{structvm__config}{vm\_config}}* vmc);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00266}00266 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00292}\mbox{\hyperlink{bios_8h_a3474751482bc2a9a40597f66fe35f630}{00292}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a3474751482bc2a9a40597f66fe35f630}{vm\_boot}}(\mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\_handler}} bootfunc, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} cores, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serialno);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00293}00293 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00298}00298 \textcolor{keyword}{extern} \_Thread\_local \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{bios_8h_abac58ced7d51f54f2318b326bc991933}{cpu\_core\_id}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00303}\mbox{\hyperlink{bios_8h_aa02a29e5c8a1f4d68413eea0aaa09fba}{00303}} \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{bios_8h_aa02a29e5c8a1f4d68413eea0aaa09fba}{cpu\_cores}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00315}\mbox{\hyperlink{bios_8h_ab8f96f6027a2276735b4a221a56ed786}{00315}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_ab8f96f6027a2276735b4a221a56ed786}{cpu\_core\_barrier\_sync}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00316}00316 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00323}\mbox{\hyperlink{bios_8h_a719b0f9f8854d21436c96931ba1caf59}{00323}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a719b0f9f8854d21436c96931ba1caf59}{cpu\_ici}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} core);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00324}00324 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00338}\mbox{\hyperlink{bios_8h_a0cf5c5e80f04d98362346e6ec770022d}{00338}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a0cf5c5e80f04d98362346e6ec770022d}{cpu\_interrupt\_handler}}(\mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaa}{Interrupt}} interrupt, \mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\_handler}} handler);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00339}00339 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00352}\mbox{\hyperlink{bios_8h_afec1cd080e34866f6497b18f1bac8e8f}{00352}} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_afec1cd080e34866f6497b18f1bac8e8f}{cpu\_disable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00353}00353 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00359}\mbox{\hyperlink{bios_8h_af61d7c032b12e989a7005d830f71054f}{00359}} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_af61d7c032b12e989a7005d830f71054f}{cpu\_interrupts\_enabled}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00361}00361 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00370}\mbox{\hyperlink{bios_8h_a10055a90cf57a2a22fa9193922f9f2a8}{00370}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a10055a90cf57a2a22fa9193922f9f2a8}{cpu\_enable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00371}00371 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00382}\mbox{\hyperlink{bios_8h_a3e2c9a3aea40c8eeaa723ee35caace06}{00382}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a3e2c9a3aea40c8eeaa723ee35caace06}{cpu\_core\_halt}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00383}00383 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00384}00384 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00391}\mbox{\hyperlink{bios_8h_a9191a31f24c07b8282a3c8edbba24ee0}{00391}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a9191a31f24c07b8282a3c8edbba24ee0}{cpu\_core\_restart}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} c);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00392}00392 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00398}\mbox{\hyperlink{bios_8h_a7eeccd43040cc43ac977f649d639a3e9}{00398}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a7eeccd43040cc43ac977f649d639a3e9}{cpu\_core\_restart\_one}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00399}00399 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00405}\mbox{\hyperlink{bios_8h_aa82b1a876663da26cbf511bcfb06404d}{00405}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_aa82b1a876663da26cbf511bcfb06404d}{cpu\_core\_restart\_all}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00406}00406 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00407}00407 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00411}\mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{00411}} \textcolor{keyword}{typedef} ucontext\_t \mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\_context\_t}};}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00412}00412 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00413}00413 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00424}\mbox{\hyperlink{bios_8h_a825ac4a4bcf2ef8d3c9bb48d5434c161}{00424}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a825ac4a4bcf2ef8d3c9bb48d5434c161}{cpu\_initialize\_context}}(\mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\_context\_t}}* ctx, \textcolor{keywordtype}{void}* ss\_sp, \textcolor{keywordtype}{size\_t} ss\_size, \textcolor{keywordtype}{void} (*func)());}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00425}00425 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00426}00426 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00436}\mbox{\hyperlink{bios_8h_a78a3870d56e6867224909cf226c2e90a}{00436}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a78a3870d56e6867224909cf226c2e90a}{cpu\_swap\_context}}(\mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\_context\_t}}* oldctx, \mbox{\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\_context\_t}}* newctx);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00437}00437 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00438}00438 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00439}00439 \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00440}00440 \textcolor{comment}{ ********************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00441}00441 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00460}\mbox{\hyperlink{bios_8h_a01f7a35679bdda42fff3da6ae6e5664b}{00460}} \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{bios_8h_a01f7a35679bdda42fff3da6ae6e5664b}{bios\_set\_timer}}(\mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} usec);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00461}00461 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00470}\mbox{\hyperlink{bios_8h_a27768c037d72b51415b836bd93196df2}{00470}} \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{bios_8h_a27768c037d72b51415b836bd93196df2}{bios\_cancel\_timer}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00471}00471 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00472}00472 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00484}\mbox{\hyperlink{bios_8h_a78addcd72c31fb32d46cc51fe01a86b4}{00484}} \mbox{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{TimerDuration}} \mbox{\hyperlink{bios_8h_a78addcd72c31fb32d46cc51fe01a86b4}{bios\_clock}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00485}00485 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00486}00486 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00487}00487 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00488}00488 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00495}\mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{00495}} \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{bios_8h_af69405820033d3f2e8033af258f47ea2}{bios\_serial\_ports}}();}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00496}00496 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00512}\mbox{\hyperlink{bios_8h_a3d9df4f1db5a1d99720f327668726e2b}{00512}} \textcolor{keywordtype}{void} \mbox{\hyperlink{bios_8h_a3d9df4f1db5a1d99720f327668726e2b}{bios\_serial\_interrupt\_core}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serial, \mbox{\hyperlink{bios_8h_a137af7bce5ff764f5c0aa4550086deaa}{Interrupt}} intno, \mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} core);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00513}00513 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00514}00514 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00530}\mbox{\hyperlink{bios_8h_a04ebe8b1d424c0ef473db751f7b79fbb}{00530}} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_a04ebe8b1d424c0ef473db751f7b79fbb}{bios\_read\_serial}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serial, \textcolor{keywordtype}{char}* ptr);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00531}00531 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00532}00532 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00546}\mbox{\hyperlink{bios_8h_a97bde2ebd5f9d86c0085aacaa5e5d287}{00546}} \textcolor{keywordtype}{int} \mbox{\hyperlink{bios_8h_a97bde2ebd5f9d86c0085aacaa5e5d287}{bios\_write\_serial}}(\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} serial, \textcolor{keywordtype}{char} value);}
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00547}00547 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00548}00548 }
+\DoxyCodeLine{\Hypertarget{bios_8h_source_l00549}00549 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,9 @@
+<map id="kernel_dev.h" name="kernel_dev.h">
+<area shape="rect" id="node1" title="Device management." alt="" coords="123,5,217,32"/>
+<area shape="rect" id="node2" href="$kernel__dev_8c_source.html" title=" " alt="" coords="5,155,100,181"/>
+<area shape="rect" id="node3" href="$kernel__init_8c_source.html" title=" " alt="" coords="125,155,215,181"/>
+<area shape="rect" id="node4" href="$kernel__streams_8h.html" title="Support for I/O streams." alt="" coords="212,80,333,107"/>
+<area shape="rect" id="node5" href="$console_8c_source.html" title=" " alt="" coords="239,155,317,181"/>
+<area shape="rect" id="node6" href="$kernel__proc_8c_source.html" title=" " alt="" coords="341,155,439,181"/>
+<area shape="rect" id="node7" href="$kernel__streams_8c_source.html" title=" " alt="" coords="464,155,585,181"/>
+</map>

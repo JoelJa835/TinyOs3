@@ -1,0 +1,371 @@
+\hypertarget{kernel__proc_8c_source}{}\doxysection{kernel\+\_\+proc.\+c}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00002}00002 \textcolor{preprocessor}{\#include <assert.h>}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__cc_8h}{kernel\_cc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__proc_8h}{kernel\_proc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{kernel__streams_8h}{kernel\_streams.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00008}00008 \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00009}00009 \textcolor{comment}{ The process table and related system calls:}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00010}00010 \textcolor{comment}{ -\/ Exec}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00011}00011 \textcolor{comment}{ -\/ Exit}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00012}00012 \textcolor{comment}{ -\/ WaitPid}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00013}00013 \textcolor{comment}{ -\/ GetPid}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00014}00014 \textcolor{comment}{ -\/ GetPPid}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00015}00015 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00016}00016 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00018}00018 \textcolor{comment}{/* The process table */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00019}00019 \mbox{\hyperlink{structprocess__control__block}{PCB}} PT[\mbox{\hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{MAX\_PROC}}];}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00020}00020 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} process\_count;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00022}\mbox{\hyperlink{group__proc_ga3923912bfa906265d441e6212e5e22b4}{00022}} \mbox{\hyperlink{structprocess__control__block}{PCB}}* \mbox{\hyperlink{group__proc_ga3923912bfa906265d441e6212e5e22b4}{get\_pcb}}(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} pid)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00023}00023 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00024}00024   \textcolor{keywordflow}{return} PT[pid].\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}}==\mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{FREE}} ? NULL : \&PT[pid];}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00027}\mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{00027}} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00028}00028 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00029}00029   \textcolor{keywordflow}{return} pcb==NULL ? \mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}} : pcb-\/PT;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00032}00032 \textcolor{comment}{/* Initialize a PCB */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00033}00033 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} initialize\_PCB(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00034}00034 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00035}00035   pcb-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} = \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{FREE}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00036}00036   pcb-\/>\mbox{\hyperlink{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}{argl}} = 0;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00037}00037   pcb-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}} = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00039}00039   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<\mbox{\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{MAX\_FILEID}};i++)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00040}00040     pcb-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i] = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00042}00042   \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}}, NULL);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00043}00043   \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}}, NULL);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00044}00044   \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{children\_node}}, pcb);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00045}00045   \mbox{\hyperlink{group__rlists_ga1b153fc6154daaa0c937aba5a71d1dfb}{rlnode\_init}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{exited\_node}}, pcb);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00046}00046   pcb-\/>\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}} = \mbox{\hyperlink{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}{COND\_INIT}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00047}00047 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00050}00050 \textcolor{keyword}{static} \mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb\_freelist;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00052}\mbox{\hyperlink{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}{00052}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}{initialize\_processes}}()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00053}00053 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00054}00054   \textcolor{comment}{/* initialize the PCBs */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00055}00055   \textcolor{keywordflow}{for}(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} p=0; p<\mbox{\hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{MAX\_PROC}}; p++) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00056}00056     initialize\_PCB(\&PT[p]);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00057}00057   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00059}00059   \textcolor{comment}{/* use the parent field to build a free list */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00060}00060   \mbox{\hyperlink{structprocess__control__block}{PCB}}* pcbiter;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00061}00061   pcb\_freelist = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00062}00062   \textcolor{keywordflow}{for}(pcbiter = PT+\mbox{\hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{MAX\_PROC}}; pcbiter!=PT; ) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00063}00063     -\/-\/pcbiter;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00064}00064     pcbiter-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} = pcb\_freelist;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00065}00065     pcb\_freelist = pcbiter;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00066}00066   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00068}00068   process\_count = 0;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00070}00070   \textcolor{comment}{/* Execute a null "{}idle"{} process */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00071}00071   \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec}}(NULL,0,NULL)!=0)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00072}00072     \mbox{\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{FATAL}}(\textcolor{stringliteral}{"{}The scheduler process does not have pid==0"{}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00073}00073 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00076}00076 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00077}00077 \textcolor{comment}{  Must be called with kernel\_mutex held}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00078}00078 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00079}00079 \mbox{\hyperlink{structprocess__control__block}{PCB}}* acquire\_PCB()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00080}00080 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00081}00081   \mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00083}00083   \textcolor{keywordflow}{if}(pcb\_freelist != NULL) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00084}00084     pcb = pcb\_freelist;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00085}00085     pcb-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} = \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}{ALIVE}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00086}00086     pcb\_freelist = pcb\_freelist-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00087}00087     process\_count++;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00088}00088   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00090}00090   \textcolor{keywordflow}{return} pcb;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00093}00093 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00094}00094 \textcolor{comment}{  Must be called with kernel\_mutex held}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00095}00095 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00096}00096 \textcolor{keywordtype}{void} release\_PCB(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00097}00097 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00098}00098   pcb-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} = \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{FREE}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00099}00099   pcb-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} = pcb\_freelist;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00100}00100   pcb\_freelist = pcb;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00101}00101   process\_count-\/-\/;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00102}00102 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00105}00105 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00106}00106 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00107}00107 \textcolor{comment}{ * Process creation}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00108}00108 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00109}00109 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00111}00111 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00112}00112 \textcolor{comment}{    This function is provided as an argument to spawn,}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00113}00113 \textcolor{comment}{    to execute the main thread of a process.}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00114}00114 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00115}00115 \textcolor{keywordtype}{void} start\_main\_thread()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00116}00116 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00117}00117   \textcolor{keywordtype}{int} exitval;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00119}00119   \mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} call =  \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}}-\/>main\_task;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00120}00120   \textcolor{keywordtype}{int} argl = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}}-\/>argl;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00121}00121   \textcolor{keywordtype}{void}* args = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}}-\/>args;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00123}00123   exitval = call(argl,args);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00124}00124   \mbox{\hyperlink{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}{Exit}}(exitval);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00125}00125 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00128}00128 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00129}00129 \textcolor{comment}{    System call to create a new process.}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00130}00130 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00131}00131 \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} sys\_Exec(\mbox{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}} call, \textcolor{keywordtype}{int} argl, \textcolor{keywordtype}{void}* args)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00132}00132 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00133}00133   \mbox{\hyperlink{structprocess__control__block}{PCB}} *curproc, *newproc;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00134}00134   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00135}00135   \textcolor{comment}{/* The new process PCB */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00136}00136   newproc = acquire\_PCB();}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00138}00138   \textcolor{keywordflow}{if}(newproc == NULL) \textcolor{keywordflow}{goto} finish;  \textcolor{comment}{/* We have run out of PIDs! */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00140}00140   \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(newproc)<=1) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00141}00141     \textcolor{comment}{/* Processes with pid<=1 (the scheduler and the init process) }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00142}00142 \textcolor{comment}{       are parentless and are treated specially. */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00143}00143     newproc-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00144}00144   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00145}00145   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00146}00146   \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00147}00147     \textcolor{comment}{/* Inherit parent */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00148}00148     curproc = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00150}00150     \textcolor{comment}{/* Add new process to the parent's child list */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00151}00151     newproc-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} = curproc;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00152}00152     \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}}, \& newproc-\/>\mbox{\hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{children\_node}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00154}00154     \textcolor{comment}{/* Inherit file streams from parent */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00155}00155     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0; i<\mbox{\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{MAX\_FILEID}}; i++) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00156}00156        newproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i] = curproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i];}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00157}00157        \textcolor{keywordflow}{if}(newproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i])}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00158}00158           \mbox{\hyperlink{group__streams_ga409efca0b415dfdabe868c292d1daf66}{FCB\_incref}}(newproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i]);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00159}00159     \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00160}00160   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00163}00163   \textcolor{comment}{/* Set the main thread's function */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00164}00164   newproc-\/>\mbox{\hyperlink{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}{main\_task}} = call;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00166}00166   \textcolor{comment}{/* Copy the arguments to new storage, owned by the new process */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00167}00167   newproc-\/>\mbox{\hyperlink{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}{argl}} = argl;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00168}00168   \textcolor{keywordflow}{if}(args!=NULL) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00169}00169     newproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}} = malloc(argl);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00170}00170     memcpy(newproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}}, args, argl);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00171}00171   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00172}00172   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00173}00173     newproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}}=NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00175}00175   \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00176}00176 \textcolor{comment}{    Create and wake up the thread for the main function. This must be the last thing}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00177}00177 \textcolor{comment}{    we do, because once we wakeup the new thread it may run! so we need to have finished}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00178}00178 \textcolor{comment}{    the initialization of the PCB.}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00179}00179 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00180}00180   \textcolor{keywordflow}{if}(call != NULL) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00181}00181     newproc-\/>\mbox{\hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{main\_thread}} = \mbox{\hyperlink{group__scheduler_ga8d6909d7b3e906b0114e282d15a519b8}{spawn\_thread}}(newproc, start\_main\_thread);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00182}00182     \mbox{\hyperlink{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}{wakeup}}(newproc-\/>\mbox{\hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{main\_thread}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00183}00183   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00186}00186 finish:}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00187}00187   \textcolor{keywordflow}{return} \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(newproc);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00188}00188 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00191}00191 \textcolor{comment}{/* System call */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00192}00192 \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} sys\_GetPid()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00193}00193 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00194}00194   \textcolor{keywordflow}{return} \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(\mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00195}00195 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00198}00198 \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} sys\_GetPPid()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00199}00199 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00200}00200   \textcolor{keywordflow}{return} \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(\mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}}-\/>parent);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00201}00201 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00204}00204 \textcolor{keyword}{static} \textcolor{keywordtype}{void} cleanup\_zombie(\mbox{\hyperlink{structprocess__control__block}{PCB}}* pcb, \textcolor{keywordtype}{int}* status)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00205}00205 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00206}00206   \textcolor{keywordflow}{if}(status != NULL)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00207}00207     *status = pcb-\/>\mbox{\hyperlink{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}{exitval}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00209}00209   \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{children\_node}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00210}00210   \mbox{\hyperlink{group__rlists_gab1b7fd0d8e6a3b6eb74937b64aacfa23}{rlist\_remove}}(\& pcb-\/>\mbox{\hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{exited\_node}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00212}00212   release\_PCB(pcb);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00213}00213 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00216}00216 \textcolor{keyword}{static} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} wait\_for\_specific\_child(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} cpid, \textcolor{keywordtype}{int}* status)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00217}00217 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00219}00219   \textcolor{comment}{/* Legality checks */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00220}00220   \textcolor{keywordflow}{if}((cpid<0) || (cpid>=\mbox{\hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{MAX\_PROC}})) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00221}00221     cpid = \mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00222}00222     \textcolor{keywordflow}{goto} finish;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00223}00223   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00225}00225   \mbox{\hyperlink{structprocess__control__block}{PCB}}* parent = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00226}00226   \mbox{\hyperlink{structprocess__control__block}{PCB}}* child = \mbox{\hyperlink{group__proc_ga3923912bfa906265d441e6212e5e22b4}{get\_pcb}}(cpid);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00227}00227   \textcolor{keywordflow}{if}( child == NULL || child-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} != parent)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00228}00228   \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00229}00229     cpid = \mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00230}00230     \textcolor{keywordflow}{goto} finish;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00231}00231   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00232}00232 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00233}00233   \textcolor{comment}{/* Ok, child is a legal child of mine. Wait for it to exit. */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00234}00234   \textcolor{keywordflow}{while}(child-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} == \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}{ALIVE}})}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00235}00235     kernel\_wait(\& parent-\/>\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}}, \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{SCHED\_USER}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00236}00236   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00237}00237   cleanup\_zombie(child, status);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00238}00238   }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00239}00239 finish:}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00240}00240   \textcolor{keywordflow}{return} cpid;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00241}00241 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00244}00244 \textcolor{keyword}{static} \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} wait\_for\_any\_child(\textcolor{keywordtype}{int}* status)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00245}00245 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00246}00246   \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} cpid;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00248}00248   \mbox{\hyperlink{structprocess__control__block}{PCB}}* parent = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00249}00249 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00250}00250   \textcolor{comment}{/* Make sure I have children! */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00251}00251   \textcolor{keywordtype}{int} no\_children, has\_exited;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00252}00252   \textcolor{keywordflow}{while}(1) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00253}00253     no\_children = \mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& parent-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00254}00254     \textcolor{keywordflow}{if}( no\_children ) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00255}00255 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00256}00256     has\_exited = ! \mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& parent-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00257}00257     \textcolor{keywordflow}{if}( has\_exited ) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00259}00259     kernel\_wait(\& parent-\/>\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}}, \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{SCHED\_USER}});    }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00260}00260   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00262}00262   \textcolor{keywordflow}{if}(no\_children)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00263}00263     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00265}00265   \mbox{\hyperlink{structprocess__control__block}{PCB}}* child = parent-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}}.\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>pcb;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00266}00266   assert(child-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} == \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}{ZOMBIE}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00267}00267   cpid = \mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(child);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00268}00268   cleanup\_zombie(child, status);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00270}00270   \textcolor{keywordflow}{return} cpid;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00271}00271 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00274}00274 \mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} sys\_WaitChild(\mbox{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\_t}} cpid, \textcolor{keywordtype}{int}* status)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00275}00275 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00276}00276   \textcolor{comment}{/* Wait for specific child. */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00277}00277   \textcolor{keywordflow}{if}(cpid != \mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}}) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00278}00278     \textcolor{keywordflow}{return} wait\_for\_specific\_child(cpid, status);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00279}00279   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00280}00280   \textcolor{comment}{/* Wait for any child */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00281}00281   \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00282}00282     \textcolor{keywordflow}{return} wait\_for\_any\_child(status);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00283}00283   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00285}00285 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00287}00287 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00288}00288 \textcolor{keywordtype}{void} sys\_Exit(\textcolor{keywordtype}{int} exitval)}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00289}00289 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00291}00291   \mbox{\hyperlink{structprocess__control__block}{PCB}} *curproc = \mbox{\hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{CURPROC}};  \textcolor{comment}{/* cache for efficiency */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00292}00292 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00293}00293   \textcolor{comment}{/* First, store the exit status */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00294}00294   curproc-\/>\mbox{\hyperlink{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}{exitval}} = exitval;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00295}00295 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00296}00296   \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00297}00297 \textcolor{comment}{    Here, we must check that we are not the init task. }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00298}00298 \textcolor{comment}{    If we are, we must wait until all child processes exit. }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00299}00299 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00300}00300   \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\_pid}}(curproc)==1) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00302}00302     \textcolor{keywordflow}{while}(sys\_WaitChild(\mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}},NULL)!=\mbox{\hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{NOPROC}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00304}00304   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00306}00306     \textcolor{comment}{/* Reparent any children of the exiting process to the }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00307}00307 \textcolor{comment}{       initial task */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00308}00308     \mbox{\hyperlink{structprocess__control__block}{PCB}}* initpcb = \mbox{\hyperlink{group__proc_ga3923912bfa906265d441e6212e5e22b4}{get\_pcb}}(1);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00309}00309     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}})) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00310}00310       \mbox{\hyperlink{structresource__list__node}{rlnode}}* child = \mbox{\hyperlink{group__rlists_gaa2445071c19ebaa035dfc19f0b7ef559}{rlist\_pop\_front}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00311}00311       child-\/>pcb-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}} = initpcb;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00312}00312       \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(\& initpcb-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}}, child);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00313}00313     \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00315}00315     \textcolor{comment}{/* Add exited children to the initial task's exited list }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00316}00316 \textcolor{comment}{       and signal the initial task */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00317}00317     \textcolor{keywordflow}{if}(!\mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}})) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00318}00318       \mbox{\hyperlink{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}{rlist\_append}}(\& initpcb-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}}, \&curproc-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00319}00319       \mbox{\hyperlink{kernel__cc_8c_a6ab8c1febc779de0c176d4e8a101ec5b}{kernel\_broadcast}}(\& initpcb-\/>\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00320}00320     \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00322}00322     \textcolor{comment}{/* Put me into my parent's exited list */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00323}00323     \mbox{\hyperlink{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}{rlist\_push\_front}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}}-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}}, \&curproc-\/>\mbox{\hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{exited\_node}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00324}00324     \mbox{\hyperlink{kernel__cc_8c_a6ab8c1febc779de0c176d4e8a101ec5b}{kernel\_broadcast}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}}-\/>\mbox{\hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\_exit}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00326}00326   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00328}00328   assert(\mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\_list}}));}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00329}00329   assert(\mbox{\hyperlink{group__rlists_gaf60549214daf0df46bcd1a0d5ba5b661}{is\_rlist\_empty}}(\& curproc-\/>\mbox{\hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\_list}}));}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00330}00330 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00331}00331 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00332}00332   \textcolor{comment}{/* }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00333}00333 \textcolor{comment}{    Do all the other cleanup we want here, close files etc. }}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00334}00334 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00335}00335 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00336}00336   \textcolor{comment}{/* Release the args data */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00337}00337   \textcolor{keywordflow}{if}(curproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}}) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00338}00338     free(curproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00339}00339     curproc-\/>\mbox{\hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}} = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00340}00340   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00341}00341 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00342}00342   \textcolor{comment}{/* Clean up FIDT */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00343}00343   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<\mbox{\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{MAX\_FILEID}};i++) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00344}00344     \textcolor{keywordflow}{if}(curproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i] != NULL) \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00345}00345       \mbox{\hyperlink{group__streams_ga26586eafc28dd1f2ac5bc7402922aa36}{FCB\_decref}}(curproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i]);}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00346}00346       curproc-\/>\mbox{\hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{FIDT}}[i] = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00347}00347     \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00348}00348   \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00349}00349 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00350}00350   \textcolor{comment}{/* Disconnect my main\_thread */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00351}00351   curproc-\/>\mbox{\hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{main\_thread}} = NULL;}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00352}00352 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00353}00353   \textcolor{comment}{/* Now, mark the process as exited. */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00354}00354   curproc-\/>\mbox{\hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}} = \mbox{\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}{ZOMBIE}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00356}00356   \textcolor{comment}{/* Bye-\/bye cruel world */}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00357}00357   \mbox{\hyperlink{kernel__cc_8c_aeafd158aa175ab53b85bc55dc4bbd962}{kernel\_sleep}}(\mbox{\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}{EXITED}}, \mbox{\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{SCHED\_USER}});}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00358}00358 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00359}00359 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00361}00361 }
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00362}00362 \mbox{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\_t}} sys\_OpenInfo()}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00363}00363 \{}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00364}00364     \textcolor{keywordflow}{return} \mbox{\hyperlink{group__syscalls_ga80bacbaea8dd6aecf216d85d981bcb21}{NOFILE}};}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00365}00365 \}}
+\DoxyCodeLine{\Hypertarget{kernel__proc_8c_source_l00366}00366 }
+
+\end{DoxyCode}
