@@ -13,7 +13,7 @@ extensions are planned for the future.
 
 ## Quick start
 
-After downloading the code, just build it.
+After downloading the code, simply build it.
 ```
 $ make
 ```
