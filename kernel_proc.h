@@ -45,9 +45,11 @@ typedef struct process_control_block {
   Task main_task;         /**< @brief The main thread's function */
   int argl;               /**< @brief The main thread's argument length */
   void* args;             /**< @brief The main thread's argument string */
+  int thread_count;
 
   rlnode children_list;   /**< @brief List of children */
   rlnode exited_list;     /**< @brief List of exited children */
+  rlnode ptcb_list;
 
   rlnode children_node;   /**< @brief Intrusive node for @c children_list */
   rlnode exited_node;     /**< @brief Intrusive node for @c exited_list */
@@ -59,9 +61,8 @@ typedef struct process_control_block {
                              @c WaitChild() */
 
   FCB* FIDT[MAX_FILEID];  /**< @brief The fileid table of the process */
-
+  
 } PCB;
-
 
 /**
   @brief Initialize the process table.
@@ -96,5 +97,8 @@ PCB* get_pcb(Pid_t pid);
 Pid_t get_pid(PCB* pcb);
 
 /** @} */
+
+//Declaring start_main_ptcb to be able to call it at kernel_threads.c
+void start_main_ptcb();
 
 #endif

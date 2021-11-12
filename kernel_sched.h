@@ -100,6 +100,7 @@ enum SCHED_CAUSE {
 typedef struct thread_control_block {
 
 	PCB* owner_pcb; /**< @brief This is null for a free TCB */
+  PTCB* ptcb;     /**< @brief PTCB pointer */
 
 	cpu_context_t context; /**< @brief The thread context */
 	Thread_type type; /**< @brief The type of thread */
@@ -129,6 +130,29 @@ typedef struct thread_control_block {
 #endif
 
 } TCB;
+
+/**
+  @brief Process Thread Control Block.
+ */
+typedef struct process_thread_control_block {
+
+  TCB* tcb;             /**< @brief Pointer to a TCB */
+
+  Task task;            /**< @brief The task that needs to have multi-thread support.*/
+  int argl;             /**< @brief Task's arguement length. */
+  void* args;           /**< @brief Task's argument string. */
+
+  int exitval;          /**< @brief The exit value of the process */
+
+  int exited;           /**< @brief Flag to see if pcb is exited [0,1] */
+  int detached;
+  CondVar exit_cv;
+
+  int refcount;         /**< @brief Variable to see when to delete PTCB */
+
+  rlnode ptcb_list_node;/**< @brief Intrusive node for @c ptcb_list node*/
+
+} PTCB;
 
 /** @brief Thread stack size.
 
