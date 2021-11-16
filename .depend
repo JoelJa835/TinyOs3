@@ -30,7 +30,7 @@ kernel_streams.o: kernel_streams.c util.h tinyos.h kernel_cc.h \
 kernel_sys.o: kernel_sys.c tinyos.h kernel_sys.h bios.h kernel_cc.h \
  kernel_sched.h util.h
 kernel_threads.o: kernel_threads.c tinyos.h kernel_sched.h bios.h util.h \
- kernel_proc.h
+ kernel_proc.h kernel_cc.h kernel_sys.h
 tinyoslib.o: tinyoslib.c util.h tinyos.h tinyoslib.h
 symposium.o: symposium.c util.h bios.h tinyos.h symposium.h
 unit_testing.o: unit_testing.c unit_testing.h bios.h tinyos.h util.h

@@ -2,6 +2,7 @@
 #include "tinyos.h"
 #include "kernel_sched.h"
 #include "kernel_proc.h"
+#include "kernel_cc.h"
 
 /** 
   @brief Create a new thread in the current process.
@@ -10,19 +11,35 @@
 Tid_t sys_CreateThread(Task task, int argl, void* args)
 {
 
+  //Spawning new_tcb and allocating space for ptcb
   TCB* new_tcb = spawn_thread(CURPROC, start_main_ptcb);
   PTCB* new_ptcb = xmalloc(sizeof(PTCB));
-
+  
+  //Making needed connections between new_tcb and new_ptcb and intializing
   new_tcb->ptcb = new_ptcb;
+  new_tcb->owner_pcb = CURPROC;
   new_ptcb->tcb = new_tcb;
+  new_ptcb->tcb = new_tcb;
+  new_ptcb->task = task;
+  new_ptcb->args = args;
+  new_ptcb->argl = argl;
+
+  new_ptcb->refcount = 0;
+  new_ptcb->detached = 0;
+  new_ptcb->exited = 0;
+  new_ptcb->exit_cv = COND_INIT;
+  
+  //Initializing the new_ptcb_list_node, also pushing it into the list.
   rlnode_init(& new_ptcb->ptcb_list_node, new_ptcb);
-  rlist_push_back(& CURPROC->ptcb_list, &new_ptcb->ptcb_list_node);
+  rlist_push_back(& CURPROC->ptcb_list,& new_ptcb->ptcb_list_node);
 
-  //Edit:When you create a new thead you have to increase the thread_count by 1.
-  CURPROC->thread_count = CURPROC->thread_count + 1; 
+  //Increasing thread_count by 1 since we are creating a new thread.
+  CURPROC->thread_count++; 
 
+  //Waking up the created tcb
   wakeup(new_tcb); 
 
+  //Returning the Tid_
 	return (Tid_t) new_ptcb;
 }
 
@@ -44,29 +61,60 @@ Tid_t sys_ThreadSelf()
 int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
 
-  //Checking if the current thread is a thread of the current process. If the rlist_find() succeeds 
-  //it returns an a pointer to the ptcb it found. Else it returns NULL to the existent_node varriable.
-  rlnode* existent_node = rlist_find(& CURPROC->ptcb_list,& cur_thread()->ptcb, existent_node);
+  PTCB* joined_ptcb = (PTCB *) tid;
 
-  //There are three reasons for sys_Thread Join to fail and I check them at the begining of the function
-  //1)existent_node == NULL OR
-  //2)The tid to join corresponds to the thread itself. This can't happen of course since a thread can't
+  //There are three reasons for sys_ThreadJoin() to fail and I check them at the begining of the function
+  //1)The tid to join corresponds to the thread itself. This can't happen of course since a thread can't
   //join itself.
-  //3)The tid to join corresponds to a thread that is detached
+  //2)The tid to join corresponds to a thread that is detached.
+  //3)The tid to join corresponds to a thread that has exited.
+  //4)existent_node == NULL which means that the tid given is does not belong to CURPROC 
 
-  if(existent_node != NULL || tid == sys_ThreadSelf() || ((PTCB *) tid)->detached == 1){
+  //Checking if the given tid is a thread of the current process. If the rlist_find() succeeds 
+  //it returns an a pointer to the ptcb it found. Else it returns NULL to the existent_node varriable.
+
+  rlnode* existent_node = rlist_find(& CURPROC->ptcb_list, joined_ptcb, NULL);
+  if(existent_node == NULL){
     return -1;
   }
 
-  // ((PTCB* tid)->refcount = (PTCB* tid)->refcount + 1)
-  // kernel_wait((PTCB* tid)->exit_cv, SCHED_USER);
+  if(tid == sys_ThreadSelf()){
+    return -1;
+  }
 
-  // if((PTCB* tid)->exited == 1){
-  //   ((PTCB* tid)->refcount = (PTCB* tid)->refcount - 1)
-  // }
+  if(joined_ptcb->detached){
+    return -1;
+  }
 
+  if(joined_ptcb->exited){
+    return -1;
+  }
+
+  //Increasing refcount by 1 since we are waiting since joined_ptcb exits.
+  joined_ptcb->refcount++;
+
+  //Using kernel wait until joined ptcb exits or detaches.
+  while(joined_ptcb->detached != 1 && joined_ptcb->exited !=1){
+  kernel_wait(&joined_ptcb->exit_cv, SCHED_IDLE);
+  }
+
+  //Reducing refcount by 1 since we are out of the loop and that means that joined_ptch has exited.
+  joined_ptcb->refcount--;
+
+  //If still after waiting the thread is detached return -1.
+  if(joined_ptcb->detached){
+    return  -1;
+  }
+
+  //If joined_ptcb has exited and exit_val != NULL assign to exitval the exitval of joined_ptcb
+  if(joined_ptcb->exited){
+    if(exitval)
+      *exitval = joined_ptcb->exitval;
+  }
   
-	return -1;
+  //if refcount == 0 delete ptcb;
+
+  return 0;
 }
 
 /**
@@ -75,7 +123,27 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
 int sys_ThreadDetach(Tid_t tid) 
 {
   //1.use kernel_broadcast to wakeup all threads if thread joins fails
-	return -1;
+
+  //There are two reason for sys_ThreadDetach()to fail. 
+  //1.If the tid to detach doesn't belong to the current process.
+  //2.The tread that gets detached has already exited.
+  PTCB* detached_ptcb = (PTCB *) tid;
+
+  rlnode* existent_node = rlist_find(& CURPROC->ptcb_list,detached_ptcb, NULL);
+
+  if(existent_node == NULL){
+    return -1;
+  }
+
+  if(detached_ptcb->exited){
+    return -1;
+  }
+
+  detached_ptcb->detached = 1;
+
+  kernel_broadcast(& detached_ptcb->exit_cv);
+
+	return 0;
 }
 
 /**
@@ -83,17 +151,11 @@ int sys_ThreadDetach(Tid_t tid)
   */
 void sys_ThreadExit(int exitval)
 {
-  //check if it is the last thread (copy sys_exit code) and then use kernel broadcast at 
-  //the list that wait this thread to end, Reduce thread count -1. Also kernel_sleep and so on..
   /* 
     Here, we must check that we are not the init task. 
     If we are, we must wait until all child processes exit. 
    */
 
-  /* 
-    Here, we must check that we are not the init task. 
-    If we are, we must wait until all child processes exit. 
-   */
   PCB *curproc = CURPROC;
 
   //I check if thread_count == 1. If it is then you have only one thread left.
@@ -102,11 +164,9 @@ void sys_ThreadExit(int exitval)
 
   if(CURPROC->thread_count == 1){
 
-    if(get_pid(curproc)==1) {
+    //Checking if curproc is != 1 if it is 1 then start deleting the ptcbs
 
-      while(sys_WaitChild(NOPROC,NULL)!=NOPROC);
-
-    } else {
+    if(get_pid(curproc)!=1) {
 
       /* Reparent any children of the exiting process to the 
          initial task */
@@ -152,57 +212,37 @@ void sys_ThreadExit(int exitval)
       }
     }
 
-    //That's the new code segment that I added to the sys_Exit() code.
-    //Pop the last PTCB from the list and make thread count = 0,
-    //also you have to assert that ptcb list is empty
-    //I think it's correct though it needs confirmation (?)
-
-    rlist_pop_front(& curproc->ptcb_list);
-    curproc->thread_count = 0;
-    assert(is_rlist_empty(& curproc->ptcb_list));
-
     /* Disconnect my main_thread */
     curproc->main_thread = NULL;
 
     /* Now, mark the process as exited. */
     curproc->pstate = ZOMBIE;
 
-    //Also ask if you have to kernel_broadcast here as well(?). Probably not because it is the last
-    //thread and no-one is waiting for it but ask just in case.
+  } 
 
-  } else {
+  cur_thread()->ptcb->exited = 1;
+  cur_thread()->ptcb->exitval = exitval;
 
-    //Question: What happens to the popped ptcb? Does it have to be deleted or it is deleted by simply popping it?
-    //If so then what's the puprpose of exitval if the ptcb "Object" is deleted (?) 
-     rlnode* popped_node = rlist_pop_front(& curproc->ptcb_list);
-     popped_node->ptcb->exited = 1; 
+  //Since we the PTCB is deleted you have to deplete the thread_count by 1.
+  curproc->thread_count--;
+  
+  //Broadcasting that the current thread has exited to all the other threads waiting for it.
+  kernel_broadcast(& cur_thread()->ptcb->exit_cv);
 
-    //Since we the PTCB is deleted you have to deplete the thread count by 1.
-     curproc->thread_count = curproc->thread_count - 1;
-     //Question: kernel_broadcoast has to be used 100% to inform the waiting threads that the thread has exited
-     //but how do you used the function? One idea is impleemented bellow. (?)
-     //Edit: Probably informs all the threads that have this ptcb on their wait list that it exited.
-     //I still have to learn WHERE to initiate the COND_VAR because I suspect that 
-     //the varriable currently it has nothing in it.
-     kernel_broadcast(& popped_node->ptcb->exit_cv);
-
-  }
-
-
-  // Moved kernel_sleep to the end because you have to kernel sleep regardless the thread_count 
-  //I think it's correct I just have to confirm it. (?)
   /* Bye-bye cruel world */
-    kernel_sleep(EXITED, SCHED_USER);
+  kernel_sleep(EXITED, SCHED_USER);
 }
 
 
 /*------------------------------Check list for the progress of the project.---------------------------------
-1)Confirm that sys_Exec() and sys_Exit() are 100% correct.
-2)Confirm that sys_CreateThread() is 100% correct.
-3)Code sys_ThreadJoin()
+DONE 1)Confirm that sys_Exec() and sys_Exit() are 100% correct.
+DONE 2)Confirm that sys_CreateThread() is 100% correct.
+DONE 3)Code sys_ThreadJoin().
 4)Code sys_ThreadDetach();
 5)Implement Multi-Level-Feedback algorythm to the scheduler
-6)Clean up my messy comments :[
-7)SOS!!!!!!What does the cond var do exactly? Also how do you use it?
-
+KINDA DONE 6)Clean up my messy comments :[
+DONE 7)SOS!!!!!!What does the cond var do exactly? Also how do you use it?
+8)Revist the last comment of ThreadJoin().
+9)Ask for checking if the node exists first on sys_ThreadJoin
+10)Ask for memmory trash so that we have a really good program.
 */

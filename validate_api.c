@@ -1064,7 +1064,7 @@ BOOT_TEST(test_create_join_thread,
 BOOT_TEST(test_detach_self,
 	"Test that a thread can detach itself")
 {
-	ASSERT(ThreadDetach(ThreadSelf())==0);
+	ASSERT(ThreadDetach(ThreadSelf())== 0);
 	return 0;
 }
 
@@ -1089,8 +1089,6 @@ static int myproc(int argl, void* args) {
 BOOT_TEST(test_detach_other,
 	"Test that a thread can detach another thread.")
 {
-
-
 	ASSERT(run_get_status(myproc, 0, NULL) == 42);
 
 	return 0;
@@ -1166,7 +1164,7 @@ BOOT_TEST(test_join_many_threads,
 static Tid_t mttid;
 
 static int join_notmain_thread(int argl, void* args) {
-	ASSERT(ThreadJoin(mttid, NULL)==0);
+	ASSERT(ThreadJoin(mttid, NULL)== 0);
 	return 0;
 }
 

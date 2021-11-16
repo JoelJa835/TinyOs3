@@ -192,9 +192,6 @@ Pid_t sys_Exec(Task call, int argl, void* args)
     the initialization of the PCB.
    */
 
-  
-  //Bellow are the changes done to sys_Exec(). I am 95% sure that it's correct :) (?)
-
   //Initiallizing the head of the list also setting the thread count to 1 since 
   //this is the first proccess.
   rlnode_init(& newproc->ptcb_list, NULL);
@@ -203,20 +200,31 @@ Pid_t sys_Exec(Task call, int argl, void* args)
   if(call != NULL) {
 
     //Creating a new_ptcb and allocating space.
-    PTCB *new_ptcb = xmalloc(sizeof(PTCB));
+    PTCB* new_ptcb = xmalloc(sizeof(PTCB));
+
     //Spawning a new thread and putting it inside PCB *newproc->main_thread.
     //This thread is the main thread thus it's name.
     newproc->main_thread = spawn_thread(newproc, start_main_thread);
+
     //Making nessecerry connections.
     newproc->main_thread->ptcb = new_ptcb;
+    newproc->main_thread->owner_pcb = newproc;
+
     new_ptcb->tcb = newproc->main_thread;
+    new_ptcb->task = call;
+    new_ptcb->args = args;
+    new_ptcb->argl = argl;
+
+    new_ptcb->refcount = 0;
+    new_ptcb->detached = 0;
+    new_ptcb->exited = 0;
+    new_ptcb->exit_cv = COND_INIT;
     
-    //Initilize the new PTCB node, and pushing in inside the PTCB list.
+    //Initilize the new PTCB node, and pushing it inside the PTCB list.
     rlnode_init(& new_ptcb->ptcb_list_node, new_ptcb);
     rlist_push_back(& newproc->ptcb_list,& new_ptcb->ptcb_list_node); 
 
-    //Waking up the main_thread. Waking up means that it's status becomes ready inside the 
-    //scheduler's queue.
+    //Waking up the main_thread that I just created.
     wakeup(newproc->main_thread);
   }
 
@@ -323,9 +331,6 @@ Pid_t sys_WaitChild(Pid_t cpid, int* status)
 }
 
 //Done 95% sure :). The change was to move most of it's code inside sys_ThreadExit()
-//Also for a reason that I don't understand yet you have to call sys_TheadExit() 
-//instead of simply ThreadExit(). I suspect that it is because of the includes.
-
 void sys_Exit(int exitval)
 {
 
@@ -334,7 +339,13 @@ void sys_Exit(int exitval)
   /* First, store the exit status */
   curproc->exitval = exitval;
 
+  if(get_pid(curproc)==1) {
+    while(sys_WaitChild(NOPROC,NULL)!=NOPROC);
+  }
+
   sys_ThreadExit(exitval);
+
+
 }
 
 
