@@ -102,6 +102,9 @@ typedef struct thread_control_block {
 	PCB* owner_pcb; /**< @brief This is null for a free TCB */
   PTCB* ptcb;     /**< @brief PTCB pointer */
 
+  int priority;    /**< @brief Priority varriable for the scheduler qeues. Addition required 
+  for the MLFQ algorythm.*/
+
 	cpu_context_t context; /**< @brief The thread context */
 	Thread_type type; /**< @brief The type of thread */
 	Thread_state state; /**< @brief The state of the thread */
@@ -142,10 +145,10 @@ typedef struct process_thread_control_block {
   int argl;             /**< @brief Task's arguement length. */
   void* args;           /**< @brief Task's argument string. */
 
-  int exitval;          /**< @brief The exit value of the process */
+  int exitval;          /**< @brief The exit value of the thread */
 
-  int exited;           /**< @brief Flag to see if pcb is exited [0,1] */
-  int detached;
+  int exited;           /**< @brief Flag to see if the thread has exited [0,1] */
+  int detached;         /**< @brief Flag to see if the thread has been detached [0,1]*/
   CondVar exit_cv;
 
   int refcount;         /**< @brief Variable to see when to delete PTCB */

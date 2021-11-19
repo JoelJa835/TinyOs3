@@ -6,7 +6,6 @@
 
 /** 
   @brief Create a new thread in the current process.
-  DONE 85%-90% sure.. :)"
   */
 Tid_t sys_CreateThread(Task task, int argl, void* args)
 {
@@ -16,9 +15,10 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
   PTCB* new_ptcb = xmalloc(sizeof(PTCB));
   
   //Making needed connections between new_tcb and new_ptcb and intializing
+  //the empty fields in ptcb.
   new_tcb->ptcb = new_ptcb;
   new_tcb->owner_pcb = CURPROC;
-  new_ptcb->tcb = new_tcb;
+
   new_ptcb->tcb = new_tcb;
   new_ptcb->task = task;
   new_ptcb->args = args;
@@ -45,7 +45,6 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
 
 /**
   @brief Return the Tid of the current thread.
-  DONE 100% sure. :)
  */
 Tid_t sys_ThreadSelf()
 {
@@ -55,9 +54,6 @@ Tid_t sys_ThreadSelf()
 /**
   @brief Join the given thread.
   */
-  //1.elegxoi gia na doume an mporei an ginei to thread join also increase tid + 1
-  //2.call kernel_wait() to wait for join maybe inside a loop (?)
-  //3.ti simbainei an ginei wakeup if it wakes up tid - 1
 int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
 
@@ -67,7 +63,6 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   //1)The tid to join corresponds to the thread itself. This can't happen of course since a thread can't
   //join itself.
   //2)The tid to join corresponds to a thread that is detached.
-  //3)The tid to join corresponds to a thread that has exited.
   //4)existent_node == NULL which means that the tid given is does not belong to CURPROC 
 
   //Checking if the given tid is a thread of the current process. If the rlist_find() succeeds 
@@ -83,10 +78,6 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   }
 
   if(joined_ptcb->detached){
-    return -1;
-  }
-
-  if(joined_ptcb->exited){
     return -1;
   }
 
@@ -111,8 +102,14 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
     if(exitval)
       *exitval = joined_ptcb->exitval;
   }
-  
-  //if refcount == 0 delete ptcb;
+
+  //If joined_ptcb->refcount == 0 then the ptcb is not needed anymore and we can remove it 
+  //from the list and after that free it.
+
+  if(joined_ptcb->refcount == 0){
+    rlist_remove(& joined_ptcb->ptcb_list_node);
+    free(joined_ptcb);
+  }
 
   return 0;
 }
@@ -122,11 +119,10 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   */
 int sys_ThreadDetach(Tid_t tid) 
 {
-  //1.use kernel_broadcast to wakeup all threads if thread joins fails
+  //There are 2 reason for detach to fail. 
+  //1)existent_node == NULL which means that the tid given is does not belong to CURPROC 
+  //2)The thread that we are trying to detach has already exited.
 
-  //There are two reason for sys_ThreadDetach()to fail. 
-  //1.If the tid to detach doesn't belong to the current process.
-  //2.The tread that gets detached has already exited.
   PTCB* detached_ptcb = (PTCB *) tid;
 
   rlnode* existent_node = rlist_find(& CURPROC->ptcb_list,detached_ptcb, NULL);
@@ -139,8 +135,10 @@ int sys_ThreadDetach(Tid_t tid)
     return -1;
   }
 
+  //Detaching the thread.
   detached_ptcb->detached = 1;
 
+  //Broadcasting to the other ptcb waiting that the thread that corresponds to tid has been detached.
   kernel_broadcast(& detached_ptcb->exit_cv);
 
 	return 0;
@@ -157,6 +155,7 @@ void sys_ThreadExit(int exitval)
    */
 
   PCB *curproc = CURPROC;
+  TCB *curthread = cur_thread();
 
   //I check if thread_count == 1. If it is then you have only one thread left.
   //What's left to do is to intialize the proccess cleaning code that was previously in
@@ -164,7 +163,7 @@ void sys_ThreadExit(int exitval)
 
   if(CURPROC->thread_count == 1){
 
-    //Checking if curproc is != 1 if it is 1 then start deleting the ptcbs
+    //Checking if curproc is != 1 if it is 1 then start the cleanup.
 
     if(get_pid(curproc)!=1) {
 
@@ -220,8 +219,10 @@ void sys_ThreadExit(int exitval)
 
   } 
 
-  cur_thread()->ptcb->exited = 1;
-  cur_thread()->ptcb->exitval = exitval;
+  //Raising the exited flag and giving the exitval to the thread.s
+
+  curthread->ptcb->exited = 1;
+  curthread->ptcb->exitval = exitval;
 
   //Since we the PTCB is deleted you have to deplete the thread_count by 1.
   curproc->thread_count--;
@@ -231,6 +232,11 @@ void sys_ThreadExit(int exitval)
 
   /* Bye-bye cruel world */
   kernel_sleep(EXITED, SCHED_USER);
+
+  if(cur_thread()->ptcb->refcount == 0){
+    rlist_remove(& cur_thread()->ptcb->ptcb_list_node);
+    free(cur_thread()->ptcb);
+  }
 }
 
 
@@ -238,11 +244,10 @@ void sys_ThreadExit(int exitval)
 DONE 1)Confirm that sys_Exec() and sys_Exit() are 100% correct.
 DONE 2)Confirm that sys_CreateThread() is 100% correct.
 DONE 3)Code sys_ThreadJoin().
-4)Code sys_ThreadDetach();
-5)Implement Multi-Level-Feedback algorythm to the scheduler
-KINDA DONE 6)Clean up my messy comments :[
+DONE 4)Code sys_ThreadDetach();
+DONE 5)Implement Multi-Level-Feedback algorythm to the scheduler
 DONE 7)SOS!!!!!!What does the cond var do exactly? Also how do you use it?
-8)Revist the last comment of ThreadJoin().
-9)Ask for checking if the node exists first on sys_ThreadJoin
-10)Ask for memmory trash so that we have a really good program.
+DONE 8)Revist the last comment of ThreadJoin().
+DONE 9)Ask for checking if the node exists first on sys_ThreadJoin
+DONE 10)Ask for memmory trash so that we have a really good program :D .
 */
