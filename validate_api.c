@@ -108,7 +108,6 @@ static void waitchild_error()
 	ASSERT(WaitChild(MAX_PROC, NULL)==NOPROC);
 	ASSERT(WaitChild(GetPid()+1, NULL)==NOPROC);
 }
-
 static int subprocess(int argl, void* args) 
 {
 	ASSERT(GetPid()!=1);
@@ -1064,7 +1063,7 @@ BOOT_TEST(test_create_join_thread,
 BOOT_TEST(test_detach_self,
 	"Test that a thread can detach itself")
 {
-	ASSERT(ThreadDetach(ThreadSelf())== 0);
+	ASSERT(ThreadDetach(ThreadSelf())==0);
 	return 0;
 }
 
@@ -1089,6 +1088,8 @@ static int myproc(int argl, void* args) {
 BOOT_TEST(test_detach_other,
 	"Test that a thread can detach another thread.")
 {
+
+
 	ASSERT(run_get_status(myproc, 0, NULL) == 42);
 
 	return 0;
@@ -1164,7 +1165,7 @@ BOOT_TEST(test_join_many_threads,
 static Tid_t mttid;
 
 static int join_notmain_thread(int argl, void* args) {
-	ASSERT(ThreadJoin(mttid, NULL)== 0);
+	ASSERT(ThreadJoin(mttid, NULL)==0);
 	return 0;
 }
 
@@ -1661,7 +1662,7 @@ struct connect_sockets
 
 static int connect_sockets_connect_process(int argl, void* args) {
 	struct connect_sockets* A = args;
-	ASSERT(Connect(A->sock1, A->port, 1000)==0);
+	ASSERT(Connect(A->sock1, A->port, 1000)==0);	
 	return 0;
 }
 
@@ -1671,10 +1672,17 @@ void connect_sockets(Fid_t sock1, Fid_t lsock, Fid_t* sock2, port_t port)
 		.sock1=sock1, .lsock=lsock, .sock2=sock2, .port=port
 	};
 
-	ASSERT(run_get_status(connect_sockets_connect_process, sizeof(A), &A)==0);
+	/* Spawn a child to connect sock1 to port (where lsock must be listening) */
+	Pid_t pid = Exec(connect_sockets_connect_process, sizeof(A), &A);
+	ASSERT(pid != NOPROC);
 
+	/* accept the child's connection here */
 	*sock2 = Accept(lsock);
 	ASSERT(*sock2 != NOFILE);
+
+
+	/* Clean up child */
+	ASSERT(WaitChild(pid, NULL)==pid);
 }
 
 
@@ -1726,7 +1734,8 @@ BOOT_TEST(test_socket_constructor_illegal_port,
 BOOT_TEST(test_listen_success,
 	"Test that Listen succeeds on an unbound socket"
 	)
-{
+{	
+
 	ASSERT(Listen(Socket(100))==0);
 	return 0;
 }
@@ -1772,6 +1781,7 @@ BOOT_TEST(test_listen_fails_on_initialized_socket,
 	Fid_t sock[2];
 	sock[0] = Socket(200);
 	connect_sockets(sock[0], lsock, sock+1, 100);
+	fprintf(stderr,"red dragon");
 	ASSERT(Listen(sock[0])==-1);
 	ASSERT(Listen(sock[1])==-1);
 	return 0;
@@ -1849,6 +1859,16 @@ BOOT_TEST(test_accept_reusable,
 }
 
 
+/* Helper for test_accept_fails_on_exhausted_fid */
+static int accept_connection_assert_fail(int argl, void* args) 
+{
+	ASSERT(argl==sizeof(Fid_t));
+	Fid_t lsock = * (Fid_t*) args;
+	ASSERT(Accept(lsock)==NOFILE);
+	return 0;
+}
+
+
 BOOT_TEST(test_accept_fails_on_exhausted_fid,
 	"Test that Accept will fail if the fids of the process are exhausted."
 	)
@@ -1871,13 +1891,15 @@ BOOT_TEST(test_accept_fails_on_exhausted_fid,
 	/* Ok, we should be able to get another client */
 	Fid_t cli = Socket(NOPORT); ASSERT(cli!=NOFILE);
 
-	/* Now, if we try a connection we should fail! */
-	ASSERT(Accept(lsock)==NOFILE);
-	ASSERT(Connect(cli, 100, 1000)==-1);
+	/* Call accept on another process and verify it fails */
+	Pid_t pid = Exec(accept_connection_assert_fail, sizeof(lsock), &lsock);
+	ASSERT(pid!=NOPROC);
 
+	/* Now, if we try a connection we should fail! */
+	ASSERT(Connect(cli, 100, 1000)==-1);
+	ASSERT(WaitChild(pid, NULL)==pid);
 	return 0;
 }
-
 
 
 static int unblocking_accept_connection(int argl, void* args) 
@@ -1886,6 +1908,7 @@ static int unblocking_accept_connection(int argl, void* args)
 	ASSERT(Accept(lsock)==NOFILE);
 	return 0;
 }
+
 
 
 BOOT_TEST(test_accept_unblocks_on_close,

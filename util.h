@@ -290,6 +290,7 @@ typedef struct core_control_block CCB;		/**< @brief Forward declaration */
 typedef struct device_control_block DCB;	/**< @brief Forward declaration */
 typedef struct file_control_block FCB;		/**< @brief Forward declaration */
 typedef struct process_thread_control_block PTCB; /**< @brief Forward declaration */
+typedef struct connection_request_type connection_request;/**< @brief Forward declaration */
 
 /** @brief A convenience typedef */
 typedef struct resource_list_node * rlnode_ptr;
@@ -310,12 +311,13 @@ typedef struct resource_list_node {
      \endcode
      */
   union {
-  	PTCB* ptcb; /** @brief Added support for ptcb*/
+  	PTCB* ptcb; /** @brief Added support for ptcb.*/
     PCB* pcb; 
     TCB* tcb;
     CCB* ccb;
     DCB* dcb;
     FCB* fcb;
+    connection_request* con_req; /** @brief Added support for connection requests.*/
     void* obj;
     rlnode_ptr node;
     intptr_t num;

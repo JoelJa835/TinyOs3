@@ -30,8 +30,6 @@
 	@{
 */
 
-
-
 /** @brief The file control block.
 
 	A file control block provides a uniform object to the
@@ -45,8 +43,6 @@ typedef struct file_control_block
   file_ops* streamfunc;		/**< @brief The stream implementation methods */
   rlnode freelist_node;		/**< @brief Intrusive list node */
 } FCB;
-
-
 
 /** 
   @brief Initialization for files and streams.

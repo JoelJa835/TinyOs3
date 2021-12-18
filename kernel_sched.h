@@ -88,7 +88,8 @@ enum SCHED_CAUSE {
 	SCHED_PIPE, /**< @brief Sleep at a pipe or socket */
 	SCHED_POLL, /**< @brief The thread is polling a device */
 	SCHED_IDLE, /**< @brief The idle thread called yield */
-	SCHED_USER /**< @brief User-space code called yield */
+	SCHED_USER, /**< @brief User-space code called yield */
+  SCHED_REQUEST /**<@brief  */
 };
 
 /**

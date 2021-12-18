@@ -431,7 +431,7 @@ void sleep_releasing(Thread_state state, Mutex* mx, enum SCHED_CAUSE cause,
 before boosting.*/
 
 int yield_calls = 0;
-#define MAX_YIELD_CALLS 500
+#define MAX_YIELD_CALLS 100
 
 /* This function is the entry point to the scheduler's context switching */
 
