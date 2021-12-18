@@ -76,9 +76,7 @@ int sys_Listen(Fid_t sock)
 		return NOFILE;
 
 	PORT_MAP[listener_scb->port] = listener_scb;
-	//portmap_pos++;
 
-	//
 	if(illegal_port(listener_scb->port)){
 		return NOFILE;
 	}
@@ -105,7 +103,7 @@ Fid_t sys_Accept(Fid_t lsock)
 		return NOFILE;
 	}
 
-	if(!is_in_portmap(lsock_scb->port)){
+	if(!is_in_portmap(lsock_scb->port) || lsock_scb->type != SOCKET_LISTENER){
 		return NOFILE;
 	}
 
@@ -140,7 +138,20 @@ Fid_t sys_Accept(Fid_t lsock)
 	admitted_peer->type = SOCKET_PEER;
 
 
+	fprintf(stderr, "before new socket\n");
+
 	Fid_t new_peer_fidt = sys_Socket(lsock_scb->port); //Na to rwtisw.
+
+	fprintf(stderr, "after new socket\n");
+
+	if(new_peer_fidt == NOFILE){
+		fprintf(stderr, "before return\n");
+		return NOFILE;
+	}
+
+
+	fprintf(stderr, "reservation_complete");
+
 	FCB* new_peer_fcb = get_fcb(new_peer_fidt);
 	socket_cb* new_peer_scb = (socket_cb *) new_peer_fcb->streamobj;
 	new_peer_scb->type = SOCKET_PEER;
@@ -193,7 +204,7 @@ Fid_t sys_Accept(Fid_t lsock)
 
 	fprintf(stderr,"Accept returned\n");
 
-	return 0;
+	return new_peer_fidt;
 }
 
 
@@ -233,7 +244,7 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 
 	peer_fcb->refcount--;
 
-	if(request->admitted!=1){
+	if(request->admitted!=1 || ......){
 		return NOFILE;
 	}
 
