@@ -1662,7 +1662,7 @@ struct connect_sockets
 
 static int connect_sockets_connect_process(int argl, void* args) {
 	struct connect_sockets* A = args;
-	ASSERT(Connect(A->sock1, A->port, 1000)==0);	
+	ASSERT(Connect(A->sock1, A->port, 1000)==0);
 	return 0;
 }
 
@@ -1679,7 +1679,6 @@ void connect_sockets(Fid_t sock1, Fid_t lsock, Fid_t* sock2, port_t port)
 	/* accept the child's connection here */
 	*sock2 = Accept(lsock);
 	ASSERT(*sock2 != NOFILE);
-
 
 	/* Clean up child */
 	ASSERT(WaitChild(pid, NULL)==pid);
@@ -1734,8 +1733,7 @@ BOOT_TEST(test_socket_constructor_illegal_port,
 BOOT_TEST(test_listen_success,
 	"Test that Listen succeeds on an unbound socket"
 	)
-{	
-
+{
 	ASSERT(Listen(Socket(100))==0);
 	return 0;
 }
@@ -1781,7 +1779,6 @@ BOOT_TEST(test_listen_fails_on_initialized_socket,
 	Fid_t sock[2];
 	sock[0] = Socket(200);
 	connect_sockets(sock[0], lsock, sock+1, 100);
-	fprintf(stderr,"red dragon");
 	ASSERT(Listen(sock[0])==-1);
 	ASSERT(Listen(sock[1])==-1);
 	return 0;

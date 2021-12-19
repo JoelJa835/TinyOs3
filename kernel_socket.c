@@ -16,7 +16,8 @@ static file_ops socket_file_ops = {
 Fid_t sys_Socket(port_t port)
 {
 
-	if(illegal_port(port)){
+
+	if(port < NOPORT || port > MAX_PORT){
 		return NOFILE;
 	}
 
@@ -66,14 +67,14 @@ int sys_Listen(Fid_t sock)
 		return NOFILE;
 	}
 
-	//
 	if(listener_scb->type != SOCKET_UNBOUND || listener_scb->port == NOPORT){
 		return NOFILE;
 	}
 
 	//An einai occupied to portmap
-	if(illegal_port(listener_scb->port) || is_in_portmap(listener_scb->port))
+	if(illegal_port(listener_scb->port) || is_in_portmap(listener_scb->port)){
 		return NOFILE;
+	}
 
 	PORT_MAP[listener_scb->port] = listener_scb;
 
@@ -90,7 +91,7 @@ int sys_Listen(Fid_t sock)
 }
 Fid_t sys_Accept(Fid_t lsock)
 {
-	
+
 	FCB* lsock_fcb = get_fcb(lsock);
 
 	if(lsock_fcb == NULL){
@@ -109,10 +110,7 @@ Fid_t sys_Accept(Fid_t lsock)
 
 	lsock_scb->refcount++;
 
-
-	fprintf(stderr,"yep\n");
 	while(is_rlist_empty(&(lsock_scb->listener_s.queue)) /* && !is_in_portmap(lsock_scb->port)*/){
-		fprintf(stderr,"listener waiting for request\n");
 		kernel_wait(&(lsock_scb->listener_s.req_available), SCHED_IO);
 	}
 
@@ -126,31 +124,20 @@ Fid_t sys_Accept(Fid_t lsock)
 
 	connection_request* admitted_request = (rlist_pop_front(&(lsock_scb->listener_s.queue)))->con_req;
 
-
-	fprintf(stderr,"request admitted\n");
 	socket_cb* admitted_peer = admitted_request->peer;
 
 	if(admitted_peer->type != SOCKET_UNBOUND){
 		return NOFILE;
 	}
 
-	admitted_request->admitted = 1;
-	admitted_peer->type = SOCKET_PEER;
-
-
-	fprintf(stderr, "before new socket\n");
-
 	Fid_t new_peer_fidt = sys_Socket(lsock_scb->port); //Na to rwtisw.
 
-	fprintf(stderr, "after new socket\n");
-
 	if(new_peer_fidt == NOFILE){
-		fprintf(stderr, "before return\n");
 		return NOFILE;
 	}
 
-
-	fprintf(stderr, "reservation_complete");
+	admitted_request->admitted = 1;
+	admitted_peer->type = SOCKET_PEER;
 
 	FCB* new_peer_fcb = get_fcb(new_peer_fidt);
 	socket_cb* new_peer_scb = (socket_cb *) new_peer_fcb->streamobj;
@@ -202,8 +189,6 @@ Fid_t sys_Accept(Fid_t lsock)
 
 	lsock_scb->refcount--;
 
-	fprintf(stderr,"Accept returned\n");
-
 	return new_peer_fidt;
 }
 
@@ -212,21 +197,27 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 {
 
 	FCB* peer_fcb = get_fcb(sock);
+	socket_cb* peer_scb = (socket_cb *) peer_fcb->streamobj;
 
-	if(peer_fcb == NULL || illegal_port(port)){
+	if(peer_fcb == NULL){
+		return NOFILE;
+	}
+
+	if(illegal_port(port) || !is_in_portmap(port)){
 		return NOFILE;
 	}
 
 	peer_fcb->refcount++;
 
-	connection_request* request = xmalloc(sizeof(connection_request));
+	if(peer_scb->type != SOCKET_UNBOUND){
+		return NOFILE;
+	}
 
+	connection_request* request = xmalloc(sizeof(connection_request));
 
 	if(request == NULL){
 		return NOFILE;
 	}
-	
-	fprintf(stderr,"dadada\n");
 
 	request->admitted = 0;
 	request->peer = peer_fcb->streamobj;
@@ -244,7 +235,7 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 
 	peer_fcb->refcount--;
 
-	if(request->admitted!=1 || ......){
+	if(request->admitted!=1 || (request->peer->type != SOCKET_PEER) ){
 		return NOFILE;
 	}
 
@@ -266,24 +257,25 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 		return NOFILE;
 	}
 
-	switch(how){
-	case SHUTDOWN_READ:
-		pipe_reader_close(peer_scb->peer_s.read_pipe);
-		break;
-	case SHUTDOWN_WRITE:
-		pipe_writer_close(peer_scb->peer_s.write_pipe);
-		break;
+	if(peer_scb->type == SOCKET_PEER){
+		switch(how){
+			case SHUTDOWN_READ:
+				pipe_reader_close(peer_scb->peer_s.read_pipe);
+				break;
+			case SHUTDOWN_WRITE:
+				pipe_writer_close(peer_scb->peer_s.write_pipe);
+				break;
 
-	case SHUTDOWN_BOTH:
-		pipe_reader_close(peer_scb->peer_s.read_pipe);
-		pipe_writer_close(peer_scb->peer_s.write_pipe);
-		break;
+			case SHUTDOWN_BOTH:
+				pipe_reader_close(peer_scb->peer_s.read_pipe);
+				pipe_writer_close(peer_scb->peer_s.write_pipe);
+			break;
 
-	default:
+			default:
+		}
+	}
 
 	return 0;
-
-	}
 }
 
 int socket_read(void* streamobj, char* buf, int size){
@@ -336,7 +328,7 @@ int socket_close(void* streamobj){
 }
 
 int illegal_port(port_t port){
-	if(port < NOPORT || port > MAX_PORT){
+	if(port <= NOPORT || port > MAX_PORT){
 		return 1;
 	}else{
 		return 0;
