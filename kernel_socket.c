@@ -146,10 +146,17 @@ Fid_t sys_Accept(Fid_t lsock)
 	new_peer_scb->peer_s.peer = admitted_peer;
 	admitted_peer->peer_s.peer = new_peer_scb;
 
+	Fid_t admitted_peer_fidt = admitted_request->peer_fidt;
+	FCB* admitted_peer_fcb = admitted_request->peer->fcb;
+
+	if(admitted_peer_fcb != get_fcb(admitted_peer_fidt)){
+		fprintf(stderr,"SUCK A DICK LIL BITCH\n");
+	}
+
 	//Creating the first pipe.
 	pipe_t pipe_t_1;
-	pipe_t_1.write = lsock;
-	pipe_t_1.read = new_peer_fidt;
+	pipe_t_1.write = new_peer_fidt;
+	pipe_t_1.read = admitted_peer_fidt;
 
 	pipe_cb* pipe_cb_1 = xmalloc(sizeof(pipe_cb));
 	
@@ -157,8 +164,8 @@ Fid_t sys_Accept(Fid_t lsock)
 		return NOFILE;
 	}
 
-	pipe_cb_1->writer = lsock_fcb;
-	pipe_cb_1->reader = new_peer_fcb;
+	pipe_cb_1->writer = new_peer_fcb;
+	pipe_cb_1->reader = admitted_peer_fcb;
 	pipe_cb_1->has_space = COND_INIT;
 	pipe_cb_1->has_data = COND_INIT;
 	pipe_cb_1->w_position = 0;
@@ -166,8 +173,8 @@ Fid_t sys_Accept(Fid_t lsock)
 
 	//Creating the second pipe.
 	pipe_t pipe_t_2;
-	pipe_t_2.write = new_peer_fidt;
-	pipe_t_2.read = lsock;
+	pipe_t_2.write = admitted_peer_fidt;
+	pipe_t_2.read = new_peer_fidt;
 
 	pipe_cb* pipe_cb_2 = xmalloc(sizeof(pipe_cb));
 
@@ -175,15 +182,19 @@ Fid_t sys_Accept(Fid_t lsock)
 		return NOFILE;
 	}
 
-	pipe_cb_2->writer = new_peer_fcb;
-	pipe_cb_2->reader = lsock_fcb;
+	pipe_cb_2->writer = admitted_peer_fcb;
+	pipe_cb_2->reader = new_peer_fcb;
 	pipe_cb_2->has_space = COND_INIT;
 	pipe_cb_2->has_data = COND_INIT;
 	pipe_cb_2->w_position = 0;
 	pipe_cb_2->r_position = 0;
 
-	admitted_peer->peer_s.write_pipe = pipe_cb_1;
-	admitted_peer->peer_s.read_pipe = pipe_cb_2;
+
+	new_peer_scb->peer_s.write_pipe = pipe_cb_1;
+	new_peer_scb->peer_s.read_pipe = pipe_cb_2;
+
+	admitted_peer->peer_s.write_pipe = pipe_cb_2;
+	admitted_peer->peer_s.read_pipe = pipe_cb_1;
 
 	kernel_signal(&(admitted_request->connected_cv));
 
@@ -222,6 +233,7 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	request->admitted = 0;
 	request->peer = peer_fcb->streamobj;
 	request->connected_cv = COND_INIT;
+	request->peer_fidt = sock;
 
 	rlnode_init(&request->queue_node, request);
 	rlist_push_back(&(PORT_MAP[port]->listener_s.queue), &request->queue_node);
@@ -269,7 +281,7 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 			case SHUTDOWN_BOTH:
 				pipe_reader_close(peer_scb->peer_s.read_pipe);
 				pipe_writer_close(peer_scb->peer_s.write_pipe);
-			break;
+				break;
 
 			default:
 		}
@@ -286,10 +298,13 @@ int socket_read(void* streamobj, char* buf, int size){
 		return NOFILE;
 	}
 
-	if(socket_scb->type == SOCKET_PEER && socket_scb->peer_s.read_pipe != NULL)
-		return pipe_read(socket_scb->peer_s.read_pipe,buf,size);
-	else
+	if(socket_scb->type == SOCKET_PEER && socket_scb->peer_s.read_pipe != NULL){
+		int read_count = pipe_read(socket_scb->peer_s.read_pipe,buf,size);
+		//fprintf(stderr,"Read_count:%d\n",read_count);
+		return read_count;
+	}else{
 		return NOFILE;
+	}
 }
 
 int socket_write(void* streamobj, const char* buf, int size){
@@ -300,10 +315,12 @@ int socket_write(void* streamobj, const char* buf, int size){
 		return NOFILE;
 	}
 
-	if(socket_scb->type == SOCKET_PEER && socket_scb->peer_s.write_pipe != NULL)
+	if(socket_scb->type == SOCKET_PEER && socket_scb->peer_s.write_pipe != NULL){
 		return pipe_write(socket_scb->peer_s.write_pipe,buf,size);
-	else
+	}
+	else{
 		return NOFILE;
+	}
 }
 int socket_close(void* streamobj){
 

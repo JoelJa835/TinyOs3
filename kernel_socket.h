@@ -20,6 +20,7 @@ int is_in_portmap(port_t test_port);
 
 typedef struct connection_request_type {
 	int admitted;
+	Fid_t peer_fidt;
 	socket_cb* peer;
 	CondVar connected_cv;
 	rlnode queue_node;

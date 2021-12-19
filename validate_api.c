@@ -2005,10 +2005,12 @@ BOOT_TEST(test_socket_small_transfer,
 {
 	Fid_t sock[2], lsock;
 
-	lsock = Socket(100);   ASSERT(lsock!=NOFILE);
+	lsock = Socket(100);  
+	ASSERT(lsock!=NOFILE);
 	if(lsock!=0) { Dup2(lsock,0); Close(lsock); }
 
-	sock[0] = Socket(NOPORT); ASSERT(sock[0]!=NOFILE);
+	sock[0] = Socket(NOPORT); 
+	ASSERT(sock[0]!=NOFILE);
 
 	ASSERT(Listen(lsock)==0);
 

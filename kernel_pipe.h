@@ -2,7 +2,7 @@
 #include "kernel_dev.h"
 
 
-#define PIPE_BUFFER_SIZE 8192
+#define PIPE_BUFFER_SIZE 1000000000
 
 
 typedef struct pipe_control_block
