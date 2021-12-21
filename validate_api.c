@@ -1576,7 +1576,7 @@ BOOT_TEST(test_pipe_single_producer,
 		Close(pipe.write);
 	}
 
-	int N = 10000000;
+	int N = 1000000;
 	ASSERT(Exec(data_consumer, sizeof(N), &N)!=NOPROC);
 	ASSERT(Exec(data_producer, sizeof(N), &N)!=NOPROC);
 
@@ -1919,7 +1919,7 @@ BOOT_TEST(test_accept_unblocks_on_close,
 	Tid_t t = CreateThread(unblocking_accept_connection, lsock, NULL);
 
 	/* Here, we just wait some time, (of course, this is technically a race condition :-( */
-	fibo(30);
+	fibo(10);
 	Close(lsock);
 
 	ThreadJoin(t,NULL);
@@ -2045,6 +2045,7 @@ BOOT_TEST(test_socket_single_producer,
 	ASSERT(Listen(2)==0);
 
 	Fid_t srv;
+
 	connect_sockets(0, 2, &srv, 100);
 
 	if(srv!=1) {
@@ -2052,7 +2053,7 @@ BOOT_TEST(test_socket_single_producer,
 		ASSERT(Close(srv)==0);
 	}
 
-	int N = 10000000;
+	int N = 1000000;
 	ASSERT(Exec(data_consumer, sizeof(N), &N)!=NOPROC);
 	ASSERT(Exec(data_producer, sizeof(N), &N)!=NOPROC);
 
@@ -2061,6 +2062,7 @@ BOOT_TEST(test_socket_single_producer,
 
 	WaitChild(NOPROC,NULL);
 	WaitChild(NOPROC,NULL);
+
 	return 0;
 }
 

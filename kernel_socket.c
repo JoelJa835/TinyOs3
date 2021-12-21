@@ -149,10 +149,6 @@ Fid_t sys_Accept(Fid_t lsock)
 	Fid_t admitted_peer_fidt = admitted_request->peer_fidt;
 	FCB* admitted_peer_fcb = admitted_request->peer->fcb;
 
-	if(admitted_peer_fcb != get_fcb(admitted_peer_fidt)){
-		fprintf(stderr,"SUCK A DICK LIL BITCH\n");
-	}
-
 	//Creating the first pipe.
 	pipe_t pipe_t_1;
 	pipe_t_1.write = new_peer_fidt;
@@ -272,19 +268,33 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 	if(peer_scb->type == SOCKET_PEER){
 		switch(how){
 			case SHUTDOWN_READ:
-				pipe_reader_close(peer_scb->peer_s.read_pipe);
+				if(peer_scb->peer_s.read_pipe != NULL){
+					pipe_reader_close(peer_scb->peer_s.read_pipe);
+				}
+				peer_scb->peer_s.read_pipe = NULL;
 				break;
 			case SHUTDOWN_WRITE:
-				pipe_writer_close(peer_scb->peer_s.write_pipe);
+				if(peer_scb->peer_s.write_pipe != NULL){
+					pipe_writer_close(peer_scb->peer_s.write_pipe);
+				}
+				peer_scb->peer_s.write_pipe = NULL;
 				break;
 
 			case SHUTDOWN_BOTH:
-				pipe_reader_close(peer_scb->peer_s.read_pipe);
-				pipe_writer_close(peer_scb->peer_s.write_pipe);
+				if(peer_scb->peer_s.write_pipe != NULL){
+					pipe_writer_close(peer_scb->peer_s.write_pipe);
+				}
+				if(peer_scb->peer_s.read_pipe != NULL){
+					pipe_reader_close(peer_scb->peer_s.read_pipe);
+				}
+				peer_scb->peer_s.write_pipe = NULL;
+				peer_scb->peer_s.read_pipe = NULL;
 				break;
 
 			default:
-		}
+		}		return -1;
+	}else{
+		return -1;
 	}
 
 	return 0;
@@ -333,7 +343,13 @@ int socket_close(void* streamobj){
 	//added this if
 	if(socket_scb->refcount == 0){
 		if(socket_scb->type != SOCKET_LISTENER){
-		free(socket_scb);
+			if(socket_scb->type == SOCKET_PEER){
+				pipe_reader_close(socket_scb->peer_s.read_pipe);
+				pipe_writer_close(socket_scb->peer_s.write_pipe);
+				socket_scb->peer_s.read_pipe = NULL;
+				socket_scb->peer_s.write_pipe = NULL;
+			}
+			free(socket_scb);
 		}else{
 			PORT_MAP[is_in_portmap(socket_scb->port)] = NULL;
 			free(socket_scb);

@@ -142,8 +142,11 @@ int pipe_reader_close(void* streamobj){
 
 	pipe_cb* cur_pipe_cb = (pipe_cb*) streamobj;
 
-	cur_pipe_cb->reader = NULL;
+	if(cur_pipe_cb == NULL){
+		return -1;
+	}
 
+	cur_pipe_cb->reader = NULL;
 
 	if(cur_pipe_cb->writer == NULL){
 		free(cur_pipe_cb);
@@ -156,6 +159,10 @@ int pipe_reader_close(void* streamobj){
 int pipe_writer_close(void* streamobj){
 
 	pipe_cb* cur_pipe_cb = (pipe_cb*) streamobj;
+
+	if(cur_pipe_cb == NULL){
+		return -1;
+	}
 
 	cur_pipe_cb->writer = NULL;
 	
