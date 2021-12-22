@@ -279,7 +279,6 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 				}
 				peer_scb->peer_s.write_pipe = NULL;
 				break;
-
 			case SHUTDOWN_BOTH:
 				if(peer_scb->peer_s.write_pipe != NULL){
 					pipe_writer_close(peer_scb->peer_s.write_pipe);
@@ -290,13 +289,12 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 				peer_scb->peer_s.write_pipe = NULL;
 				peer_scb->peer_s.read_pipe = NULL;
 				break;
-
 			default:
-		}		return -1;
+				return NOFILE;
+		}
 	}else{
-		return -1;
+		return NOFILE;
 	}
-
 	return 0;
 }
 

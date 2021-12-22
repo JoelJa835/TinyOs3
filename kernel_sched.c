@@ -469,6 +469,7 @@ void yield(enum SCHED_CAUSE cause)
 			break;
 
 		default:
+			break;
 	}
 
 	/* Update CURTHREAD state */

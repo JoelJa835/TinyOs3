@@ -14,6 +14,13 @@
 
  */
 
+static file_ops procinfo_ops = {
+  .Open = NULL,
+  .Read = procinfo_read,
+  .Write = error_write,
+  .Close = procinfo_close
+};
+
 /* The process table */
 PCB PT[MAX_PROC];
 
@@ -348,10 +355,80 @@ void sys_Exit(int exitval)
 
 }
 
-
-
 Fid_t sys_OpenInfo()
-{
-	return NOFILE;
+{ 
+
+  Fid_t reserved_Fid_t;
+  FCB* reserved_FCB;
+  
+  int reservation_complete = FCB_reserve(1,&reserved_Fid_t,&reserved_FCB);
+
+  if(reservation_complete!=1){
+    return NOFILE;
+  }
+
+  procinfo_cb* new_proc_info = xmalloc(sizeof(procinfo_cb));
+
+  if(new_proc_info == NULL){
+    return NOFILE;
+  }
+
+  new_proc_info->pos = 0;
+
+  reserved_FCB->streamobj = new_proc_info;
+  reserved_FCB->streamfunc = &procinfo_ops;
+
+	return reserved_Fid_t;
 }
 
+int procinfo_read(void* streamobj, char *buf, unsigned int size){
+
+  procinfo_cb* new_procinfo_cb = (procinfo_cb *) streamobj;
+
+  if(new_procinfo_cb == NULL){
+    return NOFILE;
+  }
+  
+  while(new_procinfo_cb->pos < MAX_PROC-1){
+
+    PCB* cursor = &PT[new_procinfo_cb->pos];
+
+    if(cursor->pstate != FREE){
+      new_procinfo_cb->proc_info.pid = get_pid(cursor);
+      new_procinfo_cb->proc_info.ppid = get_pid(cursor->parent) ;
+      if(cursor->pstate == ALIVE){
+        new_procinfo_cb->proc_info.alive = 1;
+      }else{
+        new_procinfo_cb->proc_info.alive = 0;
+      }
+      new_procinfo_cb->proc_info.thread_count = cursor->thread_count;
+      new_procinfo_cb->proc_info.main_task = cursor->main_task;
+      new_procinfo_cb->proc_info.argl = cursor->argl;
+      //memcpy(new_procinfo_cb->proc_info.args, cursor->args, PROCINFO_MAX_ARGS_SIZE);
+      new_procinfo_cb->pos++;
+      break;
+    }
+      new_procinfo_cb->pos++;
+  }
+
+  if(new_procinfo_cb->pos == MAX_PROC-1){
+     return 0;
+  }
+
+  memcpy(buf,(char *)&new_procinfo_cb->proc_info,sizeof(procinfo));
+
+  return 1;
+}
+
+int procinfo_close(void* streamobj){
+
+  procinfo_cb* new_procinfo_cb =(procinfo_cb*) streamobj;
+  
+  if(new_procinfo_cb != NULL) {   
+    new_procinfo_cb = NULL;
+    free(new_procinfo_cb);
+    return 0;
+  }
+
+  return NOFILE;
+}

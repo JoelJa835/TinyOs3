@@ -2592,7 +2592,9 @@ BARE_TEST(dummy_user_test,
 	"A dummy test, feel free to edit it and copy it as needed."
 	)
 {
-	ASSERT(1+1==2);
+	Fid_t finfo = OpenInfo();
+	fprintf(stderr,"Hello!\n");
+	ASSERT(finfo == 0);
 }
 
 

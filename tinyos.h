@@ -760,8 +760,6 @@ typedef struct procinfo
 Fid_t OpenInfo();
 
 
-
-
 /*******************************************
  *
  * System boot

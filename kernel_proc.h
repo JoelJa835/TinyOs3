@@ -64,6 +64,11 @@ typedef struct process_control_block {
   
 } PCB;
 
+typedef struct procinfo_control_block{
+  procinfo proc_info;
+  int pos;
+}procinfo_cb;
+
 /**
   @brief Initialize the process table.
 
@@ -100,5 +105,9 @@ Pid_t get_pid(PCB* pcb);
 
 //Declaring start_main_ptcb to be able to call it at kernel_threads.c
 void start_main_ptcb();
+
+int error_write(void* streamobj, const char *buf, unsigned int size);
+int procinfo_read(void* streamobj, char *buf, unsigned int size);
+int procinfo_close(void* streamobj);
 
 #endif
