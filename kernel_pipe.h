@@ -2,7 +2,7 @@
 #include "kernel_dev.h"
 
 
-#define PIPE_BUFFER_SIZE 1000000000
+#define PIPE_BUFFER_SIZE 524288
 
 
 typedef struct pipe_control_block
@@ -16,7 +16,7 @@ typedef struct pipe_control_block
 
 	char BUFFER[PIPE_BUFFER_SIZE]; /*bounded (cyclic) byte buffer;*/
 
-	int read_write_count;
+	int read_write_count;	/*Variable used to determine whether the pipe_buffer is empty or not.*/
 
 }pipe_cb;
 

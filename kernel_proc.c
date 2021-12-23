@@ -14,6 +14,8 @@
 
  */
 
+/*File_ops in order to use Read,Write,Close and Open functions when using a procinfo_cb.
+*/
 static file_ops procinfo_ops = {
   .Open = NULL,
   .Read = procinfo_read,
@@ -337,7 +339,7 @@ Pid_t sys_WaitChild(Pid_t cpid, int* status)
  
 }
 
-//Done 95% sure :). The change was to move most of it's code inside sys_ThreadExit()
+/*The change was to move most of it's code inside sys_ThreadExit()*/
 void sys_Exit(int exitval)
 {
 
@@ -355,26 +357,40 @@ void sys_Exit(int exitval)
 
 }
 
+/*Open info function in order to open current processes running on tinyos3.
+*/
 Fid_t sys_OpenInfo()
 { 
 
+  /*The FCB and Fid_t that are used in order to create a procinfo_cb.
+  */
   Fid_t reserved_Fid_t;
   FCB* reserved_FCB;
   
+  /*Making a reservation of a FCB and a Fid_t.
+  The FCB reserve function returns 1 if the reservation is successfull.
+  */
   int reservation_complete = FCB_reserve(1,&reserved_Fid_t,&reserved_FCB);
 
   if(reservation_complete!=1){
     return NOFILE;
   }
 
+  /*Allocating space for a procinfo_cb.
+  */
   procinfo_cb* new_proc_info = xmalloc(sizeof(procinfo_cb));
 
   if(new_proc_info == NULL){
     return NOFILE;
   }
 
+  /*Intializing the pos on 0. This is an integer that's used to scan through the PT(process table).
+  */
   new_proc_info->pos = 0;
 
+  /*We are connecting the reserved_FCBs with the new_proc_info
+  and we are using the file ops in order to enable the required function calls.
+  */
   reserved_FCB->streamobj = new_proc_info;
   reserved_FCB->streamfunc = &procinfo_ops;
 
@@ -383,12 +399,17 @@ Fid_t sys_OpenInfo()
 
 int procinfo_read(void* streamobj, char *buf, unsigned int size){
 
+  /*Casting the void* streamobj into a procinfo_cb *.
+  */
   procinfo_cb* new_procinfo_cb = (procinfo_cb *) streamobj;
 
   if(new_procinfo_cb == NULL){
     return NOFILE;
   }
-  
+
+  /*This loop scans through the process table and finds the first non-free FCB and assigns it's
+  valuues to the streamobj.
+  */
   while(new_procinfo_cb->pos < MAX_PROC-1){
 
     PCB* cursor = &PT[new_procinfo_cb->pos];
@@ -404,7 +425,11 @@ int procinfo_read(void* streamobj, char *buf, unsigned int size){
       new_procinfo_cb->proc_info.thread_count = cursor->thread_count;
       new_procinfo_cb->proc_info.main_task = cursor->main_task;
       new_procinfo_cb->proc_info.argl = cursor->argl;
-      //memcpy(new_procinfo_cb->proc_info.args, cursor->args, PROCINFO_MAX_ARGS_SIZE);
+      if(cursor->argl<PROCINFO_MAX_ARGS_SIZE){
+        memcpy(new_procinfo_cb->proc_info.args, cursor->args, cursor->argl);
+      }else if(cursor->argl>=PROCINFO_MAX_ARGS_SIZE){
+        memcpy(new_procinfo_cb->proc_info.args, cursor->args, PROCINFO_MAX_ARGS_SIZE);
+      }
       new_procinfo_cb->pos++;
       break;
     }
@@ -415,6 +440,9 @@ int procinfo_read(void* streamobj, char *buf, unsigned int size){
      return 0;
   }
 
+  /*Using memcopy in order to copy the values we assigned above into the given buffer in
+  the format of char*.
+  */
   memcpy(buf,(char *)&new_procinfo_cb->proc_info,sizeof(procinfo));
 
   return 1;
@@ -422,10 +450,11 @@ int procinfo_read(void* streamobj, char *buf, unsigned int size){
 
 int procinfo_close(void* streamobj){
 
+   /*Casting the void* streamobj into a procinfo_cb *.
+  */
   procinfo_cb* new_procinfo_cb =(procinfo_cb*) streamobj;
   
-  if(new_procinfo_cb != NULL) {   
-    new_procinfo_cb = NULL;
+  if(new_procinfo_cb != NULL) {  
     free(new_procinfo_cb);
     return 0;
   }

@@ -36,7 +36,7 @@ typedef enum pid_state_e {
   This structure holds all information pertaining to a process.
  */
 typedef struct process_control_block {
-  pid_state  pstate;      /**< @brief The pid state for this PCB */
+  pid_state  pstate;    /**< @brief The pid state for this PCB */
 
   PCB* parent;            /**< @brief Parent's pcb. */
   int exitval;            /**< @brief The exit value of the process */
@@ -64,6 +64,8 @@ typedef struct process_control_block {
   
 } PCB;
 
+/*Struct used for the proc_info control block.
+*/
 typedef struct procinfo_control_block{
   procinfo proc_info;
   int pos;

@@ -18,6 +18,8 @@ typedef struct connection_request_type connection_request;
 int illegal_port(port_t port);
 int is_in_portmap(port_t test_port);
 
+/*A connection request control block.
+*/
 typedef struct connection_request_type {
 	int admitted;
 	Fid_t peer_fidt;
@@ -26,27 +28,37 @@ typedef struct connection_request_type {
 	rlnode queue_node;
 }connection_request;
 
+/*Enumeration of the socket types.
+*/
 typedef enum socket_type{
 	SOCKET_LISTENER=1,
 	SOCKET_UNBOUND=2,
 	SOCKET_PEER=3
 }socket_t;
 
+/*Listener socket struct type.
+*/
 typedef struct listener_socket_struct_type{
 	rlnode queue;
 	CondVar req_available;
 }listener_socket;
 
+/*Unbound socket struct type.
+*/
 typedef struct unbound_socket_struct_type{
 	rlnode unbound_socket;
 }unbound_socket;
 
+/*Peer socket struct type.
+*/
 typedef struct peer_socket_type{
 	socket_cb* peer;
 	pipe_cb* write_pipe;
 	pipe_cb* read_pipe;
 }peer_socket;
 
+/*A Socket control block.
+*/
 typedef struct socket_control_block
 {
 	uint refcount;
